@@ -1,0 +1,131 @@
+﻿@model CityFamily.Models.LayoutDecorateView
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/src/js/myhome_part3.js"></script>
+}
+
+@section Content{
+    <div class='menu'>
+        @{
+            if (Session["RoleId"] != null && Session["RoleId"].ToString() == "5")
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+            }
+            else
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem ' href="/FurnitureView/CoverList">家具场景</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Styles/List'>风格定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+            }
+
+        }
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer '>
+            <div id='part1_contentContainer3'>
+                <div class="pathTip">
+                    <a class="pathTipItem" href='/Buildings/List'>找我家</a>
+                    <a class="pathTipItem" href='/Buildings/BuildingDetails/@ViewBag.BuildId'>@ViewBag.BuildName</a>
+                    <div class="pathTipItem">@Model.layout.LayoutName</div>
+                </div>
+                <div id='part1_contentContainer3_content1'>
+                    <div id='part1_contentContainer3_content1_left_houseType' class='pageIn'>
+                        <img class='part1_contentContainer3_content1_left_topHouseType' src='@Model.layout.LayoutPic'>
+                        @{
+                            int length = Model.layout.CadFile.Length;
+                            string path = Model.layout.CadFile.Substring(15, length - 15);
+                            <a id='part1_contentContainer3_content1_left_bottom' href='/Layouts/DownLoad?filePath=@path' target="_blank">CAD文件下载</a>
+                        }
+
+                    </div>
+                    <iframe src="" id='4' class='iframeMyhomePart4 pageOut'></iframe>
+                    <div id='part1_contentContainer3_content1_right'>
+                        <div class='part1_contentContainer3_content1_rightPart'>
+                            <div class='part1_contentContainer3_content1_rightPartName'>户型分析</div>
+                            <div class='part1_contentContainer3_content1_rightPartContent'>
+                                <div class='houseTypeAnalyseContainer'>
+                                    <div class='houseTypeAnalyseName' style='cursor:pointer'>户型优势</div>
+                                    @{
+                                        string adv = Model.layout.Advantage.Replace("\r\n", "<br/>");
+                                        @*<div id='houseTypeGood' class='houseTypeAnalyse' style='cursor:pointer'>@Html.Raw(adv)</div>*@
+                                        <div class='houseTypePointContainer'>
+                                            <div class='houseTypePointTitle'>户型优势</div>
+                                            <div class='houseTypePointContent'>@Html.Raw(adv)</div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class='houseTypeAnalyseContainer'>
+                                    <div class='houseTypeAnalyseName' style='cursor:pointer'>户型痛点</div>
+                                    @{
+                                        string disadv = Model.layout.Disadvantage.Replace("\r\n", "<br/>");
+                                        @*<div id='houseTypeBad' class='houseTypeAnalyse' style='cursor:pointer'>@Html.Raw(disadv)</div>*@
+                                        <div class='houseTypePointContainer'>
+                                            <div class='houseTypePointTitle'>户型痛点</div>
+                                            <div class='houseTypePointContent'>@Html.Raw(disadv)</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part1_contentContainer3_content1_rightPart'>
+                            <div class='part1_contentContainer3_content1_rightPartName'>装修方案（5个）</div>
+                            <div class='part1_contentContainer3_content1_rightPartContent'>
+                                <div class='decorationContainer'>
+                                    <!-- 5个装修方案的小图片 -->
+                                    @foreach (var decorate in Model.decorates)
+                                    {
+                                        <a id='@(decorate.Decorate360==null?decorate.Id.ToString():decorate.Decorate360)' class='decoration' @(decorate.Decorate360 == null ? "" : "is360=" + decorate.Decorate360) style='background-image:url(@decorate.DecorateIndex)'></a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part1_contentContainer3_content1_rightPart'>
+                            <div class='part1_contentContainer3_content1_rightPartName'>现场原状</div>
+                            <div class='part1_contentContainer3_content1_rightPartContent'>
+                                <div class='decorationContainer'>
+                                    <!-- 现场照片 -->
+                                    @{
+                                        foreach (var spotPic in Model.spotPics.Where(item => item.Category == 1))
+                                        {
+                                            <a id='@spotPic.Id' class='scenePhoto' style='background-image:url(@spotPic.SpotIndex)'></a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part1_contentContainer3_content1_rightPart'>
+                            <div class='part1_contentContainer3_content1_rightPartName'>施工现场</div>
+                            <div class='part1_contentContainer3_content1_rightPartContent'>
+                                <div class='decorationContainer'>
+                                    <!-- 现场照片 -->
+                                    @{
+                                        foreach (var spotPic in Model.spotPics.Where(item => item.Category == 2))
+                                        {
+                                            <a id='@spotPic.Id' class='scenePhoto' style='background-image:url(@spotPic.SpotIndex)'></a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var iframeSrc1 = '/Decorates/DecorateDetails/';//装修方案的iframe地址
+        var iframeSrc2 = '/SpotPics/SpotShow/';//现场照片的iframe地址
+    </script>
+}

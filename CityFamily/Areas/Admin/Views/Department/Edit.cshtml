@@ -1,0 +1,69 @@
+﻿@model CityFamily.Models.T_DepartmentInfo
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "部门编辑";
+}
+
+<form action="/Admin/Department/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Department/List">部门列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/Department/List?searchStr=@Model.DepartmentName">@Model.DepartmentName</a>
+                <a class="pathTipItem">修改部门名称</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加部门</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.DepartmentID.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <input type="hidden" name="ReturnURL" value="@Request.Url.ToString()" />
+
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <div class="contentGroupTitle">
+                    修改部门名称
+                </div>
+                <div class="contentUnit">
+                    <div class="title">部门ID</div>
+                    <div class="content">
+                        <input type="text" name="DepartmentID" class="inputText" value='@Model.DepartmentID' readonly="readonly" />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">部门名称</div>
+                    <div class="content">
+                        <input type="text" name="DepartmentName" class="inputText" value='@Model.DepartmentName' />
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="contentGroupTitle">
+                    添加部门
+                </div>
+                <div class="contentUnit">
+                    <div class="title">部门名称</div>
+                    <div class="content">
+                        <input type="text" name="DepartmentID" class="inputText" value='0' style="display:none;" />
+                        <input type="text" name="DepartmentName" class="inputText" value='' />
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Department/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>

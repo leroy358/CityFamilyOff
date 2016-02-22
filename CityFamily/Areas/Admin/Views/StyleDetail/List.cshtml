@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CityFamily.Models.StyleDetails>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "风格细分列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Style/List">一级风格列表</a>
+    <a class="pathTipItem" href="/Admin/Style/List?searchStr=@ViewBag.StyleName">@ViewBag.StyleName</a>
+    <a class="pathTipItem" @(string.IsNullOrEmpty(ViewBag.searchStr) ? "" : "href=/Admin/StyleDetail/List/" + ViewBag.StyleId)>子风格列表</a>
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.searchStr))
+        {
+            <a class="pathTipItem">@ViewBag.searchStr</a>
+        }
+    }
+</div>
+<div class="inputSet">
+    @{
+        <a class="inputButton" href='/Admin/StyleDetail/Create/@ViewBag.StyleId' lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加子风格信息</a>
+    }
+</div>
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="30">ID</td>
+                <td>子风格名称</td>
+                <td width="200">子风格图片</td>
+                <td width="80">最近修改时间</td>
+                <td width="80">编辑子风格</td>
+                <td width="80">包含风格</td>
+                <td width="30">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.StyleDetailName</td>
+                            <td> <img src="@item.StyleDetailIndex" style="width:150px;" /></td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/StyleDetail/Edit/@item.Id"></a></td>
+                            <td><a class="detail" href="/Admin/StyleThird/List/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id, returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

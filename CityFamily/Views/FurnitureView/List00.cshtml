@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CityFamily.Models.FurnitureStyle>
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/BackSet/src/js/address.js"></script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a class='menuItem' href="/Buildings/List">找我家</a>
+        <div class='menuDivideLine'></div>
+        <div class='menuItem choosed'>家具场景</div>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer1'>
+                <div class="pathTip">
+                    <div class="pathTipItem">城市人家八大设计风格体系</div>
+                </div>
+                <div id='part2_contentContainer1_content1' class='pics_content1'>
+                    @foreach (var item in Model)
+                    {
+                        <span>
+                            <a href='/FurnitureView/Detail/@item.Id' class='styleContainer' style='background-image:url(@item.IndexPic)'>
+                                <div class='styleContainerBottom'>
+                                    <div class='styleBottomMore'></div>
+                                    <div class='styleName'>@item.StyleName</div>
+                                </div>
+                                <div class='styleHoverContainer'>
+                                    <div class='styleView'></div>
+                                    <div class='styleViewName'>@item.StyleName</div>
+                                </div>
+                            </a>
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

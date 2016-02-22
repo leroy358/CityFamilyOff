@@ -1,0 +1,2328 @@
+﻿@model IEnumerable<CityFamily.Models.SpaceCate>
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/src/js/function_part1.js"></script>
+    <script type="text/javascript" src='/src/js/showdate.js'></script>
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+}
+
+@section Content{
+    <script type="text/javascript">
+        var urlAddress = '/Function/Submit';//问卷提交的地址
+    </script>
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Styles/List' class='menuItem '>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/Function/Questionnaire'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/VIP/FuncList' class='menuItem'>VIP档案库</a>
+    </div>
+
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part3_contentContainer1' class='pageIn'>
+                <div class='part3_itemContainer'>
+                    <div class='part3_item' part3_current>设计问卷</div>
+                    <div class='part3_item'>设备系统</div>
+                    <div class='part3_item'>兴趣展现</div>
+                    <div class='part3_item'>敏感材质</div>
+                    <div class='part3_item'>空间分类</div>
+                </div>
+                <div class='part3_titleLine'></div>
+            </div>
+            <div class='part3_partContainer pageIn'>
+                <div class='questionnairText'>以下内容将帮助我们更好的了解您的需求，请您认真填写。<br> 我们将用心把每一个细节做到极致，您的配合会让我们之间的合作更加的完整和顺畅，谢谢！</div>
+                <div class='questionnair_singleContainer' style='float:left;margin-right:76px;margin-bottom: 20px;'>
+                    <div class='questionTitle'>01. 姓名<span>*</span></div>
+                    <div class='questionContentContainer'>
+                        <input class='questionInput' type="text" name='customerName' id='customerName' value="@(Session["GuestName"] == null ? "" : Session["GuestName"].ToString())">
+                    </div>
+                </div>
+
+                <!--====================2015-9-6  删除年龄选项===================================-->
+                @*<div class='questionnair_singleContainer' style='float:left;margin-right:76px;'>
+                        <div class='questionTitle'>02. 年龄<span>*</span></div>
+                        <div class='questionContentContainer'>
+                            <input class='questionInput' type="text" name='customerAge' id='customerAge'>
+                        </div>
+                    </div>*@
+                <!--====================2015-9-6  END===================================-->
+
+                <div class='questionnair_singleContainer' style='float: left; margin-right: 76px; margin-bottom: 20px;'>
+                    <div class='questionTitle'>02. 联系电话<span>*</span></div>
+                    <div class='questionContentContainer'>
+                        <input class='questionInput' type="text" name='customerPhoneNumber' id='customerPhoneNumber'>
+                    </div>
+                </div>
+                <div class='questionnair_singleContainer' style='float:left'>
+                    <div class='questionTitle'>03. 小区名<span>*</span></div>
+                    <div class='questionContentContainer'>
+                        <input class='questionInput' type="text" name='customerXiaoQu' id='customerXiaoQu' width="237">
+                    </div>
+                </div>
+                <div class='questionnair_singleContainer' style='clear:both'>
+                    <div class='questionTitle'>04. 房屋用途<span></span></div>
+                    <div class='questionContentContainer'>
+                        <div class='questionChoose'>
+                            自己居住
+                            <label class='lab'>
+                                <input type='radio' name='use' class='chooseInput' value='自己居住'>
+                                <div class='questionClick'></div>
+                            </label>
+                        </div>
+                        <div class='questionChoose'>
+                            投资出租
+                            <label class='lab'>
+                                <input type='radio' name='use' class='chooseInput' value='投资出租'>
+                                <div class='questionClick'></div>
+                            </label>
+                        </div>
+                        <div class='questionChoose'>
+                            度假需求
+                            <label class='lab'>
+                                <input type='radio' name='use' class='chooseInput' value='度假需求'>
+                                <div class='questionClick'></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class='questionnair_singleContainer'>
+                    <div class='questionTitle'>05. 职业</div>
+                    <div class='questionContentContainer' style='overflow:visible;height:139px;'>
+                        <div class='questionChoose'>
+                            医生
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='医生'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1.色彩有跳跃变化，并加背景音乐。<br>2.除了香味过敏的人群，可添加香味剂营造氛围。<br>3.外科医院职业应避免红色系出现。<br>4.造型中避免反光材料使用，多弧形或圆形。<br>05.对房间隔音做处理，并控制好收纳空间。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、外科或对亮光金属和尖锐物品敏感。<br>2、内科或对于声音、液体等状态的物质敏感。<br>3、对白色敏感</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            律师
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='律师'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1、常呆的家庭区域应提高插座的数量和使用率。<br>2、外差型律师，家中电话需要自动语音备注的功能。<br>3、律师需要独立书房，灯光柔和。<br>4、书桌边需要烟灰缸和绿植。<br>5、资料分类整理建议在书柜中设计分层抽屉，并贴标签分类。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、电话较多。<br>2、夜间易在家中加班。<br>3、资料分类整理复杂。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            军人
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='军人'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1.在职军人的房屋空间应多收纳功能，并控制收纳位置。<br>2.设置照片墙或者私人物品存放盒。<br>3.退伍军人可在书房设置展品收藏柜。<br>4.需要储物柜，用于放置从军物品。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、家属生活打理较辛苦<br>2、需要荣誉展示功能<br>3、残疾军人生活不方便</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            教师
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='教师'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1、适当点缀装饰品，收藏架可展示兴趣爱好。<br>2、家中可多一些色彩变化以划分工作区域。<br>3、书房最好设置成独立空间，灯光柔和。<br>4、对于书桌前可专门设置收纳眼睛等个人私人用品的装置。<br>5、增加荣誉展示类的展示柜。<br>6、毕业照装订成册放于书柜中，并设置好标签。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、机械性、重复性工作较多。<br>2、对于教条方式厌倦。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            司机
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='司机'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1.色彩以简单明快的色调为主，多搭配绿植进行点缀。<br>2.可适量增加不占用空间的小型健身器械。<br>3.另外在出门的位置需要创意风格类型的提示便签。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、视觉疲劳。<br>2、久坐。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            厨师
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='厨师'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1.尽量使用无烟设备或者增加排风换气功能。<br>2.多收纳餐具和加工类器具功能。<br>3.在厨房中，色调多些颜色的搭配。<br>4.家中配以空气清香的除味剂。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、油烟困扰明显。<br>2、环境嘈杂。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            艺术家
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='艺术家'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1.注重软饰品的搭配，色调明快。<br>2.不同的艺术类别做工具分类收纳设备。<br>3.配置易清理和擦洗的地毯、地布等。<br>4.多展品收纳空间。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>
+                                    1、创意枯竭。<br>2、不喜欢中规中矩
+                                    。
+                                </div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            警察
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='警察'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1、居住空间间以设立荣誉展示柜或墙。<br>2、设置警帽警服悬挂区。<br>3、对警徽和警标设置收纳柜。<br>4、配备着装镜。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>
+                                    1、无可放松渠道。<br>2、荣誉展示
+                                    。<br>3、制服警帽的悬挂。
+                                </div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            职员
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='职员'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>理想家居环境</div>
+                                <div class='pointContent'>1、家具设备可组合并具时尚感。<br>2、餐厅或者玄关设置小便签。<br>3、在阳台或者书房设置健康功能表，配备健身设备。<br>4、厨房设立钟表，以时刻提醒做饭时间。<br>5、厨房还可配置小型洗碗机并对用品分类。<br>6、书房和阳台可多绿植。</div>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、易神经衰弱。<br>2、失眠。<br>3、作息不规范。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            老板
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='老板'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、压力大。<br>2、兴趣展示。<br>3、会客接待。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            公务员
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='公务员'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、工作枯燥。<br>2、缺少自我存在感。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            程序员
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='程序员'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、加班较多。<br>2、缺少生活乐趣。<br>3、压力大。<br>4、用眼过度。<br>5、专业类书籍较多。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            业务员
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='业务员'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、身体疲累。<br>2、缺少独立时间。<br>3、电话较多。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            美工
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='美工'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、用眼过度。<br>2、自主权限不足。<br>3、压力大。<br>4、工作繁杂较多。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            策划
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='策划'>
+                                <div class='questionClick'></div>
+                            </label>
+                            <div class='pointContainer'>
+                                <div class='pointTitle'>职业痛点</div>
+                                <div class='pointContent'>1、用眼过度。<br>2、压力大。<br>3、用脑过度。<br>4、工作繁杂较多。</div>
+                            </div>
+                        </div>
+                        <div class='questionChoose'>
+                            其他
+                            <label class='lab'>
+                                <input type='checkbox' name='job' class='chooseInput' value='其他'>
+                                <div class='questionClick'></div>
+                                <div class='jobmore'>
+                                    <div><input class='questionInput' placeholder='请输入客户需求'></div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================2015-9-6     删除特殊节日或纪念日选项================================================-->
+                @*<div class='questionnair_singleContainer'>
+                        <div class='questionTitle'>06. 特殊节日或纪念日</div>
+                        <div class='questionContentContainer'>
+                            <div class='specialContainer'>
+                                <div class='questionChoose'>
+                                    生日
+                                    <label class='lab'>
+                                        <input type='checkbox' name='anniversary' class='chooseInput' value='生日'>
+                                        <div class='questionClick'></div>
+                                        <div class='specialmore'>
+                                            <div><input class='questionInput'>年</div>
+                                            <div><input class='questionInput'>月</div>
+                                            <div><input class='questionInput'>日</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class='specialContainer'>
+                                <div class='questionChoose'>
+                                    结婚纪念日
+                                    <label class='lab'>
+                                        <input type='checkbox' name='anniversary' class='chooseInput' value='结婚纪念日'>
+                                        <div class='questionClick'></div>
+                                        <div class='specialmore'>
+                                            <div><input class='questionInput'>年</div>
+                                            <div><input class='questionInput'>月</div>
+                                            <div><input class='questionInput'>日</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class='specialContainer'>
+                                <div class='questionChoose'>
+                                    相识纪念日
+                                    <label class='lab'>
+                                        <input type='checkbox' name='anniversary' class='chooseInput' value='相识纪念日'>
+                                        <div class='questionClick'></div>
+                                        <div class='specialmore'>
+                                            <div><input class='questionInput'>年</div>
+                                            <div><input class='questionInput'>月</div>
+                                            <div><input class='questionInput'>日</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <!--===================================2015-9-6  END=============================================-->
+
+                <div class='questionnair_singleContainer'>
+                    <div class='questionTitle'>06. 家庭成员</div>
+                    <div class='questionContentContainer' id='familysAllContainer'>
+                        <div class='questionChoose' id='familyAdd' style='cursor:pointer;border-radius:4px;'>添加家庭成员</div>
+                    </div>
+                </div>
+                <div class='questionnair_singleContainer'>
+                    <div class='questionTitle'>07. 现有物品保留清单</div>
+                    <div class='questionContentContainer' id='goodsAllContainer'>
+                        <div class='questionChoose' id='goodsAdd' style='cursor:pointer;border-radius:4px;'>添加物品</div>
+                        <!-- 	<div class='goodsContainer'>
+                                        <div>物品名称<input class='questionInput'></div>
+                                        <div>尺寸规格<input class='questionInput'></div>
+                                        <div>使用位置<input class='questionInput' style='width:180px;'></div>
+                                        <div class='goodsDelete'>删除</div>
+                            </div> -->
+                    </div>
+                </div>
+
+                <!--=========================2015-9-6   预约量房时间左对齐=========================-->
+                @*<div class='questionnair_singleContainer' style='float:left;'>*@
+                <div class='questionnair_singleContainer'>
+                    <div class='questionTitle'>08. 现居地址</div>
+                    <div class='questionContentContainer'>
+                        <div class='addressContainer'>
+                            @*<div><input class='questionInput' style='width:86px;'>区/县</div>*@
+                            <div><input class='questionInput' style='width:100px; margin-left:0px;'>区/县</div>
+                            <div><input class='questionInput' style='width:110px;'>街道</div>
+                            <div><input class='questionInput' style='width:120px;'>小区</div>
+                            <div><input class='questionInput' style='width:80px;'>单元</div>
+                            <div><input class='questionInput' style='width:80px;'>室</div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class='questionnair_singleContainer' style='height:200px;float:left'>*@
+                <div class='questionnair_singleContainer' style='height:80px;'>
+                    <div class='questionTitle'>09. 预约量房时间</div>
+                    <div class='questionContentContainer'>
+                        <div style="margin:0 auto;">
+                            <input type="text" id="time" value="" class="text_time" />
+                            <script type="text/javascript">
+                                var time_ = document.getElementById('time');
+                                time_.onclick = function () {
+                                    return Calendar('time');
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!--=========================2015-9-6   END=========================-->
+
+                <div class='questionnairText' style='clear:both'>以上内容将帮助我们更好的了解您的需求，请您认真填写。<br> 我们将用心把每一个细节做到极致，您的配合会让我们之间的合作更加的完整和顺畅，谢谢！</div>
+            </div>
+            <div class='part3_partContainer pageOut'>
+                <div id='part3_contentContainer2'>
+                    <div class='equipment_leftpic pageOut'>
+                        <img class="equipmentImages" src="/src/media/equipment7_1.jpg" current>
+                        <img class="equipmentImages" src="/src/media/equipment7_2.jpg">
+                        <img class="equipmentImages" src="/src/media/equipment7_3.jpg">
+                        <div id="bannerContainerE">
+                            <div id="bannerDotsE">
+                                <div class='bannerdotE' current></div>
+                                <div class='bannerdotE'></div>
+                                <div class='bannerdotE'></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='equipment_leftpic pageOut'>
+                        <video id='video' style='position:absolute;width:100%;height:100%;background-color:black;' controls="controls" preload='auto'></video>
+                    </div>
+                    <div class='part3_contentContainer2_rightContainer'>
+                        <div class='part3_title' style='line-height:20px;'>七大系统</div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>新风系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='新风系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointTitle'>新风系统的优势：</div>
+                                        <div class='pointContent'>1、不用开窗也能享受大自然的新鲜空气，避免 “空调病”；<br>2、避免室内家具、衣物发霉；<br>3、清除室内装饰后长期缓释的有害气体，利于人体健康；<br>4、调节室内湿度，节省取暖费用；<br>5、有效排除室内各种细菌、病毒；<br>6、避免开窗带来的噪音。</div>
+                                        <div class='pointTitle'>注意事项：</div>
+                                        <div class='pointContent'>1、内机离房顶距离不得小于1公分，避免机器运行时与墙顶产生共振。<br>2、通风管道及机体，吊顶覆盖需下返20-30cm,注意不要覆盖垭口和门窗。<br>3、注意穿墙打孔问题，需要穿墙打孔的位置的结构条件是否满足或者被许可，不能以破坏房间的整体结构为代价。<br>4、新风主机一般要吊挂在卫生间或者厨房的吊顶里 需预留检修口。<br>5、地面走管道的机型，通风管道需要5-10cm灰层回填。</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>中央空调系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='中央空调系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointContent'>1、内机离房顶距离不得小于1公分，避免机器运行时与墙顶产生共振。<br>2、通风管道及机体，吊顶覆盖需下返20~30cm,注意不要覆盖垭口和门窗。<br>3、注意穿墙打孔问题，需要穿墙打孔的位置的结构条件是否满足或者被许可，不能以破坏房间的整体结构为代价。<br>4、分体式空调的选择一般按制冷量（匹）计算，1匹空调适合12平方米左右的空间，以此类推；</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>软水系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='软水系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointTitle'>软水系统的优势：</div>
+                                        <div class='pointContent'>
+                                            1、减少的肥皂，浴液，洗发精，或是洗涤剂，洗衣粉等，减少有机物的排放，节省开资，利于环保<br>2、洗澡后会感到皮肤更细腻而光洁，头发更加柔软亮丽，不再枯涩。<br>3、软水洗衣泡沫丰富，衣服也将会变得更加蓬松、艳丽明亮，洁白，而且耐穿，洗脸的毛巾不再变黑、变硬。软水洗涤餐具、茶具晶莹剔透。脸盆浴盆光亮如新，不再有污渍、斑点。<br>4、由于金属矿物水碱等杂质被过滤出，延长家用电器，如洗衣机，洗碗机，加湿器，咖啡壶，热水器的使用寿命。
+                                        </div>
+                                        <div class='pointTitle'>注意事项：</div>
+                                        <div class='pointContent'>
+                                            1、一般设备安装在离水表近的地方（厨房）必须具备电源和专用地漏。<br>2、与橱柜设计方案吻合，能够合理放入柜体内。
+                                        </div>
+                                        @*<div class='pointTitle'>净水系统的优势：</div>
+                                            <div class='pointContent'>
+                                                1、能去除所有有机、无机污染物（如：沙粒，水中红线虫，铁锈，等）<br>2、保留和增加水中的微量元数，有益健康。<br>3、去除水中多余的矿物质，软化水质，又能使矿物质有适当的量，满足人体需求。<br>4、经过纳米微晶滤料后的水，均为小分子团水，起到了活化的作用，容易被机体吸收并能增强机体的活力。
+
+                                            </div>
+                                            <div class='pointTitle'>注意事项：</div>
+                                            <div class='pointContent'>
+                                                1、一般设备安装在离水表近的地方（厨房）必须具备电源和专用地漏。<br>2、与橱柜设计方案吻合，能够放入柜体内。确定设备位置，预留空间和电源。
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>净水系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='净水系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointTitle'>净水系统的优势：</div>
+                                        <div class='pointContent'>
+                                            1、能去除所有有机、无机污染物（如：沙粒，水中红线虫，铁锈，等）<br>2、保留和增加水中的微量元数，有益健康。<br>3、去除水中多余的矿物质，软化水质，又能使矿物质有适当的量，满足人体需求。<br>4、经过纳米微晶滤料后的水，均为小分子团水，起到了活化的作用，容易被机体吸收并能增强机体的活力。
+                                        </div>
+                                        <div class='pointTitle'>注意事项：</div>
+                                        <div class='pointContent'>
+                                            1、一般设备安装在离水表近的地方（厨房）必须具备电源和专用地漏。<br>2、与橱柜设计方案吻合，能够放入柜体内。确定设备位置，预留空间和电源。
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>家庭影音系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='家庭影音系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointContent'>客户一般选择在地下室安装此系统，属于地下室娱乐系统的一个重要功能组合，在组织家庭Party时使用率最高，平时晚上也可以和家人一起看会高清大片，唱卡拉OK。</div>
+                                        <div class='pointTitle'>注意事项：</div>
+                                        <div class='pointContent'>1、确定合理的设备位置<br>2、基础施工前，隐蔽线管道的铺设<br>3、预留设备所需的电源插口<br>4、吸音、隔音材料和造型的考虑及选择</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='equipmentClick'>园林系统</div>
+                                        <label class='part3_lab'>
+                                            <input type='checkbox' name='equipmentType' class='chooseInput' value='园林系统'>
+                                            <div class='part3_ClickEquipment'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointContent'>
+                                                在一定的地域运用工程技术的艺术手段，通过改造地形(或进一步筑山、叠石、理水)种植树木花草，营造建筑和布置园路等途径创作而成的美的自然环境和游憩境遇，就称为园林。
+                                                <br>
+                                                别墅园林设计除了庭院的设计，您还可以选择做屋顶花园，底楼花园，室内景观等。园林设计也有风格之分，近两年软流行的是美式、现代和中式。
+                                                <br>
+                                                别墅庭院设计的好坏，需从科学性、文化性、实用性和艺术性等多方面来衡量。有人把宅院设计和园林景观设计混为一谈，其实二者不尽相同，园林是为了观赏，而庭院是为了生活。庭院更多要融入主人的个性和生活情趣，把艺术生活化。
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>个性化品质生活系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='个性化品质生活系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointContent'>
+                                            个性化品质生活已经日益引领我们现代生活的潮流，逐步的改变着我们的生活方向及方式，大大的提升了我们的生活品质。
+                                            <br>
+                                            个性化生活系统包括：桑拿、高温瑜珈、酒窖、室内外泳池、室内电梯、室内保龄球、室内高尔夫等。
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='part3_typeContainer'>
+                            <div class='part3_type_singleContainer'>
+                                <div class='part3_typeChoose'>
+                                    <div class='equipmentClick'>智能系统</div>
+                                    <label class='part3_lab'>
+                                        <input type='checkbox' name='equipmentType' class='chooseInput' value='智能系统'>
+                                        <div class='part3_ClickEquipment'></div>
+                                    </label>
+                                    <div class='pointContainer'>
+                                        <div class='pointContent'>
+                                            将科技带进生活，您会发现生活有了更多的便利和幸福。智能家居系统的核心设计理念：以人为本，充分考虑人的需要。我们提倡适度的应有智能家居技术，以便捷实用作为衡量标准。在选择智能家居体系统时，要注重功能定制时和供应商的沟通，设计出真正适合您家的独特的智能家居配置方案。
+                                            <br>
+                                            智能家居系统几乎可以在家中的每一个角落配置，比如大门的指纹锁、可视对讲机、夜视防水摄像机、玄关和卫生间的感就灯、厨房和书房的背景音乐面板、自动窗帘、室内外的安防等；只要你想，你的家可以变得更智能。
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class='part3_partContainer pageOut'>
+                <div id='part3_contentContainer3'>
+                    <div class='part3_contentContainer2_leftpic' style='background-image:url(/src/media/xingqu1.jpg)'>
+                        <div class='interestLeftpic_bottom'>音乐：隔音吸音，预留插座同时展示音乐元素喜好。</div>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer'>
+                        <div class='part3_title'>兴趣类型</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>音乐</div><!-- 用div把音乐包起来 -->
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='音乐'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>舞蹈</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='舞蹈'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>品酒</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='品酒'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>茶道</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='茶道'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>旅行</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='旅行'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>宗教信仰</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='宗教信仰'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>收藏</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='收藏'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>健身</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='健身'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>养花</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='养花'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>书法绘画</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='书法绘画'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        <div class='interestClick'>宠物</div>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='interest' class='chooseInput' value='宠物'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose' id='interestOther'>
+                                        <div class='interestClick'>其他</div>
+                                        <div class='interestmore'>
+                                            <div><input class='questionInput'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='part3_partContainer pageOut'>
+                <div id='part3_contentContainer4' style='height:384px;overflow:visible;'>
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="mgdiv" style="cursor: pointer; background-image: url(/fonts/5.png);" onclick="$('#mgdiv').hide(); $('#mgiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item => item.Category == 12).FirstOrDefault().SpacePics" class='function_iframe' id="mgiframe" style="display:none;"></iframe>
+                    </div>
+
+                    <div class='part3_contentContainer3_rightContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>敏感材质</div>
+                        <div class='part3_rightchooseContainer' style='height:190px;overflow:visible;'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        人造大理石
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='人造大理石'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='人造大理石'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、衔接处理不明显<br>2、有明显光泽<br>3、外表硬度高<br>4、耐腐耐高温5、容易清洁</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、有刺鼻化学味道<br>2、怕划伤<br>3、怕着色</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        天然大理石
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='天然大理石'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='天然大理石'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、美观、有天然纹路<br>2、质地坚硬、耐磨、防刮<br>3、价格低</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、放射性高，手感冰凉<br>2、弹性不足，易破裂，不易加工。<br>3、有天然孔隙，易污染<br>4、无法无缝拼接</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        实木
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='实木'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='实木'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、色彩天然纹理自然<br>2、无污染<br>3、使用寿命长</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、易变形，不易阳光直射<br>2、对温度要求严格<br>3、无法拆卸，搬运不方便</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        木质饰面板
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='木质饰面板'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='木质饰面板'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、不会发胀和变形<br>2、可现场拼接，节省工期<br>3、对室内没有污染<br>4、施工减少噪音和垃圾<br>5、成本低<br>6、美观大方</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、出厂必须锁水处理<br>2、表面易刮花</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--==========================2015-9-6   删除有机玻璃选项==========================-->
+                            @*<div class='part3_typeContainer'>
+                                    <div class='part3_type_singleContainer'>
+                                        <div class='part3_typeChoose'>
+                                            有机玻璃
+                                            <label class='part3_lab_interest'>
+                                                <input type='checkbox' name='material' class='chooseInput' value='有机玻璃'>
+                                                <div class='part3_Click'></div>
+                                            </label>
+                                            <label class='part3_lab_interest'>
+                                                <input type='checkbox' name='material_no' class='chooseInput' value='有机玻璃'>
+                                                <div class='part3_Click'></div>
+                                            </label>
+                                            <div class='pointContainer'>
+                                                <div class='pointTitle'>优点</div>
+                                                <div class='pointContent'>1、高透明度、机械强度高、重量轻<br>2、安全性高<br>3、抗冲击度和抗完强度高<br>4、热稳定性较强</div>
+                                                <div class='pointTitle'>缺点</div>
+                                                <div class='pointContent'>1、不耐磨<br>2、不耐热<br>3、怕有机溶剂</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        钢化玻璃
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='钢化玻璃'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='钢化玻璃'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、不易破碎<br>2、边角圆滑，不会伤人</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、无法再次切割和加工<br>2、温差大会自爆</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--==========================2015-9-6   END==========================-->
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        镜面
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='镜面'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='镜面'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、通透性好<br>2、可增加空间进深感觉</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、表面易划伤<br>2、使用不当或引发火灾</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        不锈钢
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='不锈钢'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='不锈钢'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、耐化学腐蚀和电化学腐蚀<br>2、耐高温、耐低温<br>3、光洁度高，维护简单、焊接性好<br>4、易加工、可塑性好</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、较贵<br>2、不耐碱性腐蚀</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        马赛克
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='马赛克'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='马赛克'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、造型丰富、色彩鲜艳柔和<br>2、防辐射、耐高温<br>3、冷热稳定性好<br>4、防滑</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、比普通瓷砖造价高<br>2、要求施工技术高<br>3、怕刮怕划<br>4、缝隙多难清理</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        壁纸
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='壁纸'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='壁纸'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、装饰效果强。<br>2、维护保养方便。<br>3、吸声、隔热、防霉、防菌、防虫。<br>4、无毒、无污染。<br>5、抗老化、抗污染。<br>6、铺装时间短。<br>7、防裂</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、易刮坏<br>2、沾上油污不便清洁<br>3、对湿度要求高</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        软包
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='软包'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='软包'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、材质柔软、色彩柔和<br>2、舒适度高<br>3、吸音、隔音、防撞、防震</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、对风格和家具要求高<br>2、容易过时<br>3、易燃<br>4、不能清洗</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        铁艺
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='铁艺'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='铁艺'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、有灵性、古朴典雅<br>2、工艺细腻<br>3、造型新颖别致</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、线条直白粗犷、笨重<br>2、易生锈<br>3、接触手感过硬、过冷</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        陶瓷
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='陶瓷'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='陶瓷'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、机械强度高<br>2、耐磨性、耐腐蚀性好<br>3、热稳定性好<br>4、原料丰富，价格低<br>5、产品环保，无污染</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、脆性大，易碎<br>2、后加工的能力低<br>3、产品不易回收利用</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        棉麻
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='棉麻'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='棉麻'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、透气、干爽<br>2、防辐射、防静电、抑制细菌滋生、防过敏<br>3、舒适凉快<br>4、视觉感复古自然</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、染色基调偏暗<br>2、不抗皱<br>3、初次接触有扎人的感觉<br>4、面料手感粗糙</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        丝绸
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material' class='chooseInput' value='丝绸'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <label class='part3_lab_interest'>
+                                            <input type='checkbox' name='material_no' class='chooseInput' value='丝绸'>
+                                            <div class='part3_Click'></div>
+                                        </label>
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>优点</div>
+                                            <div class='pointContent'>1、舒适感强<br>2、吸、放湿性效果好<br>3、吸音、吸尘性效果好<br>4、耐热温、阻燃</div>
+                                            <div class='pointTitle'>缺点</div>
+                                            <div class='pointContent'>1、易生折皱<br>2、容易吸身<br>3、不够结实、褪色较快<br>4、不能保暖</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--=====================2015-9-6  敏感材质添加“其他”按钮=================================-->
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='materialOther part3_typeChoose'>
+                                        <div class='materialClick'>其他</div>
+                                        <div class='materialmore'>
+                                            <div><input class='questionInput' placeholder='备注'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--==========================================================-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='part3_partContainer pageOut'>
+                <div class='part3_container5_topContainer'>
+                    <div class='part3_container5_top  spaceChoose'>门厅</div>
+                    <div class='part3_container5_top'>客厅</div>
+                    <div class='part3_container5_top'>餐厅</div>
+                    <div class='part3_container5_top'>主卧室</div>
+                    <div class='part3_container5_top'>老人房</div>
+                    <div class='part3_container5_top'>儿童房</div>
+                    <div class='part3_container5_top'>厨房</div>
+                    <div class='part3_container5_top'>卫生间</div>
+                    <div class='part3_container5_top'>储物间</div>
+                    <div class='part3_container5_top'>多功能空间</div>
+                </div>
+                <div class='part3_contentContainer5 pageIn' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="mtdiv" style="cursor: pointer; background-image: url(/fonts/5.png);" onclick="$('#mtdiv').hide(); $('#mtiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==1).FirstOrDefault().SpacePics" class='function_iframe' id="mtiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>门厅</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        入户挂钩
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>开门时能保证提包、衣物干净。入户门口设计40KG可隐藏重物挂钩，可挂提包、衣物等，业主在腾出双手开门的间隙又保证了提包、衣物的干净。</div>
+                                            <div style="background-image:url(/src/media/mengting1.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        一键光源
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>门厅设计一键光源按钮，控制全家的灯光照明，避免客户出门时，忘记关闭其他房间的灯光，节省能源。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        标识开关
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>一般房子装修完毕后，进门门厅的墙上会有一排开关，使用起来很麻烦，客户根本不知道哪个对应哪个。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        理容镜
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>方便客户出门前整理全身衣、妆，仪容仪表端正大方，为业主的工作事业开个好彩头！有的玄关如果考虑镜面不宜正对入户门，也可设计到柜门内侧。</div>
+                                            <div style="background-image:url(/src/media/mengting8.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        换鞋凳
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>这是爱美女主人们的专项利好，穿着短裙、紧身裙、短裤换鞋也能轻松自如，老人换鞋不再晃晃悠悠，小孩换鞋也不再假手以人。</div>
+                                            <div style="background-image:url(/src/media/mengting10.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        鞋柜底部插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>用于冬天烘烤鞋子。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        置物平台
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>进门的公文包、背包轻松放置上面，上班、出门方便。</div>
+                                            <div style="background-image:url(/src/media/mengting2.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        留言板
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>方便擦写的玄关凹位烤漆玻璃留言板，重要信息不再错漏，同时也能表达夫妻之间的温馨小互动，增添生活情趣。</div>
+                                            <div style="background-image:url(/src/media/mengting11.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        鞋柜设计
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、根据家庭成员使用分类<br> 2、根据鞋子类型分类 <br>3、根据鞋子特性分类</div>
+                                            <div style="background-image:url(/src/media/mengting6.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        拖鞋空腔
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>符合脚背预留高度的拖鞋空腔，日常换穿拖鞋不用再打开鞋柜，空间收纳同时又整洁大方。</div>
+                                            <div style="background-image:url(/src/media/mengting16.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="ktdiv" style="cursor:pointer; background-image:url(/fonts/5.png) " onclick="$('#ktdiv').hide(); $('#ktiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==10).FirstOrDefault().SpacePics" class='function_iframe' id="ktiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer  spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>客厅</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        线路隐藏管道
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                在电视墙上安装铺设多媒体线路的隐藏管道，再不必为
+                                                电视和 DVD、多媒体设备线露在外面而烦心。
+                                            </div>
+                                            <div style="background-image:url(/src/media/keting1.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        沙发墙手机插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                手机插座高度保持在 550-650mm，高于沙发边几，方
+                                                便手机充电，同时不影响使用者使用！
+                                            </div>
+                                            <div style="background-image:url(/src/media/keting2.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        沙发墙地灯插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>一般家庭都会在客厅角落位置安放落地灯，便于辅助照明和沙发阅读。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        茶几地插预留
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>考虑多电器使用以及喝茶功能。</div>
+                                            <div style="background-image:url(/src/media/keting4.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        开关分组标识
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>由于客厅需要控制的灯具较多，经常找不到哪个开关控制哪个灯，具有明显标识化的开关设置会方便更多。</div>
+                                            <div style="background-image:url(/src/media/keting5.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        背景墙材料
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>电视背景墙避免使用反光材料，以免造成视觉干扰。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        电视及观看距离
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>32 寸：2 米/37 寸：2.5 米/40 寸：2.8 米/42 寸：3 米/46 寸：3.5 米/48 寸：3.8 米/50 寸：4 米/52 寸：4.2米/55 寸：4.5 米/60 寸：4.7 米。数据来源于【液晶电视频道】。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        电话购买子母机
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>建议客户购买子母机，方便使用。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        家具及预留插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>建议在平面图阶段，就考虑家具具体尺寸，以方便插座位置的确定。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        遥控器及小物件
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、智能家居的介入，集合所有家用电器遥控功能。<br>2、为了方便，在沙发旁可设计收纳袋。</div>
+                                            <div style="background-image:url(/src/media/keting11.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="ctdiv" style="cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#ctdiv').hide(); $('#ctiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==11).FirstOrDefault().SpacePics" class='function_iframe' id="ctiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer  spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>餐厅</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        光线要充足
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>餐厅里的光线一定要好，除了自然光外，人工光源设计也很重要。可以使用吊灯或可以上下拉动的伸缩灯，光线既要明亮，又要柔和，同时也可以考虑配有射灯，饭菜的色泽会非常诱人。</div>
+                                            <div style="background-image:url(/src/media/canting1.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        配有餐边柜
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>餐厅还应配上餐边柜，用来存放部分餐具、酒水饮料以及酒杯、起盖器、餐巾纸等辅助用品。这种小餐饮柜使用起来非常方便，同时也是一样很好的装饰品。</div>
+                                            <div style="background-image:url(/src/media/canting2.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        色彩要温馨
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>就餐环境的色彩配置，对人们的就餐心理影响很大。餐厅的色彩宜以明朗轻快的色调为主，最适合用的是橙色系列的颜色，它能给人以温馨感，刺激食欲。桌布、窗帘、家具的色彩要合理搭配，如家具颜色较深时，可通过明快清新的淡色或蓝白、绿白、红白相间的台布来衬托。</div>
+                                            <div style="background-image:url(/src/media/canting3.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        耐脏耐磨损材料
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>地面一般应选择大理石、花岗岩、瓷砖等表面光洁、宜清洁的材料。墙面在齐腰位置要考虑用些耐碰撞、耐磨损的材料，如选择一些木饰、墙砖作局部装饰、护墙处理。顶面宜以素雅、洁净材料作装饰，如乳胶漆等，有时可适当降低顶面高度，以给人亲切感。</div>
+                                            <div style="background-image:url(/src/media/canting4.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        椅面到桌面距离
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>餐桌与桌椅一般是配套的，但两者也可以分开选购，需要注意保持一定的人体工程学距离（椅面到桌面的距离以 30cm 左右为宜），过高或过低都会影响正常食用姿势，引起胃部不适或消化。</div>
+                                            <div style="background-image:url(/src/media/canting6.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        餐桌旁配有插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>方便家庭吃火锅的需求。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        餐桌和折叠椅
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>地方有限的小居室餐厅，如有必要，可安放抽拉式餐桌和折叠椅。</div>
+                                            <div style="background-image:url(/src/media/canting8.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="zwsdiv" style="cursor:pointer;background-image:url(/fonts/5.png)" onclick="$('#zwsdiv').hide(); $('#zwsiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==3).FirstOrDefault().SpacePics" class='function_iframe' id="zwsiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer  spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>主卧室</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        起夜灯
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                在卧室照明系统的设计过程中，需要考虑到在双方的床头前内置一盏小灯，灯光照亮局部且柔和不刺眼，这样一方起床不会因为灯光太强影响另一方休息。
+                                            </div>
+                                            <div style="background-image:url(/src/media/zhuwo1.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        收纳格<!-- 领带和袜子收纳格 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、除了常规衣柜外可增加五屉或者七屉的收纳柜<br>2、其中分隔，将领带或者袜子成卷放置，更整洁</div>
+                                            <div style="background-image:url(/src/media/zhuwo2.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        私密物品储物柜<!-- 隐蔽私密物品储物柜 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>可在床头背景墙或者床头柜中，设计小型暗门的储物箱。</div>
+                                            <div style="background-image:url(/src/media/zhuwo3.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        手机插座
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>很多人的习惯就是睡觉前手机浏览一下网页或游戏、聊天，然后手机充好电，放在离自己不远的地方，方便使用。</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        窗帘的类型选择
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、对于睡眠要求比较高的业主可采用布料厚并且结构严密的窗帘<br>2、对于喜欢通透和采光的业主在注重隐私性的同时，采用薄的微透光的窗帘效果。</div>
+                                            <div style="background-image:url(/src/media/zhuwo5.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        隔音效果
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、主卧使用隔音材料<br>2、门缝或者任何同其他空间有缝隙接触的构造中统一选购封闭性较好的门或者窗设施。</div>
+                                            <div style="background-image:url(/src/media/zhuwo6.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        空间的使用率
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、床头两侧加装吊式收纳柜<br>2、有飘窗，利用飘窗做成写字台<br>3、未利用的小角落做成卡角的小书柜。</div>
+                                            <div style="background-image:url(/src/media/zhuwo7.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        插座的位置
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、床头的插座在开关旁边<br>2、一般床头插座之间可距离2米，高度据地面600mm。</div>
+                                            <div style="background-image:url(/src/media/zhuwo8.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        双控开关
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>入口双控开关设计，为客户解决远距离开、关灯问题，方便实用。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="lrfdiv" style="cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#lrfdiv').hide(); $('#lrfiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==4).FirstOrDefault().SpacePics" class='function_iframe' id="lrfiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer  spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>老人房</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        起夜灯
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、在接近地面的高度安置人体感控小灯。<br>2、考虑到在双方的床头前内置一盏小灯，灯光照亮局部且柔和不刺眼。</div>
+                                            <div style="background-image:url(/src/media/laorenfang1.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        警示灯
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在床头柜上方安置警示灯按钮。</div>
+                                            <div style="background-image:url(/src/media/laorenfang2.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        床的扶手<!-- 床的扶手或者家具的利用 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、床头的一侧取消一边的床头柜，放置写字桌或者梳妆台。<br>2、选购床的同时应优秀考虑成品老人床。</div>
+                                            <div style="background-image:url(/src/media/laorenfang3.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        药品的归纳<!-- 药品的归纳和收纳盒的安放 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在床头柜或者书桌旁放置小型药品收纳盒，并贴上不同颜色和文字注明的标签。</div>
+                                            <div style="background-image:url(/src/media/laorenfang4.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        老人房色彩
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>老人房设计中应该避免出现过于鲜艳的颜色，以素雅或者宁重为主。</div>
+                                            <div style="background-image:url(/src/media/laorenfang5.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        地面防滑
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>地面材料尽量选用防滑材料。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="etfdiv" style="cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#etfdiv').hide(); $('#etfiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==5).FirstOrDefault().SpacePics" class='function_iframe' id="etfiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>儿童房</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        色彩搭配
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>儿童的房的设计不宜颜色太多，尤其是吊顶的颜色还是应以白色为主，采用“轻装修，重软配”的原则，这样儿童长大后也不会出现风格不适应的问题。</div>
+                                            <div style="background-image:url(/src/media/ertongfang1.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        避免安全隐患<!-- 避免出现安全隐患 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、选择儿童使用家具的时候，尽量避免尖锐角。<br>2、童房的窗户如果是落地窗，其护栏不要随意拆除，栏杆之间的宽度应以孩子无法钻出为宜<br>3、正常窗户，那么窗户需要安装安全锁，以防止孩子好奇打开爬出。</div>
+                                            <div style="background-image:url(/src/media/ertongfang2.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        睡眠灯
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、夜间睡眠灯以达到减少恐惧和方便睡眠的作用，可安放在床头的一侧，不能再睡眠区的上方<br>2、外罩的造型可设计为卡通形象，暖光为主<br>3、灯的亮度不大，但可以局部照明</div>
+                                            <div style="background-image:url(/src/media/ertongfang3.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        家具多功能使用<!-- 家具的多功能使用 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>类似于书桌类型的家具最好设置成活动可组装的，增加了家具的使用率。</div>
+                                            <div style="background-image:url(/src/media/ertongfang4.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        儿童房的面积<!-- 合理规划儿童房的面积 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>风水学中说到，儿童房面积应该小于父母房间的面积，否则儿童长大后容易不服管教。</div>
+                                            <div style="background-image:url(/src/media/ertongfang5.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        书桌摆放和风水<!-- 书桌的摆放和风水搭配 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、书桌以及钢琴等设施应该尽量顶墙摆放，这样可以减少孩子在学习过程中分神<br>2、在书桌的左上角摆放文昌塔，这样也可以辅助孩子学习效率。</div>
+                                            <div style="background-image:url(/src/media/ertongfang6.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        房间规划
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、房间应该设立独立的书柜<br>2、房间最好为全封闭<br>3、做好隔音效果</div>
+                                            <div style="background-image:url(/src/media/ertongfang7.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        开关保护系统<!-- 开关保护系统和安全高度 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、最好购买质量过关的防触电的插座<br>2、开关需要外层保护套</div>
+                                            <div style="background-image:url(/src/media/ertongfang8.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        家用监控器
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>对于3至10岁这个阶段的儿童，隐私倾向不明显，可在儿童房内设置家用监控器，有保姆的时候也可以监控是否存在不规范现象。市面专门配有儿童监控器，可直接连接到主人手机，即使上班中也可随时观看家中情况。</div>
+                                            <div style="background-image:url(/src/media/ertongfang9.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="cffdiv" style=" cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#cffdiv').hide(); $('#cffiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==6).FirstOrDefault().SpacePics" class='function_iframe' id="cffiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>厨房</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        厨房操作动线
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                在考虑动线的时候首先选择以冰箱为首，然后依次为水槽、操作案板、炉灶，这样满足了从取菜到最后做菜的一整套流程，不会前后折返，需要强调的是炉灶和水槽之间不能紧挨，风水上讲“水火不相容”。
+                                            </div>
+                                            <div style="background-image:url(/src/media/chufang1.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        设备选择和排烟<!-- 设备的选择和排烟 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在厨房设备选择过程中根据自身喜好和吸附功能选择薄型、深型、柜式，排烟直接在离地面+2400mm以上排烟道上挖一直径等同于17CM左右的圆孔，将排烟管道固定在圆孔处即可。在厨房设备选择过程中根据自身喜好和吸附功能选择薄型、深型、柜式，排烟直接在离地面+2400mm以上排烟道上挖一直径等同于17CM左右的圆孔，将排烟管道固定在圆孔处即可。</div>
+                                            <div style="background-image:url(/src/media/chufang2.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        厨房收纳功能
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>厨房收纳柜最好分类进行设计，例如调料品、碗筷等，橱柜尽量选择内部存储空间大的。</div>
+                                            <div style="background-image:url(/src/media/chufang3.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        地面防滑防水
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>地面需要采用带有纹理的瓷砖，起到防滑效果。</div>
+                                            <div style="background-image:url(/src/media/chufang4.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        厨房垃圾的分类<!-- 厨房垃圾的分类归置 -->
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、厨房的垃圾需要设立垃圾桶<br>2、洗菜池需要防漏网保护小水</div>
+                                            <div style="background-image:url(/src/media/chufang5.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        危险物品的存放
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>家中有小孩的，需要将刀具整齐的摆放于刀架内，放置在小孩高度够不到的位置，最好位于操作台上方的橱柜内。</div>
+                                            <div style="background-image:url(/src/media/chufang6.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        垃圾处理
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="wsjdiv" style="cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#wsjdiv').hide(); $('#wsjiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==7).FirstOrDefault().SpacePics" class='function_iframe' id="wsjiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>卫生间</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        浴缸周围设计
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在浴缸周围可设计一条长方形的溢水槽，末端朝向下水的方向，这样有利于水流到下水道，防止到处都是。</div>
+                                            <div style="background-image:url(/src/media/weishengjian1.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        洗衣机选择
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>滚筒洗衣机的外形尺寸比较统一，高度，860mm左右，宽度，595mm左右，厚度根据不同容量和厂家而定，选择滚筒洗衣机容量时要考虑家庭成员数量，三口之家，选择7KG即可；五口之家可选择8KG；人数较多的，选择9KG以上的。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        马桶选择
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、排水方式：虹吸式或直冲式。 <br>2、确定排水墙距，孔距30或40。<br>3、预设电源，方便智能马桶使用。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        热水器选择
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>一般热水器宜选择40L以上的容量，两人使用适宜选用50~60L容量的热水器；三口之家适宜选用80～100L容量的热水器；三口人以上的家庭适宜选用120L以上的热水器；如您习惯用浴盆洗浴，最好选择150L以上的热水器。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        影音功能
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、可在浴室墙面安装液晶电视，并使用专用的玻璃保护框嵌套，这样既美观又能全面防水。<br>2、可采取安装镜面，利用反射的原理将干功能区的电视反射于镜面内也起到观看效果。</div>
+                                            <div style="background-image:url(/src/media/weishengjian4.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        排风换气
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                需要配备设备完善的换气扇，另外保留一扇对外开的窗户，这样既舒适又安全。
+                                            </div>
+                                            <div style="background-image:url(/src/media/weishengjian5.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        收纳柜位置
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、盥洗池下可以安放收纳柜<br>2、浴缸侧边预留收纳空间<br>3、淋浴墙壁上安装可固定的收纳架</div>
+                                            <div style="background-image:url(/src/media/weishengjian6.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        老人安全设施
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、浴缸两侧安装专用防滑扶手<br>2、淋浴笼头旁安装防滑专用扶手<br>3、地面应该选用有纹理的防滑地砖。</div>
+                                            <div style="background-image:url(/src/media/weishengjian7.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        淋浴便易扶手
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在面对淋浴龙头的墙壁左侧安装防滑扶手，方便搓脚时候抓住稳定身体。</div>
+                                            <div style="background-image:url(/src/media/weishengjian8.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        淋浴设备的安装
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在手动水阀和淋浴喷头之间留出适当的距离，这样打开水阀，人以侧身的角度避开冷水，可待水温调试完毕后进入龙头下淋浴。</div>
+                                            <div style="background-image:url(/src/media/weishengjian9.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        吹风机收纳
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在洁柜的台面上特别设置了吹风筒收纳——在一块简单的铝合金托板上，设计一个直径8厘米的圆孔，不但可以收纳吹风机，还能防止遇水漏电。</div>
+                                            <div style="background-image:url(/src/media/weishengjian10.jpg)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="ymjdiv" style="cursor:pointer;background-image:url(/fonts/5.png);" onclick="$('#ymjdiv').hide(); $('#ymjiframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==8).FirstOrDefault().SpacePics" class='function_iframe' id="ymjiframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>储物间(衣帽间)</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        独立收纳空间
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>男女独立衣物收纳空间</div>
+                                            <div style="background-image:url(/src/media/chuwujian1.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        旅行箱柜
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>旅行箱柜，可容纳750*450*300的大号航空旅行箱。</div>
+                                            <div style="background-image:url(/src/media/chuwujian2.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        保险柜
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>在柜子的中间底部设计保险柜位。可存放贵重物品。</div>
+                                            <div style="background-image:url(/src/media/chuwujian3.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        手包台
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>可供女主人只放各类包袋。</div>
+                                            <div style="background-image:url(/src/media/chuwujian4.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        户外用品收纳
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>分门别类的家庭储物柜。可供男主人放置高尔夫球杆、鱼竿、帐篷、睡袋、球拍等室内外休闲体育用品。</div>
+                                            <div style="background-image:url(/src/media/chuwujian5.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        特殊收纳
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>
+                                                专门的收纳系统，例如盛装盘，可以放置折叠的衬衫等。格子抽屉。可供男主人放置领带、女主人放置内衣、袜子等。或是领带架等。
+                                            </div>
+                                            <div style="background-image:url(/src/media/chuwujian6.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        被褥收纳
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>单独的被褥收纳空间。</div>
+                                            <div style="background-image:url(/src/media/chuwujian7.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='part3_contentContainer5 pageOut' style='height:384px;overflow:visible;'>
+
+                    <div class='part3_contentContainer2_leftpic'>
+                        <div class="part3_contentContainer2_leftpic" id="dgndiv" style="cursor:pointer;margin: 0px auto; background-image:url(/fonts/5.png);" onclick="$('#dgndiv').hide(); $('#djniframe').show()">
+
+                        </div>
+                        <iframe src="@Model.Where(item=>item.Category==9).FirstOrDefault().SpacePics" class='function_iframe' id="djniframe" style="display:none;"></iframe>
+                    </div>
+                    <div class='part3_contentContainer3_rightContainer spaceContainer' style='height:384px;overflow:visible;'>
+                        <div class='part3_title'>多功能空间</div>
+                        <div class='part3_rightchooseContainer'>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        家具组合
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、如果有飘窗，可利用飘窗台面做成小型休息床<br>2、没有飘窗，可将延伸空间的地台升高，放置舒适的被褥、抱枕。</div>
+                                            <div style="background-image:url(/src/media/duogongneng1.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        自动升降系统
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、地台中间区域可做成带活动板的中空区域，内置可升降棋牌桌，当需要棋牌功能时，打开活动地板，按钮升降<br>2、不使用该功能时，盖合活动板，上方放置榻榻米和小茶桌<br>3、地台靠墙部分，需要设置一组3孔插座，满足饮水机需求。</div>
+                                            <div style="background-image:url(/src/media/duogongneng2.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        地台的利用
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、地台除了中间区域，其他空间空余，可在地台侧面或者地台上方做成隐藏柜门，用以放置杂物。<br>2、非承重墙可掏空做内嵌杂物柜。</div>
+                                            <div style="background-image:url(/src/media/duogongneng3.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        活动家具组合
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、充分利用墙壁和角落空间，放置可活动的书桌<br>2、墙壁可做悬挂小型书柜</div>
+                                            <div style="background-image:url(/src/media/duogongneng4.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        可折叠餐台
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、餐桌或者餐椅可利用墙壁悬挂，以上设施最好为可折叠<br>2、在墙面上设置悬挂钉或者卡扣<br>3、餐桌可活动，并且可拼组。</div>
+                                            <div style="background-image:url(/src/media/duogongneng5.png)" class='pointImg'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='part3_typeChoose'>
+                                        影音系统
+                                        <div class='pointContainer'>
+                                            <div class='pointTitle'>设计要点</div>
+                                            <div class='pointContent'>1、提前暗埋管线，预留出影音设备接口。<br>2、设置两个五孔组合电源插座，以满足电视机、VCD、音响功 率放大器或电脑的需要<br>3、可采用多功能组合式电源插座(面板上至少排有3个～5个不同的二孔和三孔插座)<br>4、电源插座距有线电视终端盒或电脑插座的水平距离 不少于0.3m。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='part3_typeContainer' style='clear:both;'>
+                                <div class='part3_type_singleContainer'>
+                                    <div class='spaceOther part3_typeChoose'>
+                                        <div class='spaceClick'>设计要点</div>
+                                        <div class='spacemore'>
+                                            <div><textarea class='questionInput' placeholder='请输入客户需求'></textarea></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="FurnitureViewUrl" id="FurnitureViewUrl" value="@(Session["FurnitureViewUrl"] == null ? "" : Session["FurnitureViewUrl"])" />
+            <input type="hidden" name="diyResultUrl" id="diyResultUrl" value="@(Session["diyResultUrl"] == null ? "" : Session["diyResultUrl"])" />
+            <div class='part3_next'>下一步</div>
+        </div>
+    </div>
+
+    <div id='part3_contentContainer2_more' morehidden class='morehidden'>
+        <div class='part3_contentContainer2_moreContainer'>
+            <div id='closePart3More'></div>
+            <div class='part3more_left'>
+                <video id='video' class='pageOut' style='position:absolute;width:100%;height:100%;background-color:black;' controls="controls" preload='auto'></video>
+            </div>
+            <div class='part3more_right'>
+                <div class='part3_title' id='part3more_title'></div>
+                <div class='part3_moreText'> </div>
+            </div>
+        </div>
+    </div>
+}

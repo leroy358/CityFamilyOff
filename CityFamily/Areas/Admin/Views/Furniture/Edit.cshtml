@@ -1,0 +1,263 @@
+﻿@model CityFamily.Models.FurnitureStyle
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "家具风格信息编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<form action="/Admin/Furniture/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Furniture/List">家具风格列表</a>
+        @{
+            var db = new CityFamily.Models.CityFamilyDbContext();
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/Furniture/List?searchStr=@Model.StyleId">@db.T_FurnitureCover.Where(o => o.Id == Model.StyleId).FirstOrDefault().StyleName</a>
+                <a class="pathTipItem">家具信息管理</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加家具信息</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "家具信息管理" : "添加家具信息")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <div class="contentUnit">
+            <div class="title">风格大类</div>
+            <div class="content">
+
+                @{
+                    //var db = new CityFamily.Models.CityFamilyDbContext();
+                    if (ViewBag.IsCreate)
+                    {
+                        <input type="text" class="inputText" value="@db.T_FurnitureCover.Where(o => o.Id == Model.StyleId).FirstOrDefault().StyleName" readonly="readonly" />
+                    }
+                    else
+                    {
+                        <select name="StyleId">
+                            @{ int cid = int.Parse(Session["cid"].ToString());}
+                            @foreach (var item in db.T_FurnitureCover.Where(o => o.CompanyId == cid).ToList())
+                            {
+                                <option value="@item.Id">@item.StyleName</option>
+                            }
+
+                        </select>
+                    }
+
+                }
+
+            </div>
+        </div>
+        @{
+            var stylenames = ViewBag.IsCreate ? Model.StyleName.Split('&').ToArray() : new string[1];
+            <div class="contentUnit">
+                <div class="title">参考品牌</div>
+                <div class="content">
+                    @*<input id="inputName" type="text" name="StyleName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleName:"")' />*@
+                    <textarea rows="4" name="TxtReferenceBrand" class="inputText" style="height:50px;" id="TxtReferenceBrand">@(ViewBag.IsCreate ? (stylenames.Length > 3 ? stylenames[0] : "") : (stylenames.Length > 3 ? stylenames[0] : ""))</textarea>
+                </div>
+                <div class="tip">*此处为必填项</div>
+            </div>
+            <div class="contentUnit">
+                <div class="title">详细规格</div>
+                <div class="content">
+                    @*<input id="inputName" type="text" name="StyleName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleName:"")' />*@
+                    <textarea rows="4" name="TxtDetailedSpecifications" class="inputText" style="height:50px;" id="TxtDetailedSpecifications">@(ViewBag.IsCreate ? (stylenames.Length > 3 ? stylenames[1] : "") : (stylenames.Length > 3 ? stylenames[1] : ""))</textarea>
+                </div>
+                <div class="tip">*此处为必填项</div>
+            </div>
+            <div class="contentUnit">
+                <div class="title">价格区间</div>
+                <div class="content">
+                    @*<input id="inputName" type="text" name="StyleName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleName:"")' />*@
+                    <textarea rows="4" name="TxtPriceRange" class="inputText" style="height:50px;" id="TxtPriceRange">@(ViewBag.IsCreate ? (stylenames.Length > 3 ? stylenames[2] : "") : (stylenames.Length > 3 ? stylenames[2] : ""))</textarea>
+                </div>
+                <div class="tip">*此处为必填项</div>
+            </div>
+            <div class="contentUnit">
+                <div class="title">质地用料</div>
+                <div class="content">
+                    @*<input id="inputName" type="text" name="StyleName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleName:"")' />*@
+                    <textarea rows="4" name="TxtTextureMaterials" class="inputText" style="height:50px;" id="TxtTextureMaterials">@(ViewBag.IsCreate ? (stylenames.Length > 3 ? stylenames[3] : "") : (stylenames.Length > 3 ? stylenames[3] : ""))</textarea>
+                </div>
+                <div class="tip">*此处为必填项</div>
+            </div>
+        }
+        <input type="hidden" id="inputName" name="StyleName" value='@(ViewBag.IsCreate?Model.StyleName:"")' />
+        <input type="hidden" id="StyleId" name="StyleId" value='@(ViewBag.IsCreate ? Model.StyleId : 0)'>
+        <input type="hidden" id="headlinePicBack" name="BackPic" value='@(ViewBag.IsCreate?Model.BackPic:"无")'>
+        <input type="hidden" id="CreateUserId" name="CreateUserId" value='@(ViewBag.IsCreate?Model.CreateUserId:0)'>
+        <input type="hidden" id="CompanyId" name="CompanyId" value='@(ViewBag.IsCreate?Model.CompanyId:0)'>
+
+        <div class="contentUnit">
+            <div class="title">家具列表封面图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="IndexPic" value='@(ViewBag.IsCreate ? Model.IndexPic : "无")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.IndexPic" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">家具图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePic" name="FurniturePics" value='@(ViewBag.IsCreate?Model.FurniturePics:"无")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePic"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePic"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePic"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpic.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpic"><img src="@Model.FurniturePics" style="width:300px;" /></div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Furniture/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleReferenceBrand, titleDetailedSpecifications, titlePriceRange, titlePic, titlePicIndex, titleTextureMaterials;
+    //点提交调用此函数
+    function doCheck() {
+
+        titleReferenceBrand = checkFunc("TxtReferenceBrand");
+        titleDetailedSpecifications = checkFunc("TxtDetailedSpecifications");
+        titlePriceRange = checkFunc("TxtPriceRange");
+        titleTextureMaterials = checkFunc("TxtTextureMaterials");
+        titlePic = checkFunc("headlinePic");
+        titlePicIndex = checkFunc("headlinePicIndex");
+
+        if (titleReferenceBrand && titlePic && titlePicIndex && titleDetailedSpecifications && titlePriceRange && titleTextureMaterials) {
+
+            var brandtxt = document.getElementById("TxtReferenceBrand").value;
+            var specificationstxt = document.getElementById("TxtDetailedSpecifications").value;
+            var rangetxt = document.getElementById("TxtPriceRange").value;
+            var materials = document.getElementById("TxtTextureMaterials").value;
+            var nameTxt = brandtxt + '&' + specificationstxt + '&' + rangetxt + '&' + materials;
+
+            document.getElementById("inputName").value = nameTxt;
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认家具信息完整后提交！");
+    }
+
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

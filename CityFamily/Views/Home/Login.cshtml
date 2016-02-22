@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "登录";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/src/css/public.css">
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts//jquery-1.10.2.min.js"></script>
+    <script src="~/BackSet/src/js/smp.tips.js"></script>
+    <script src="~/BackSet/src/other/simple.validator/simple-validator.js"></script>
+    <script src="/src/js/login.js"></script>
+    <link rel="stylesheet" type="text/css" href="/src/css/login.css">
+</head>
+<body style="background-image:url(/src/media/FrontBg.jpg)">
+    <div class='headContainer'>
+        <div class='headblack'></div>
+        <div class='headmain'>
+            <a class='headmainleft' href="/Buildings/List"></a>
+            <div class='headmainright'>
+                
+            </div>
+        </div>
+    </div>
+    <div id='loginContainer'>
+        <form action="/Home/Login" id="form1" method="post">
+            <p>欢迎您使用城市人家可视化洽谈系统</p>
+            <div class='login_message'>
+                <div class='loginName'>用户名</div>
+                <input type="text" id="userName" name="userName" class="inputText" onkeydown="if (event.keyCode == 13) { doSubmit() }" s-validator-rules="required" s-validator-onsucceed="this.removeAttribute('error');" s-validator-onfail="this.setAttribute('error','');" lefticon />
+            </div>
+            <div class='login_message'>
+                <div class='loginName'>密<span style="margin-left:16px;">码</span></div>
+                <input type="password" id="password" name="password" class="inputText" onkeydown="if (event.keyCode == 13) { doSubmit() }" s-validator-rules="required" s-validator-onsucceed="this.removeAttribute('error');" s-validator-onfail="this.setAttribute('error','');" class="inputText" lefticon />
+            </div>
+            <a id="login" class="inputButton" onclick=" doSubmit();">登录</a>
+        </form>
+    </div>
+    <div class='foot'>
+        <div class='footmain'>
+            集团总部地址：北京市大兴区亦庄经济开发区4号街区力宝广场C座12层&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp全国服务热线：4008088259&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp联系电话：4008088259<br>
+            公司地址：xxxxxxx
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CityFamily.Models.SpotPics>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "现场照片列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+    <a class="pathTipItem" href="/Admin/Building/List?searchStr=@ViewBag.BuildName">@ViewBag.BuildName</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId">包含户型列表</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId?searchStr=@ViewBag.LayName">@ViewBag.LayName</a>
+    <a class="pathTipItem">包含现场照片列表</a>
+</div>
+<div class="inputSet">
+    @{
+        int layId = ViewBag.LayId;
+        <a class="inputButton" href='/Admin/SpotPic/Create/@layId' lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加现场照片信息</a>
+    }
+</div>
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="100">ID</td>
+                <td>现场照片封面图</td>
+                <td width="120">最近修改时间</td>
+                <td width="100">编辑现场照片</td>
+                <td width="100">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td> <img src="@item.SpotIndex" style="width:150px;" /></td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/SpotPic/Edit/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id,returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,169 @@
+﻿@model IEnumerable<CityFamily.Models.Styles>
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript">
+
+        function PageImg() {
+            var divimg = document.getElementById("divContentImg");
+            var divwidth = divimg.style.height;
+            divwidth = divwidth.substring(0, divwidth.length - 2);
+            var previous = document.getElementById("homeScene_previous");
+
+            previous.onclick = function (event) {
+                var leftpx = divimg.style.top;
+
+                leftpx = leftpx.substring(0, leftpx.length - 2);
+
+                if ((parseInt(leftpx) + parseInt(divwidth)) > 400) {
+                    var yileft = parseInt(leftpx) + (-208);
+                    divimg.style.top = yileft + "px";
+                }
+            }
+
+            var next = document.getElementById("homeScene_next");
+            next.onclick = function (event) {
+                var leftpx = divimg.style.top;
+                leftpx = leftpx.substring(0, leftpx.length - 2);
+                if (leftpx != 0 && parseInt(divwidth) - parseInt(leftpx) > 0) {
+                    var yileft = parseInt(leftpx) + (208);
+                    divimg.style.top = yileft + "px";
+                }
+            }
+        }
+
+        window.onload = function () {
+            PageImg();
+        }
+
+    </script>
+
+}
+
+@section Content{
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/VIP/FuncList' class='menuItem'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer1'>
+                <div class="pathTip">
+                    @*<div class="pathTipItem">城市人家八大设计风格体系</div>*@
+                </div>
+                @{int leftpx = (Model.Count() % 8 == 0 ? Model.Count() / 8 : Model.Count() / 8 + 1) * 208; var leftpxstr = leftpx + "px";}
+                <div id='part2_contentContainer1_content1' class='pics_content1' style=" margin-left:70px; width: 1050px; height: 400px; overflow: hidden; ">
+                    <div id="divContentImg" style="position:relative; top:0px; width:1050px; height:@leftpxstr">
+                        @foreach (var style in Model)
+                        {
+                            @*<!--=============判断是否只有一个子风格，若只有一个则直接跳转至三级页面,否则进入对应的二级页面================-->
+                                if (style.Id == 3)
+                                {
+                                    <span>
+                                        <a href='/Styles/ThirdList/14' class='styleContainer' style='background-image:url(@style.StyleIndex)'>
+                                            <div class='styleContainerBottom'>
+                                                <div class='styleBottomMore'></div>
+                                                <div class='styleName'>@style.StyleName</div>
+                                            </div>
+                                            <div class='styleHoverContainer'>
+                                                <div class='styleView'></div>
+                                                <div class='styleViewName'>@style.StyleName</div>
+                                            </div>
+                                        </a>
+                                    </span>
+                                }
+                                else if (style.Id == 6)
+                                {
+                                    <span>
+                                        <a href='/Styles/ThirdList/9' class='styleContainer' style='background-image:url(@style.StyleIndex)'>
+                                            <div class='styleContainerBottom'>
+                                                <div class='styleBottomMore'></div>
+                                                <div class='styleName'>@style.StyleName</div>
+                                            </div>
+                                            <div class='styleHoverContainer'>
+                                                <div class='styleView'></div>
+                                                <div class='styleViewName'>@style.StyleName</div>
+                                            </div>
+                                        </a>
+                                    </span>
+                                }
+                                else if (style.Id == 8)
+                                {
+                                    <span>
+                                        <a href='/Styles/ThirdList/6' class='styleContainer' style='background-image:url(@style.StyleIndex)'>
+                                            <div class='styleContainerBottom'>
+                                                <div class='styleBottomMore'></div>
+                                                <div class='styleName'>@style.StyleName</div>
+                                            </div>
+                                            <div class='styleHoverContainer'>
+                                                <div class='styleView'></div>
+                                                <div class='styleViewName'>@style.StyleName</div>
+                                            </div>
+                                        </a>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span>
+                                        <a href='/Styles/SecList/@style.Id' class='styleContainer' style='background-image:url(@style.StyleIndex)'>
+                                            <div class='styleContainerBottom'>
+                                                <div class='styleBottomMore'></div>
+                                                <div class='styleName'>@style.StyleName</div>
+                                            </div>
+                                            <div class='styleHoverContainer'>
+                                                <div class='styleView'></div>
+                                                <div class='styleViewName'>@style.StyleName</div>
+                                            </div>
+                                        </a>
+                                    </span>
+                                }
+                                <!--================END===================-->*@
+                            <span>
+                                <a href='/Styles/SecList/@style.Id' class='styleContainer' style='background-image:url(@style.StyleIndex); height:184px; width:210px; margin-right:8px;'>
+                                    <div class='styleContainerBottom'>
+                                        <div class='styleBottomMore'></div>
+                                        <div class='styleName'>@style.StyleName</div>
+                                    </div>
+                                    <div class='styleHoverContainer'>
+                                        <div class='styleView'></div>
+                                        <div class='styleViewName'>@style.StyleName</div>
+                                    </div>
+                                </a>
+                            </span>
+                            @*<span>
+                                    <a href='/Styles/SecList/@style.Id' class='styleContainer' style='background-image:url(@style.StyleIndex); height:184px; width:210px; margin-right:8px;'>
+                                        <div class='styleContainerBottom'>
+                                            <div class='styleBottomMore'></div>
+                                            <div class='styleName'>@style.StyleName</div>
+                                        </div>
+                                        <div class='styleHoverContainer'>
+                                            <div class='styleView' ></div>
+                                            <div class='styleViewName'>@style.StyleName</div>
+                                        </div>
+                                    </a>
+                                </span>*@
+                        }
+                    </div>
+                </div>
+                @{
+                    if (Model.Count() > 8)
+                    {
+                        <div id='homeScene_previous' class='houseTypeChange'></div>
+                        <div id='homeScene_next' class='houseTypeChange'></div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

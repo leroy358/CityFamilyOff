@@ -1,0 +1,67 @@
+﻿@model CityFamily.Models.T_CompanyInfo
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "分公司编辑";
+}
+
+<form action="/Admin/Company/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Company/List">用户列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/Company/List?searchStr=@Model.CompanyName">@Model.CompanyName</a>
+                <a class="pathTipItem">修改公司名称</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加分公司</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.CompanyID.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <input type="hidden" name="ReturnURL" value="@Request.Url.ToString()" />
+
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <div class="contentGroupTitle">
+                    修改分公司名称
+                </div>
+                <div class="contentUnit">
+                    <div class="title">分公司ID</div>
+                    <div class="content">
+                        <input type="text" name="CompanyID" class="inputText" value='@(ViewBag.IsCreate?Model.CompanyID:0)' readonly />
+                    </div>
+                    <div class="tip">公司ID无法编辑更改</div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">分公司名称</div>
+                    <div class="content">
+                        <input type="text" name="CompanyName" class="inputText" value='' />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="contentGroupTitle">
+                    添加分公司
+                </div>
+                <div class="contentUnit">
+                    <div class="title">分公司名称</div>
+                    <div class="content">
+                        <input type="text" name="CompanyName" class="inputText" value='' />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Company/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>

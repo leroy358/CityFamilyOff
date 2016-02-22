@@ -1,0 +1,126 @@
+﻿@model CityFamily.Models.Styles
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "风格信息编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+}
+
+<form action="/Admin/Style/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Style/List">一级风格列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/Style/List?searchStr=@Model.StyleName">@Model.StyleName</a>
+                <a class="pathTipItem">风格信息管理</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加风格信息</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "风格信息管理" : "添加风格信息")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <div class="contentUnit">
+            <div class="title">风格名称</div>
+            <div class="content">
+                <input id="inputName" type="text" name="StyleName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleName:"")' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">首页风格图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="StyleIndex" value='@(ViewBag.IsCreate?Model.StyleIndex:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.StyleIndex" style="width:300px;" /></div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Style/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titleNa = checkFunc("inputName");
+        titlePicH = checkFunc("headlinePicIndex");
+
+        if (titleNa && titlePicH) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认风格信息完整后提交！");
+    }
+
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

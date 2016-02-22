@@ -1,0 +1,1010 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFFDA451-6CA1-40ED-BFB4-681BB8C0A32E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CityFamily</RootNamespace>
+    <AssemblyName>CityFamily</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WXSSK.Common, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\WXSSK.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.1.0.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.1.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.1.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.2.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BuildingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConfigController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ConsoleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DecorateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DepartMangerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DepartUserController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FuncLocationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FurnitureController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FurnitureCoverController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LayoutController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpaceCateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SpotPicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StyleController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StyleDetailController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StyleLocationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StyleThirdController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\GetSession.cs" />
+    <Compile Include="Controllers\BuildingsController.cs" />
+    <Compile Include="Controllers\DecoratesController.cs" />
+    <Compile Include="Controllers\FunctionController.cs" />
+    <Compile Include="Controllers\FurnitureViewController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutsController.cs" />
+    <Compile Include="Controllers\SpaceCatesController.cs" />
+    <Compile Include="Controllers\SpotPicsController.cs" />
+    <Compile Include="Controllers\StylesController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\VIPController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Admins.cs" />
+    <Compile Include="Models\AdminsCompany.cs" />
+    <Compile Include="Models\BuildingLayoutView.cs" />
+    <Compile Include="Models\CityFamily.cs" />
+    <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\Decorate.cs" />
+    <Compile Include="Models\DepartmentRole.cs" />
+    <Compile Include="Models\DIYResult.cs" />
+    <Compile Include="Models\FCoverID.cs" />
+    <Compile Include="Models\FStyleID.cs" />
+    <Compile Include="Models\FuncListView.cs" />
+    <Compile Include="Models\FuncResult.cs" />
+    <Compile Include="Models\FurnitureResult.cs" />
+    <Compile Include="Models\FurnitureStyle.cs" />
+    <Compile Include="Models\FurnitureStylePics.cs" />
+    <Compile Include="Models\GetWebSession.cs" />
+    <Compile Include="Models\JsonData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Layout.cs" />
+    <Compile Include="Models\LayoutDecorateView.cs" />
+    <Compile Include="Models\SpaceCate.cs" />
+    <Compile Include="Models\SpotPics.cs" />
+    <Compile Include="Models\StyleDetails.cs" />
+    <Compile Include="Models\Styles.cs" />
+    <Compile Include="Models\StylesID.cs" />
+    <Compile Include="Models\StyleThird.cs" />
+    <Compile Include="Models\T_AuthInfo.cs" />
+    <Compile Include="Models\T_CompanyInfo.cs" />
+    <Compile Include="Models\T_DepartmentInfo.cs" />
+    <Compile Include="Models\T_FurnitureCover.cs" />
+    <Compile Include="Models\T_MenuInfo.cs" />
+    <Compile Include="Models\T_RoleInfo.cs" />
+    <Compile Include="Models\T_StyleFurniturePics.cs" />
+    <Compile Include="Models\T_UserDepartment.cs" />
+    <Compile Include="Models\T_UserRole.cs" />
+    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\VIPListView.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="404.html" />
+    <Content Include="500.html" />
+    <Content Include="BackSet\src\css\address.css" />
+    <Content Include="BackSet\src\css\frame_login.css" />
+    <Content Include="BackSet\src\css\frame_main.css" />
+    <Content Include="BackSet\src\css\subPage.css" />
+    <Content Include="BackSet\src\js\simple-uploader-NEdit.js" />
+    <Content Include="BackSet\src\js\smp.tips.js" />
+    <Content Include="BackSet\src\media\icon_edit2.png" />
+    <Content Include="BackSet\src\media\icon_list.png" />
+    <Content Include="BackSet\src\other\simple-uploader-articleEdit.js" />
+    <Content Include="BackSet\src\other\simple-Uploader\upload.css" />
+    <Content Include="BackSet\src\js\address.js" />
+    <Content Include="BackSet\src\js\login.js" />
+    <Content Include="BackSet\src\js\main.js" />
+    <Content Include="BackSet\src\other\simple.validator\demo.html" />
+    <Content Include="BackSet\src\other\simple.validator\simple-validator.js" />
+    <Content Include="BackSet\src\other\simple.validator\simple-validator.min.js" />
+    <Content Include="BackSet\src\media\icon_close_small.png" />
+    <Content Include="BackSet\src\media\icon_close_small_hover.png" />
+    <Content Include="BackSet\src\media\icon_delete.png" />
+    <Content Include="BackSet\src\media\icon_disk.png" />
+    <Content Include="BackSet\src\media\icon_edit.png" />
+    <Content Include="BackSet\src\media\icon_enterDoor_big.png" />
+    <Content Include="BackSet\src\media\icon_eye.png" />
+    <Content Include="BackSet\src\media\icon_info_gray.png" />
+    <Content Include="BackSet\src\media\icon_info_red.png" />
+    <Content Include="BackSet\src\media\icon_link.png" />
+    <Content Include="BackSet\src\media\icon_location.png" />
+    <Content Include="BackSet\src\media\icon_lock.png" />
+    <Content Include="BackSet\src\media\icon_no.png" />
+    <Content Include="BackSet\src\media\icon_plus.png" />
+    <Content Include="BackSet\src\media\icon_refresh_small.png" />
+    <Content Include="BackSet\src\media\icon_refresh_small_hover.png" />
+    <Content Include="BackSet\src\media\icon_return.png" />
+    <Content Include="BackSet\src\media\icon_search.png" />
+    <Content Include="BackSet\src\media\icon_user.png" />
+    <Content Include="BackSet\src\media\icon_yes.png" />
+    <Content Include="BackSet\src\other\subPage_article_edit.css" />
+    <Content Include="BackSet\src\other\uiTree\uiInput.css" />
+    <Content Include="BackSet\src\other\uiTree\icon_file.png" />
+    <Content Include="BackSet\src\other\uiTree\icon_folder.png" />
+    <Content Include="BackSet\src\other\uiTree\icon_folderOpen.png" />
+    <Content Include="BackSet\src\other\uiTree\uiTree.css" />
+    <Content Include="BackSet\src\other\uiTree\uiTree.js" />
+    <Content Include="BackSet\src\other\simple-Uploader\icon_delete.png" />
+    <Content Include="BackSet\src\other\simple-Uploader\icon_return.png" />
+    <Content Include="BackSet\src\other\simple-Uploader\loadinggif.gif" />
+    <Content Include="BackSet\src\other\simple-Uploader\simple-uploader.css" />
+    <Content Include="BackSet\src\other\simple-Uploader\simple-uploader.js" />
+    <Content Include="BackSet\src\other\simple-Uploader\simple-uploader.min.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="oldbrowser.html" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Console\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Console\Main.cshtml" />
+    <Content Include="Areas\Admin\Views\Building\List.cshtml" />
+    <Content Include="Areas\Admin\Views\User\List.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Decorate\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Decorate\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Building\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FuncLocation\List.cshtml" />
+    <Content Include="Areas\Admin\Views\FuncLocation\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Style\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Style\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleDetail\List.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleDetail\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleDetail\DIYList.cshtml" />
+    <Content Include="Areas\Admin\Views\SpotPic\List.cshtml" />
+    <Content Include="Areas\Admin\Views\SpotPic\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleDetail\DIYDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Config\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleThird\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleThird\List.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleLocation\DIYDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\StyleLocation\DIYList.cshtml" />
+    <Content Include="Areas\Admin\Views\SpaceCate\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Furniture\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Furniture\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Config\AddUserInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Config\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Department\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Department\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DepartUser\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\DepartUser\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DepartUser\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\DepartManger\List.cshtml" />
+    <Content Include="Areas\Admin\Views\DepartManger\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Company\List.cshtml" />
+    <Content Include="Areas\Admin\Views\FurnitureCover\List.cshtml" />
+    <Content Include="Areas\Admin\Views\FurnitureCover\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FurnitureCover\Shield.cshtml" />
+    <Content Include="Areas\Admin\Views\Furniture\Shield.cshtml" />
+    <Content Include="Areas\Admin\Views\Style\Shield.cshtml" />
+    <None Include="Properties\PublishProfiles\123.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="SpaceCate\CanTing\CanTing.html" />
+    <Content Include="SpaceCate\CanTing\CanTing.xml" />
+    <Content Include="SpaceCate\CanTing\images\auto_rotate.png" />
+    <Content Include="SpaceCate\CanTing\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\CanTing\images\down.png" />
+    <Content Include="SpaceCate\CanTing\images\down__o.png" />
+    <Content Include="SpaceCate\CanTing\images\fullscreen.png" />
+    <Content Include="SpaceCate\CanTing\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\CanTing\images\left.png" />
+    <Content Include="SpaceCate\CanTing\images\left__o.png" />
+    <Content Include="SpaceCate\CanTing\images\loading_close.png" />
+    <Content Include="SpaceCate\CanTing\images\loading_image.png" />
+    <Content Include="SpaceCate\CanTing\images\right.png" />
+    <Content Include="SpaceCate\CanTing\images\right__o.png" />
+    <Content Include="SpaceCate\CanTing\images\up.png" />
+    <Content Include="SpaceCate\CanTing\images\up__o.png" />
+    <Content Include="SpaceCate\CanTing\images\zoom_in.png" />
+    <Content Include="SpaceCate\CanTing\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\CanTing\images\zoom_out.png" />
+    <Content Include="SpaceCate\CanTing\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_0.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_1.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_2.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_3.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_4.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_5.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_0.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_1.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_2.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_3.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_4.jpg" />
+    <Content Include="SpaceCate\CanTing\images\餐厅_o_preview_5.jpg" />
+    <Content Include="SpaceCate\CanTing\pano2vr_player.js" />
+    <Content Include="SpaceCate\CanTing\pano2vr_player.swf" />
+    <Content Include="SpaceCate\CanTing\skin.js" />
+    <Content Include="SpaceCate\CanTing\skin.xml" />
+    <Content Include="SpaceCate\CanTing\swfobject.js" />
+    <Content Include="SpaceCate\ChuFang\ChuFang.html" />
+    <Content Include="SpaceCate\ChuFang\ChuFang.xml" />
+    <Content Include="SpaceCate\ChuFang\images\auto_rotate.png" />
+    <Content Include="SpaceCate\ChuFang\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\down.png" />
+    <Content Include="SpaceCate\ChuFang\images\down__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\fullscreen.png" />
+    <Content Include="SpaceCate\ChuFang\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\left.png" />
+    <Content Include="SpaceCate\ChuFang\images\left__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\loading_close.png" />
+    <Content Include="SpaceCate\ChuFang\images\loading_image.png" />
+    <Content Include="SpaceCate\ChuFang\images\right.png" />
+    <Content Include="SpaceCate\ChuFang\images\right__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\up.png" />
+    <Content Include="SpaceCate\ChuFang\images\up__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\zoom_in.png" />
+    <Content Include="SpaceCate\ChuFang\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\zoom_out.png" />
+    <Content Include="SpaceCate\ChuFang\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_0.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_1.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_2.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_3.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_4.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_5.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_0.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_1.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_2.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_3.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_4.jpg" />
+    <Content Include="SpaceCate\ChuFang\images\厨房_o_preview_5.jpg" />
+    <Content Include="SpaceCate\ChuFang\pano2vr_player.js" />
+    <Content Include="SpaceCate\ChuFang\pano2vr_player.swf" />
+    <Content Include="SpaceCate\ChuFang\skin.js" />
+    <Content Include="SpaceCate\ChuFang\skin.xml" />
+    <Content Include="SpaceCate\ChuFang\swfobject.js" />
+    <Content Include="SpaceCate\DuoGongNeng\DuoGongNeng.html" />
+    <Content Include="SpaceCate\DuoGongNeng\DuoGongNeng.xml" />
+    <Content Include="SpaceCate\DuoGongNeng\images\auto_rotate.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\down.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\down__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\fullscreen.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\left.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\left__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\loading_close.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\loading_image.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\right.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\right__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\up.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\up__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\zoom_in.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\zoom_out.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_0.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_1.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_2.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_3.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_4.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_5.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_0.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_1.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_2.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_3.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_4.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\images\多功能空间_o_preview_5.jpg" />
+    <Content Include="SpaceCate\DuoGongNeng\pano2vr_player.js" />
+    <Content Include="SpaceCate\DuoGongNeng\pano2vr_player.swf" />
+    <Content Include="SpaceCate\DuoGongNeng\skin.js" />
+    <Content Include="SpaceCate\DuoGongNeng\skin.xml" />
+    <Content Include="SpaceCate\DuoGongNeng\swfobject.js" />
+    <Content Include="SpaceCate\ErTongFang\ErTongFang.html" />
+    <Content Include="SpaceCate\ErTongFang\ErTongFang.xml" />
+    <Content Include="SpaceCate\ErTongFang\images\auto_rotate.png" />
+    <Content Include="SpaceCate\ErTongFang\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\down.png" />
+    <Content Include="SpaceCate\ErTongFang\images\down__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\fullscreen.png" />
+    <Content Include="SpaceCate\ErTongFang\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\left.png" />
+    <Content Include="SpaceCate\ErTongFang\images\left__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\loading_close.png" />
+    <Content Include="SpaceCate\ErTongFang\images\loading_image.png" />
+    <Content Include="SpaceCate\ErTongFang\images\right.png" />
+    <Content Include="SpaceCate\ErTongFang\images\right__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\up.png" />
+    <Content Include="SpaceCate\ErTongFang\images\up__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\zoom_in.png" />
+    <Content Include="SpaceCate\ErTongFang\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\zoom_out.png" />
+    <Content Include="SpaceCate\ErTongFang\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_0.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_1.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_2.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_3.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_4.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_5.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_0.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_1.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_2.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_3.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_4.jpg" />
+    <Content Include="SpaceCate\ErTongFang\images\儿童房_o_preview_5.jpg" />
+    <Content Include="SpaceCate\ErTongFang\pano2vr_player.js" />
+    <Content Include="SpaceCate\ErTongFang\pano2vr_player.swf" />
+    <Content Include="SpaceCate\ErTongFang\skin.js" />
+    <Content Include="SpaceCate\ErTongFang\skin.xml" />
+    <Content Include="SpaceCate\ErTongFang\swfobject.js" />
+    <Content Include="SpaceCate\KeTing\images\auto_rotate.png" />
+    <Content Include="SpaceCate\KeTing\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\KeTing\images\down.png" />
+    <Content Include="SpaceCate\KeTing\images\down__o.png" />
+    <Content Include="SpaceCate\KeTing\images\fullscreen.png" />
+    <Content Include="SpaceCate\KeTing\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\KeTing\images\left.png" />
+    <Content Include="SpaceCate\KeTing\images\left__o.png" />
+    <Content Include="SpaceCate\KeTing\images\loading_close.png" />
+    <Content Include="SpaceCate\KeTing\images\loading_image.png" />
+    <Content Include="SpaceCate\KeTing\images\right.png" />
+    <Content Include="SpaceCate\KeTing\images\right__o.png" />
+    <Content Include="SpaceCate\KeTing\images\up.png" />
+    <Content Include="SpaceCate\KeTing\images\up__o.png" />
+    <Content Include="SpaceCate\KeTing\images\zoom_in.png" />
+    <Content Include="SpaceCate\KeTing\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\KeTing\images\zoom_out.png" />
+    <Content Include="SpaceCate\KeTing\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_0.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_1.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_2.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_3.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_4.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_5.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_0.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_1.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_2.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_3.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_4.jpg" />
+    <Content Include="SpaceCate\KeTing\images\客厅_o_preview_5.jpg" />
+    <Content Include="SpaceCate\KeTing\KeTing.html" />
+    <Content Include="SpaceCate\KeTing\KeTing.xml" />
+    <Content Include="SpaceCate\KeTing\pano2vr_player.js" />
+    <Content Include="SpaceCate\KeTing\pano2vr_player.swf" />
+    <Content Include="SpaceCate\KeTing\skin.js" />
+    <Content Include="SpaceCate\KeTing\skin.xml" />
+    <Content Include="SpaceCate\KeTing\swfobject.js" />
+    <Content Include="SpaceCate\LaoRenFang\images\auto_rotate.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\down.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\down__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\fullscreen.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\left.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\left__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\loading_close.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\loading_image.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\right.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\right__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\up.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\up__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\zoom_in.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\zoom_out.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_0.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_1.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_2.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_3.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_4.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_5.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_0.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_1.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_2.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_3.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_4.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\images\老人房_o_preview_5.jpg" />
+    <Content Include="SpaceCate\LaoRenFang\LaoRenFang.html" />
+    <Content Include="SpaceCate\LaoRenFang\LaoRenFang.xml" />
+    <Content Include="SpaceCate\LaoRenFang\pano2vr_player.js" />
+    <Content Include="SpaceCate\LaoRenFang\pano2vr_player.swf" />
+    <Content Include="SpaceCate\LaoRenFang\skin.js" />
+    <Content Include="SpaceCate\LaoRenFang\skin.xml" />
+    <Content Include="SpaceCate\LaoRenFang\swfobject.js" />
+    <Content Include="SpaceCate\MenTing\images\auto_rotate.png" />
+    <Content Include="SpaceCate\MenTing\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\MenTing\images\down.png" />
+    <Content Include="SpaceCate\MenTing\images\down__o.png" />
+    <Content Include="SpaceCate\MenTing\images\fullscreen.png" />
+    <Content Include="SpaceCate\MenTing\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\MenTing\images\left.png" />
+    <Content Include="SpaceCate\MenTing\images\left__o.png" />
+    <Content Include="SpaceCate\MenTing\images\loading_close.png" />
+    <Content Include="SpaceCate\MenTing\images\loading_image.png" />
+    <Content Include="SpaceCate\MenTing\images\right.png" />
+    <Content Include="SpaceCate\MenTing\images\right__o.png" />
+    <Content Include="SpaceCate\MenTing\images\up.png" />
+    <Content Include="SpaceCate\MenTing\images\up__o.png" />
+    <Content Include="SpaceCate\MenTing\images\zoom_in.png" />
+    <Content Include="SpaceCate\MenTing\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\MenTing\images\zoom_out.png" />
+    <Content Include="SpaceCate\MenTing\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_0.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_1.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_2.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_3.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_4.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_5.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_0.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_1.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_2.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_3.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_4.jpg" />
+    <Content Include="SpaceCate\MenTing\images\门厅_o_preview_5.jpg" />
+    <Content Include="SpaceCate\MenTing\MenTing.html" />
+    <Content Include="SpaceCate\MenTing\MenTing.xml" />
+    <Content Include="SpaceCate\MenTing\pano2vr_player.js" />
+    <Content Include="SpaceCate\MenTing\pano2vr_player.swf" />
+    <Content Include="SpaceCate\MenTing\skin.js" />
+    <Content Include="SpaceCate\MenTing\skin.xml" />
+    <Content Include="SpaceCate\MenTing\swfobject.js" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\敏感材质_0.jpg" />
+    <Content Include="SpaceCate\MinGanCaiZhi\MinGanCaiZhi.html" />
+    <Content Include="SpaceCate\MinGanCaiZhi\MinGanCaiZhi.xml" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\auto_rotate.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\down.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\down__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\fullscreen.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\left.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\left__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\loading_close.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\loading_image.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\right.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\right__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\up.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\up__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\zoom_in.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\zoom_out.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\MinGanCaiZhi\pano2vr_player.js" />
+    <Content Include="SpaceCate\MinGanCaiZhi\pano2vr_player.swf" />
+    <Content Include="SpaceCate\MinGanCaiZhi\skin.js" />
+    <Content Include="SpaceCate\MinGanCaiZhi\skin.xml" />
+    <Content Include="SpaceCate\MinGanCaiZhi\swfobject.js" />
+    <Content Include="SpaceCate\WeiShengJian\images\auto_rotate.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\down.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\down__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\fullscreen.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\left.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\left__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\loading_close.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\loading_image.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\right.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\right__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\up.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\up__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\zoom_in.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\zoom_out.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_0.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_1.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_2.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_3.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_4.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_5.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_0.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_1.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_2.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_3.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_4.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\images\卫生间1_o_preview_5.jpg" />
+    <Content Include="SpaceCate\WeiShengJian\pano2vr_player.js" />
+    <Content Include="SpaceCate\WeiShengJian\pano2vr_player.swf" />
+    <Content Include="SpaceCate\WeiShengJian\skin.js" />
+    <Content Include="SpaceCate\WeiShengJian\skin.xml" />
+    <Content Include="SpaceCate\WeiShengJian\swfobject.js" />
+    <Content Include="SpaceCate\WeiShengJian\WeiShengJian.html" />
+    <Content Include="SpaceCate\WeiShengJian\WeiShengJian.xml" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_0.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_1.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_2.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_3.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_4.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_5.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_0.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_1.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_2.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_3.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_4.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\360-衣帽间_o_preview_5.jpg" />
+    <Content Include="SpaceCate\YiMaoJian\images\auto_rotate.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\down.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\down__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\fullscreen.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\left.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\left__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\loading_close.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\loading_image.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\right.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\right__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\up.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\up__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\zoom_in.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\zoom_out.png" />
+    <Content Include="SpaceCate\YiMaoJian\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\YiMaoJian\pano2vr_player.js" />
+    <Content Include="SpaceCate\YiMaoJian\pano2vr_player.swf" />
+    <Content Include="SpaceCate\YiMaoJian\skin.js" />
+    <Content Include="SpaceCate\YiMaoJian\skin.xml" />
+    <Content Include="SpaceCate\YiMaoJian\swfobject.js" />
+    <Content Include="SpaceCate\YiMaoJian\YiMaoJian.html" />
+    <Content Include="SpaceCate\YiMaoJian\YiMaoJian.xml" />
+    <Content Include="SpaceCate\ZhuRenFang\images\auto_rotate.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\auto_rotate__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\down.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\down__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\fullscreen.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\fullscreen__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\left.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\left__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\loading_close.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\loading_image.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\right.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\right__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\up.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\up__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\zoom_in.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\zoom_in__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\zoom_out.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\zoom_out__o.png" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_0.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_1.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_2.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_3.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_4.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_5.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_0.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_1.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_2.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_3.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_4.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\images\主人房_o_preview_5.jpg" />
+    <Content Include="SpaceCate\ZhuRenFang\pano2vr_player.js" />
+    <Content Include="SpaceCate\ZhuRenFang\pano2vr_player.swf" />
+    <Content Include="SpaceCate\ZhuRenFang\skin.js" />
+    <Content Include="SpaceCate\ZhuRenFang\skin.xml" />
+    <Content Include="SpaceCate\ZhuRenFang\swfobject.js" />
+    <Content Include="SpaceCate\ZhuRenFang\ZhuRenFang.html" />
+    <Content Include="SpaceCate\ZhuRenFang\ZhuRenFang.xml" />
+    <Content Include="src\css\function_iframe.css" />
+    <Content Include="src\css\login.css" />
+    <Content Include="src\css\public.css" />
+    <Content Include="src\css\style.css" />
+    <Content Include="src\js\address.js" />
+    <Content Include="src\js\city.js" />
+    <Content Include="src\js\function_iframe.js" />
+    <Content Include="src\js\function_part1.js" />
+    <Content Include="src\js\home_scene2.js" />
+    <Content Include="src\js\valid_user.js" />
+    <Content Include="src\js\login.js" />
+    <Content Include="src\js\myhome_part2.js" />
+    <Content Include="src\js\myhome_part3.js" />
+    <Content Include="src\js\myhome_part4.js" />
+    <Content Include="src\js\showdate.js" />
+    <Content Include="src\js\simple.preloader.js" />
+    <Content Include="src\js\simple.tweener.min.js" />
+    <Content Include="src\js\style_diynew.js" />
+    <Content Include="src\js\style_part3.js" />
+    <Content Include="src\js\vip_partDiy.js" />
+    <Content Include="src\js\vip_partQuestion.js" />
+    <Content Include="src\media\bedroom.png" />
+    <Content Include="src\media\beforeImg.png" />
+    <Content Include="src\media\black_wrong.png" />
+    <Content Include="src\media\buildingMore.png" />
+    <Content Include="src\media\buildingView.png" />
+    <Content Include="src\media\calendar.png" />
+    <Content Include="src\media\canting1.png" />
+    <Content Include="src\media\canting2.png" />
+    <Content Include="src\media\canting3.png" />
+    <Content Include="src\media\canting4.png" />
+    <Content Include="src\media\canting6.png" />
+    <Content Include="src\media\canting8.png" />
+    <Content Include="src\media\childrenroom.png" />
+    <Content Include="src\media\chufang1.png" />
+    <Content Include="src\media\chufang2.png" />
+    <Content Include="src\media\chufang3.png" />
+    <Content Include="src\media\chufang4.png" />
+    <Content Include="src\media\chufang5.png" />
+    <Content Include="src\media\chufang6.png" />
+    <Content Include="src\media\chuwujian1.png" />
+    <Content Include="src\media\chuwujian2.png" />
+    <Content Include="src\media\chuwujian3.png" />
+    <Content Include="src\media\chuwujian4.png" />
+    <Content Include="src\media\chuwujian5.png" />
+    <Content Include="src\media\chuwujian6.png" />
+    <Content Include="src\media\chuwujian7.png" />
+    <Content Include="src\media\close.png" />
+    <Content Include="src\media\close_hover.png" />
+    <Content Include="src\media\conserveProgramme.png" />
+    <Content Include="src\media\decorationClick.png" />
+    <Content Include="src\media\diyLeft.png" />
+    <Content Include="src\media\diyLeftHover.png" />
+    <Content Include="src\media\diyMore.png" />
+    <Content Include="src\media\diyRight.png" />
+    <Content Include="src\media\diyRightHover.png" />
+    <Content Include="src\media\downLoad.png" />
+    <Content Include="src\media\download3D.png" />
+    <Content Include="src\media\duogongneng1.png" />
+    <Content Include="src\media\duogongneng2.png" />
+    <Content Include="src\media\duogongneng3.png" />
+    <Content Include="src\media\duogongneng4.png" />
+    <Content Include="src\media\duogongneng5.png" />
+    <Content Include="src\media\entrance.png" />
+    <Content Include="src\media\equipment.png" />
+    <Content Include="src\media\equipment1.mp4" />
+    <Content Include="src\media\equipment2.mp4" />
+    <Content Include="src\media\equipment3.mp4" />
+    <Content Include="src\media\equipment4.mp4" />
+    <Content Include="src\media\equipment5.mp4" />
+    <Content Include="src\media\equipment6.mp4" />
+    <Content Include="src\media\equipment7_1.jpg" />
+    <Content Include="src\media\equipment7_2.jpg" />
+    <Content Include="src\media\equipment7_3.jpg" />
+    <Content Include="src\media\equipment8.png" />
+    <Content Include="src\media\ertongfang1.jpg" />
+    <Content Include="src\media\ertongfang2.jpg" />
+    <Content Include="src\media\ertongfang3.jpg" />
+    <Content Include="src\media\ertongfang4.jpg" />
+    <Content Include="src\media\ertongfang5.jpg" />
+    <Content Include="src\media\ertongfang6.jpg" />
+    <Content Include="src\media\ertongfang7.jpg" />
+    <Content Include="src\media\ertongfang8.jpg" />
+    <Content Include="src\media\ertongfang9.jpg" />
+    <Content Include="src\media\form-bg.gif" />
+    <Content Include="src\media\FrontBg.jpg" />
+    <Content Include="src\media\guodao1.jpg" />
+    <Content Include="src\media\guodao2.jpg" />
+    <Content Include="src\media\guodao3.jpg" />
+    <Content Include="src\media\guodao4.jpg" />
+    <Content Include="src\media\headleft.png" />
+    <Content Include="src\media\headright.png" />
+    <Content Include="src\media\houseTypeChange_cannext.png" />
+    <Content Include="src\media\houseTypeChange_canprevious.png" />
+    <Content Include="src\media\houseTypeChange_next.png" />
+    <Content Include="src\media\houseTypeChange_previous.png" />
+    <Content Include="src\media\interest.png" />
+    <Content Include="src\media\invisible.png" />
+    <Content Include="src\media\is360.png" />
+    <Content Include="src\media\keting1.png" />
+    <Content Include="src\media\keting11.png" />
+    <Content Include="src\media\keting2.png" />
+    <Content Include="src\media\keting4.png" />
+    <Content Include="src\media\keting5.png" />
+    <Content Include="src\media\kitchen.png" />
+    <Content Include="src\media\laorenfang1.jpg" />
+    <Content Include="src\media\laorenfang2.jpg" />
+    <Content Include="src\media\laorenfang3.jpg" />
+    <Content Include="src\media\laorenfang4.jpg" />
+    <Content Include="src\media\laorenfang5.jpg" />
+    <Content Include="src\media\logo.png" />
+    <Content Include="src\media\material.png" />
+    <Content Include="src\media\mengting1.jpg" />
+    <Content Include="src\media\mengting10.jpg" />
+    <Content Include="src\media\mengting11.jpg" />
+    <Content Include="src\media\mengting16.jpg" />
+    <Content Include="src\media\mengting2.jpg" />
+    <Content Include="src\media\mengting3.jpg" />
+    <Content Include="src\media\mengting4.jpg" />
+    <Content Include="src\media\mengting5.jpg" />
+    <Content Include="src\media\mengting6.jpg" />
+    <Content Include="src\media\mengting8.jpg" />
+    <Content Include="src\media\mengting9.jpg" />
+    <Content Include="src\media\multifunctionSpace.png" />
+    <Content Include="src\media\oldmanroom.png" />
+    <Content Include="src\media\part4Detailed_man.png" />
+    <Content Include="src\media\passageway.png" />
+    <Content Include="src\media\pathTipLocation.png" />
+    <Content Include="src\media\printer.png" />
+    <Content Include="src\media\question_choose.png" />
+    <Content Include="src\media\question_nochoose.png" />
+    <Content Include="src\media\search.png" />
+    <Content Include="src\media\storeroom.png" />
+    <Content Include="src\media\toilet.png" />
+    <Content Include="src\media\vipMan.png" />
+    <Content Include="src\media\vipManHover.png" />
+    <Content Include="src\media\vipWoman.png" />
+    <Content Include="src\media\vipWomanHover.png" />
+    <Content Include="src\media\visible.png" />
+    <Content Include="src\media\weishengjian1.jpg" />
+    <Content Include="src\media\weishengjian10.jpg" />
+    <Content Include="src\media\weishengjian2.jpg" />
+    <Content Include="src\media\weishengjian3.jpg" />
+    <Content Include="src\media\weishengjian4.jpg" />
+    <Content Include="src\media\weishengjian5.jpg" />
+    <Content Include="src\media\weishengjian6.jpg" />
+    <Content Include="src\media\weishengjian7.jpg" />
+    <Content Include="src\media\weishengjian8.jpg" />
+    <Content Include="src\media\weishengjian9.jpg" />
+    <Content Include="src\media\white_wrong.png" />
+    <Content Include="src\media\xingqu1.jpg" />
+    <Content Include="src\media\xingqu10.jpg" />
+    <Content Include="src\media\xingqu11.png" />
+    <Content Include="src\media\xingqu12.jpg" />
+    <Content Include="src\media\xingqu2.jpg" />
+    <Content Include="src\media\xingqu3.jpg" />
+    <Content Include="src\media\xingqu4.png" />
+    <Content Include="src\media\xingqu5.jpg" />
+    <Content Include="src\media\xingqu6.png" />
+    <Content Include="src\media\xingqu7.jpg" />
+    <Content Include="src\media\xingqu8.png" />
+    <Content Include="src\media\xingqu9.png" />
+    <Content Include="src\media\zhuwo1.jpg" />
+    <Content Include="src\media\zhuwo2.jpg" />
+    <Content Include="src\media\zhuwo3.jpg" />
+    <Content Include="src\media\zhuwo4.jpg" />
+    <Content Include="src\media\zhuwo5.jpg" />
+    <Content Include="src\media\zhuwo6.jpg" />
+    <Content Include="src\media\zhuwo7.jpg" />
+    <Content Include="src\media\zhuwo8.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Decorates\DecorateDetails.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Shared\HeadFoot.cshtml" />
+    <Content Include="Views\Buildings\List.cshtml" />
+    <Content Include="Views\Buildings\BuildingDetails.cshtml" />
+    <Content Include="Views\Layouts\LayoutDetails.cshtml" />
+    <Content Include="Views\Function\Questionnaire.cshtml" />
+    <Content Include="Views\VIP\FuncList.cshtml" />
+    <Content Include="Views\VIP\FuncDetails.cshtml" />
+    <Content Include="Views\Styles\List.cshtml" />
+    <Content Include="Views\Styles\SecList.cshtml" />
+    <Content Include="Views\SpotPics\SpotShow.cshtml" />
+    <Content Include="Views\Styles\Style720Show.cshtml" />
+    <Content Include="Views\Styles\GuestDIY.cshtml" />
+    <Content Include="Views\VIP\DIYDetail.cshtml" />
+    <Content Include="Views\VIP\DIYList.cshtml" />
+    <Content Include="Views\Styles\ThirdList.cshtml" />
+    <Content Include="Views\Styles\StyleThird.cshtml" />
+    <Content Include="Views\SpaceCates\SpaceShow.cshtml" />
+    <Content Include="Views\FurnitureView\List.cshtml" />
+    <Content Include="Views\FurnitureView\Detail.cshtml" />
+    <Content Include="Views\FurnitureView\CoverList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Images\data\" />
+    <Folder Include="Images\thumbnail\201511\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2895</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2895/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

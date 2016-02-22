@@ -1,0 +1,111 @@
+﻿@model List<CityFamily.Models.T_MenuInfo>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "管理系统";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/uiTree/uiTree.css">
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/frame_main.css">
+    <script src="~/BackSet/src/other/uiTree/uiTree.js"></script>
+    <script src="~/BackSet/src/js/main.js"></script>
+}
+
+<div id="leftMenuArea">
+    <div id="menuTitleArea">
+        <span id="menuTitle">当前用户：@Session["admin"]</span>
+        <a id="logout" href="@Url.Action("Exit")">[退出]</a>
+    </div>
+    <div id="menuTreeArea">
+        <div id="menuTreeAreaInnerWrapper">
+            <div class="treeWrapper">
+
+                @{
+                    if (Model != null)
+                    {
+                        var itemlist = Model.Where(o => o.Cotyledons == 1 && o.ParentMenuID == o.MenuID).ToList();
+                        foreach (var item in itemlist)
+                        {
+                            <a class="treePackItem">@item.MenuName</a>
+                            <span class="treePack">
+                                @foreach (var zitem in Model.Where(o => o.ParentMenuID == item.MenuID && o.ParentMenuID != o.MenuID && o.Cotyledons == 1))
+                                {
+
+                                    <a class="treePackItem">@zitem.MenuName</a>
+                                    var zzitelist = Model.Where(o => o.ParentMenuID == zitem.MenuID && o.Cotyledons == 0);
+                                    if (zzitelist != null && zzitelist.Count() > 0)
+                                    {
+                                        <span class="treePack">
+                                            @foreach (var zzitem in zzitelist)
+                                            {
+                                                <a class="treeItem" link="@zzitem.MenuURL">@zzitem.MenuName</a>
+                                            }
+                                        </span>
+                                    }
+                                }
+
+                                @foreach (var zzitem in Model.Where(o => o.ParentMenuID == item.MenuID && o.ParentMenuID != o.MenuID && o.Cotyledons == 0))
+                                {
+                                    <a class="treeItem" link="@zzitem.MenuURL">@zzitem.MenuName</a>
+                                }
+
+                            </span>
+
+                        }
+                    }
+                }
+
+
+                @*<a class="treePackItem">找我家</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/Building/List">楼盘信息</a>
+                    </span>
+                    <a class="treePackItem">家具场景</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/Furniture/List">家具场景</a>
+                    </span>
+                    <a class="treePackItem">功能定位</a>
+                    <span class="treePack">
+                        <a class="treePackItem">空间分类管理</a>
+                        <span class="treePack">
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=1">门厅</a>
+                            <!--==========删除过道内容========-->
+                            <!--============END============-->
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=10">客厅</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=11">餐厅</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=3">主卧室</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=4">老人房</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=5">儿童房</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=6">厨房</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=7">卫生间</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=8">储物间</a>
+                            <a class="treeItem" link="/Admin/SpaceCate/Edit?category=9">多动能空间</a>
+                        </span>
+                    </span>
+                    <a class="treePackItem">风格定位</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/Style/List">风格定位</a>
+                    </span>
+                    <a class="treePackItem">VIP档案库</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/FuncLocation/List">调查问卷(功能定位)</a>
+                        <a class="treeItem" link="/Admin/StyleDetail/DIYList">DIY(风格定位)</a>
+                    </span>
+                    <a class="treePackItem">用户管理</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/User/List">用户信息管理</a>
+                    </span>
+                    <a class="treePackItem">管理员设置</a>
+                    <span class="treePack">
+                        <a class="treeItem" link="/Admin/Config/Edit">管理员密码修改</a>
+                    </span>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div id="openedMenuItemsArea">
+    <div id="openedMenuItemsAreaInnerWrapper"></div>
+</div>
+<div id="contentArea">
+    <div id="contentAreaInnerWrapper"></div>
+</div>

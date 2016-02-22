@@ -1,0 +1,54 @@
+﻿@model CityFamily.Models.SpaceCate
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "空间分类管理";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/address.css">
+    <script type="text/javascript" src='~/BackSet/src/js/address.js'></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<form action="/Admin/SpaceCate/SaveEdit" id="form1" method="post">
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            空间分类管理
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />  
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")"/>    
+        <input type="hidden" name="Category" value="@ViewBag.Category"/>  
+        <div class="contentUnit" id="DecoratePic">
+            <div class="title">空间分类显示网址</div>
+            <div class="content">
+                <input id="headlinePic" type="text" name="SpacePics" class="inputText" value='@(ViewBag.IsCreate ? Model.SpacePics : "")' />
+            </div>
+            <div class="tip">请参照 http://www.baidu.com  样式填写</div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" onclick="doCheck()" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titlePic = checkFunc("headlinePic");
+
+        if (titlePic) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认信息完整后提交！");
+    }
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>
+
+

@@ -1,0 +1,179 @@
+﻿@model CityFamily.Models.Decorate
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "装修方案编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+    <a class="pathTipItem" href="/Admin/Building/List?searchStr=@ViewBag.BuildName">@ViewBag.BuildName</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId">包含户型列表</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId?searchStr=@ViewBag.LayName">@ViewBag.LayName</a>
+    <a class="pathTipItem" href="/Admin/Decorate/List/@ViewBag.LayId">包含装修方案列表</a>
+    <a class="pathTipItem">@(ViewBag.IsCreate ? "装修方案管理" : "添加装修方案")</a>
+</div>
+
+<form action="/Admin/Decorate/SavEdit" id="form1" method="post">
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "装修方案管理" : "添加装修方案")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="LayoutId" value="@Model.LayoutId" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate ? "true" : "false")" />
+        <div class="contentUnit">
+            <div class="title">选择装修方案类型</div>
+            <div class="content">
+                <div class="inputListSelect">
+                    <div class="inputListSelectListWrapper">
+                        <label class="inputListSelectItem">
+                            <input class="inputListSelectItemInput" type="radio" name="123" onchange="showDiv('DecoratePic')" @(Model.Decorate360 == null ? "checked" : "") @(ViewBag.IsCreate ? "disabled" : "") />
+                            <div class="inputListSelectItemContent">图片展示</div>
+                        </label>
+                        <label class="inputListSelectItem">
+                            <input class="inputListSelectItemInput" type="radio" name="123" onchange="showDiv('Decorate360')" @(Model.Decorate360 == null ? "" : "checked") @(ViewBag.IsCreate ? "disabled" : "") />
+                            <div class="inputListSelectItemContent">360展示</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">装修方案封面</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="DecorateIndex" value='@(ViewBag.IsCreate?Model.DecorateIndex:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">建议上传图片尺寸：130*88</div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.DecorateIndex" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit" id="DecoratePic" @(Model.Decorate360 == null ? "" : "style=" + "display:none;")>
+            <div class="title">装修方案</div>
+            <div class="content">
+                <input type="hidden" id="headlinePic" name="DecoratePics" value=''>
+                <div style="position:relative;height: 32px;" id="upload_headlinePic"></div>
+                <script src="~/BackSet/src/js/simple-uploader-NEdit.js"></script>
+            </div>
+            <div class="tip">建议上传图片尺寸：572*378</div>
+        </div>
+        <div class="contentUnit " id='imgUnit' @(Model.Decorate360 == null ? "" : "style=" + "display:none;")>
+            @if (ViewBag.IsCreate)
+            {
+                if (Model.DecoratePics != null)
+                {
+                    string[] pics = Model.DecoratePics.Substring(0, Model.DecoratePics.Length - 1).Split(' ');
+
+                    foreach (var pic in pics)
+                    {
+                        <div class='imgContainer'>
+                            <img src="@pic" class='image'>
+                            <div class='deleteImg'></div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <div class="contentUnit" id="Decorate360" @(Model.Decorate360 == null ? "style=" + "display:none;" : "")>
+            <div class="title">360展示网址</div>
+            <div class="content">
+                <input id="input360" type="text" name="Decorate360" class="inputText" value='@(ViewBag.IsCreate?Model.Decorate360:"")' />
+            </div>
+            <div class="tip">请参照 http://www.baidu.com  样式填写</div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Decorate/List/@Model.LayoutId' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck()" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    function showDiv(divId) {
+        if (divId == "DecoratePic") {
+            document.getElementById("DecoratePic").style.display = "";
+            document.getElementById("imgUnit").style.display = "";
+            document.getElementById("Decorate360").style.display = "none";
+        }
+        else {
+            document.getElementById("DecoratePic").style.display = "none";
+            document.getElementById("imgUnit").style.display = "none";
+            document.getElementById("Decorate360").style.display = "";
+        }
+    }
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titlePic = checkFunc("headlinePic");
+        titlePicH = checkFunc("headlinePicIndex");
+        title360 = checkFunc("input360");
+
+        if (titlePicH && (titlePic || title360)) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认装修方案信息完整后提交！");
+    }
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CityFamily.Models.Layout>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "户型信息列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+    <a class="pathTipItem" href="/Admin/Building/List?searchStr=@ViewBag.BuildName">@ViewBag.BuildName</a>
+    <a class="pathTipItem" @(string.IsNullOrEmpty(ViewBag.searchStr) ? "" : "href=/Admin/Layout/List/" + ViewBag.BuildId)>包含户型列表</a>
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.searchStr))
+        {
+            <a class="pathTipItem">@ViewBag.searchStr</a>
+        }
+    }
+</div>
+<div class="inputSet">
+    @{
+        int buildId = ViewBag.BuildId;
+        <a class="inputButton" href='/Admin/Layout/Create/@buildId' lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加户型信息</a>
+        <div class="splitter"></div>
+        <form action="/Admin/Layout/List/@buildId" id="form1">
+            <input type="text" name="searchStr" class="inputText" placeholder="ID、户型名称" />
+            <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style=" background-image:url(/BackSet/src/media/icon_search.png)">搜索</a>
+        </form>
+    }
+</div>
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="30">ID</td>
+                <td>户型名称</td>
+                <td width="200">户型图</td>
+                <td width="80">最近修改时间</td>
+                <td width="80">编辑户型信息</td>
+                <td width="80">装修方案图集</td>
+                <td width="80">现场照片图集</td>
+                <td width="30">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.LayoutName</td>
+                            <td> <img src="@item.LayoutPic" style="width:150px;" /></td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/Layout/Edit/@item.Id"></a></td>
+                            <td><a class="detail" href="/Admin/Decorate/List/@item.Id"></a></td>
+                            <td><a class="detail" href="/Admin/SpotPic/List/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id,returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<form id="form_pageindex" action="/Admin/Layout/List/@ViewBag.BuildId" method="get">
+    <div class="inputSet">
+        <input type="hidden" name="searchStr" value="@ViewBag.searchStr" class="inputText">
+        <a href="@ViewBag.firstPage" class="inputButton">首页</a>
+        <a href="@ViewBag.perPage" class="inputButton"> &lt; 上一页</a>
+        <div class="splitter"></div>
+        <input type="text" class="inputText" name="pageIndex" style="width:40px;" value="@ViewBag.pageX" />
+        <span style="position:relative; float:left; line-height:16px; padding:8px; margin-right:8px;">/@ViewBag.pageCount</span>
+        <a onclick="document.getElementById('form_pageindex').submit()" class="inputButton">转至</a>
+        <div class="splitter"></div>
+        <a href="@ViewBag.nextPage" class="inputButton">下一页 &gt;</a>
+        <a href="@ViewBag.lastPage" class="inputButton">末页</a>
+    </div>
+</form>

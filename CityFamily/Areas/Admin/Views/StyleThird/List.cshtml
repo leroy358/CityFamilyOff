@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CityFamily.Models.StyleThird>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "子风格列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Style/List">一级风格列表</a>
+    <a class="pathTipItem" href="/Admin/Style/List?searchStr=@ViewBag.Stylename">@ViewBag.Stylename</a>
+    <a class="pathTipItem" href="/Admin/StyleDetail/List/@ViewBag.StyleId">包含子风格列表</a>
+    <a class="pathTipItem" href="/Admin/StyleDetail/List/@ViewBag.StyleId?searchStr=@ViewBag.StyleDetailName">@ViewBag.StyleDetailName</a>
+    <a class="pathTipItem">包含风格列表</a>
+</div>
+<div class="inputSet">
+    @{
+        int styleDetailId = ViewBag.StyleDetailId;
+        <a class="inputButton" href='/Admin/StyleThird/Create/@styleDetailId' lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加风格信息</a>
+    }
+</div>
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="100">ID</td>
+                <td width="100">风格名称</td>
+                <td>风格封面图</td>
+                <td width="120">最近修改时间</td>
+                <td width="100">编辑风格</td>
+                <td width="100">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.StyleThirdName</td>
+                            <td> <img src="@item.StyleThirdIndex" style="width:150px;" /></td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/StyleThird/Edit/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id, returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

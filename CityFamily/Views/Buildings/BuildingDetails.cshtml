@@ -1,0 +1,102 @@
+﻿@model CityFamily.Models.BuildingLayoutView
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/src/js/myhome_part2.js"></script>
+    <script type="text/javascript" src='/src/js/simple.tweener.min.js'></script>
+}
+
+@section Content{
+    <div class='menu'>
+        @{
+            if (Session["RoleId"] != null && Session["RoleId"].ToString() == "5")
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+            }
+            else
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem ' href="/FurnitureView/CoverList">家具场景</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Styles/List'>风格定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+            }
+
+        }
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer '>
+            <div id='part1_contentContainer2'>
+                <div class="pathTip">
+                    <a class="pathTipItem" href='/Buildings/List'>找我家</a>
+                    <div class="pathTipItem">@Model.building.BuildingName</div>
+                </div>
+                <div id='part1_contentContainer2_content1'>
+                    <div id='part1_contentContainer2_content1_left'>
+                        <div id='part1_contentContainer2_content1_left_pic'>
+                            @{
+                                string[] pics = Model.building.BuildingPics.Substring(0, Model.building.BuildingPics.Length - 1).Split(' ');
+                                <img class="images" src="@pics[0]" current>
+                                foreach (var pic in pics.Skip(1))
+                                {
+                                    <img class="images" src="@pic" />
+                                }
+                            }
+                        </div>
+                        <div id="bannerContainer">
+                            <div id="bannerDots"></div>
+                        </div>
+                    </div>
+                    <div id='part1_contentContainer2_content1_right'>
+                        <div id='buildingInfomation_name'>@Model.building.BuildingName</div>
+                        <div id='buildingInfomation_situation' class='buildingInfomation_text'>楼盘概况：<span>@Model.building.BuildingIntro</span></div>
+                        <div id='buildingInfomation_address' class='buildingInfomation_text'>楼盘地址：<span>@Model.building.BuildingAD</span></div>
+                        <!--=========改成周边设施===========-->
+                        <div id='buildingInfomation_type' class='buildingInfomation_text'>周边设施：<span id='lookFacility'>点击查看周边设施</span></div>
+                        <!--==========END===-->
+                        <!--=============把楼盘定位改成地图定位==================-->
+                        @*<div id='buildingInfomation_type' class='buildingInfomation_text'>地图定位：<span>点击查看周边设施</span></div>*@
+                        @*<div id='buildingInfomation_type' class='buildingInfomation_text'>楼盘类别：<span><a href="@Model.building.BuildingCate" target="_blank">@Model.building.BuildingCate</a></span></div>*@
+                        <!--==================END==============================-->
+                        <!--=====================2015-9-6 删除项目特色选项===================================-->
+                        @*<div id='buildingInfomation_character' class='buildingInfomation_text'>项目特色：<span>特色别墅 创意地产</span></div>*@
+                        <!--==============================2015-9-6  END=====================================-->
+
+                        <div id='buildingInfomation_decorate' class='buildingInfomation_text'>装修状况：<span>@Model.building.BuildingDecorate</span></div>
+                    </div>
+                </div>
+                <div id='part1_contentContainer2_content2'>
+                    <div id='houseTypeChange_previous' class='houseTypeChange'></div>
+                    <div id='houseTypeChange_next' class='houseTypeChange' cannext></div>
+                    <div id='houseTypeContainer_out'>
+                        <div id='houseTypeContainer_in'>
+                            @foreach (CityFamily.Models.Layout layout in Model.layouts.OrderByDescending(item => item.Id))
+                            {
+                                string pic = layout.LayoutPic;
+                                string name = layout.LayoutName;
+                                int id = layout.Id;
+                                <a href='/Layouts/LayoutDetails/@id' class='houseType_all'>
+                                    <img class='houseType_img' src='@pic'>
+                                    <div class='houseTypeName'>@name</div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='facility' class='pageOut'>
+        <img id='facilityPic' src="@Model.building.BuildingCate">
+        <div id='closeFacilityPic'></div>
+    </div>
+}

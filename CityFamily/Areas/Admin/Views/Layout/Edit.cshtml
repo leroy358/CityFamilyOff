@@ -1,0 +1,200 @@
+﻿@model CityFamily.Models.Layout
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "户型信息编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+    <a class="pathTipItem" href="/Admin/Building/List?searchStr=@ViewBag.BuildName">@ViewBag.BuildName</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@Model.BuildingId">包含户型列表</a>
+    @{
+        if (ViewBag.IsCreate)
+        {
+            <a class="pathTipItem" href="/Admin/Layout/List/@Model.BuildingId?searchStr=@Model.LayoutName">@Model.LayoutName</a>
+            <a class="pathTipItem">户型信息管理</a>
+        }
+        else
+        {
+            <a class="pathTipItem">添加户型信息</a>
+        }
+    }
+</div>
+<form action="/Admin/Layout/SavEdit" id="form1" method="post">
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "户型信息管理" : "添加户型信息")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="BuildingId" value="@Model.BuildingId" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <div class="contentUnit">
+            <div class="title">户型图</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="LayoutPic" value='@(ViewBag.IsCreate?Model.LayoutPic:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">建议上传图片尺寸：572*378</div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.LayoutPic" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">户型名称</div>
+            <div class="content">
+                <input id="inputName" type="text" name="LayoutName" class="inputText" value='@(ViewBag.IsCreate?Model.LayoutName:"")' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">户型优势</div>
+            <div class="content">
+                <textarea id="inputAdv" name="Advantage" class="inputText" style="height:100px;">@(ViewBag.IsCreate ? Model.Advantage : "")</textarea>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">户型痛点</div>
+            <div class="content">
+                <textarea id="inputDis" name="Disadvantage" class="inputText" style="height:100px;">@(ViewBag.IsCreate ? Model.Disadvantage : "")</textarea>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">CAD文件</div>
+            <div class="content">
+                <input type="hidden" id="headlineFile" name="CadFile" value='@(ViewBag.IsCreate?Model.CadFile:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlineFile"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlineFile"),
+                        url: "/Upload/CADFiles",//上传地址
+                        valueBindTo: document.getElementById("headlineFile"),
+                        limit: {
+                            fileFormat: "zip|rar|dwg"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传CAD文件",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: true,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 1024000
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">请上传 .zip、 .rar 格式的文件</div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Layout/List/@Model.BuildingId' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck()" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titleNa = checkFunc("inputName");
+        //titlePic = checkFunc("headlinePic");
+        titlePicH = checkFunc("headlinePicIndex");
+        titleFile = checkFunc("headlineFile");
+        titleAdv = checkFunc("inputAdv");
+        titleDis = checkFunc("inputDis");
+
+        if (titleNa && titlePicH && titleAdv && titleDis && titleFile) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认户型信息完整后提交！");
+    }
+
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

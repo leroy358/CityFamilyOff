@@ -1,0 +1,85 @@
+﻿@model CityFamily.Models.Admins
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "用户编辑";
+}
+
+<form action="/Admin/User/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/User/List">用户列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/User/List?searchStr=@Model.AdminName">@Model.AdminName</a>
+                <a class="pathTipItem">修改密码</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加用户</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")"/>
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")"/>
+        <input type="hidden" name="ReturnURL" value="@Request.Url.ToString()"/>
+
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <div class="contentGroupTitle">
+                    修改密码
+                </div>
+                <div class="contentUnit">
+                    <div class="title">用户名</div>
+                    <div class="content">
+                        <input type="text" name="UserName" class="inputText" value='@(ViewBag.IsCreate?Model.AdminName:"")' readonly />
+                    </div>
+                    <div class="tip">用户名无法编辑更改</div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">原始密码</div>
+                    <div class="content">
+                        <input type="password" name="Password" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">新密码</div>
+                    <div class="content">
+                        <input type="password" name="newPassword" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">确认新密码</div>
+                    <div class="content">
+                        <input type="password" name="confirmPassword" class="inputText" value='' />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="contentGroupTitle">
+                    添加用户
+                </div>
+                <div class="contentUnit">
+                    <div class="title">用户名</div>
+                    <div class="content">
+                        <input type="text" name="UserName" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">密码</div>
+                    <div class="content">
+                        <input type="password" name="Password" class="inputText" value='@(ViewBag.IsCreate?Model.AdminName:"")' />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/User/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>

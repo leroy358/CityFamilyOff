@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CityFamily.Models.DIYResult>
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src='/src/js/vip_partDiy.js'></script>
+}
+
+@section Content{
+    <script type="text/javascript">
+        var closeUrlDiy = '/VIP/DeleteDIY';
+    </script>
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Styles/List' class='menuItem '>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div class='part4_Container'>
+                <div id='part4_contentContainer1'>
+                    <div class='part3_itemContainer'>
+                        <a href="/VIP/FuncList" class="part3_item">服务客户</a>
+                        <a class="part3_item" part3_current>量房客户</a>
+                        <a class="part3_item" href="/VIP/FuncList">签单客户</a>
+                    </div>
+                    <div class='part3_titleLine'></div>
+                </div>
+                <div class='part4_contentContainer2 pageIn'>
+                    <!-- DIY（风格定位） -->                    
+                        @{
+                            foreach(var item in Model)
+                            {
+                                <div class='part4_vipContainer' @(item.GuestName.Contains("先生") ? "man" : "woman") id='@item.Id'>
+                                    <div class='vipClose'></div>
+                                    <a href='/VIP/DIYDetail/@item.Id' class='part4_vipBackground'></a>
+                                    <div class='vipInfoContainer'>
+                                        <div class='vipInfo'>姓名：<span>@item.GuestName</span></div>
+                                        <div class='vipInfo'>备注：<span>@item.Remark</span></div>
+                                        <div class='vipInfo'>类别：<span>@item.Style</span></div>
+                                        <div class='vipInfo'>子类：<span>@item.StyleDetail</span></div>
+                                    </div>
+                                </div>
+                            }
+                        }                    
+                </div>
+            </div>
+        </div>
+    </div>
+}

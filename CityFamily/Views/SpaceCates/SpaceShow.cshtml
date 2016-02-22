@@ -1,0 +1,48 @@
+﻿@model CityFamily.Models.SpaceCate
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城市人家</title>
+    <link rel="stylesheet" type="text/css" href="/src/css/function_iframe.css">
+    <script type="text/javascript" src='/src/js/function_iframe.js'></script>
+    <script type="text/javascript" src='/src/js/simple.preloader.js'></script>
+</head>
+<body>
+    <div id='loading' class='pageIn'>
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    </div>
+    <div id='functionIframeContainer' class='pageOut'>
+        @{
+            if (Model.SpacePics != null)
+            {
+                string[] pics = Model.SpacePics.Substring(0, Model.SpacePics.Length - 1).Split(' ');
+                foreach (var pic in pics)
+                {                
+                    <img class="images" src="@pic">
+                }
+            }
+            
+        }
+    </div>
+</body>
+</html>

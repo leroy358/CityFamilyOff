@@ -1,0 +1,295 @@
+﻿@model CityFamily.Models.Building
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "楼盘信息编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/address.css">
+    <script type="text/javascript" src='~/BackSet/src/js/address.js'></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<form action="/Admin/Building/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/Building/List?searchStr=@Model.BuildingName">@Model.BuildingName</a>
+                <a class="pathTipItem">楼盘信息管理</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加楼盘信息</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "楼盘信息管理" : "添加楼盘信息")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <div class="contentUnit">
+            <div class="title">楼盘名称</div>
+            <div class="content">
+                <input id="inputName" type="text" name="BuildingName" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingName:"")' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">楼盘所在地区</div>
+            <div class="content" style='width:400px;'>
+                <div style='position: relative;height: 32px;'>
+                    <select class="select chooseTeam" name="Province" id="s1">
+                        <option></option>
+                    </select>
+                    <select class="select chooseTeam" name="City" id="s2">
+                        <option></option>
+                    </select>
+                    <select class="select chooseTeam" name="District" id="s3">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <script>
+                var PROVINCE = '@Model.Province';//默认省
+                var CITY = '@Model.City';//默认市
+                var TOWN = '@Model.District';//默认区
+                setup();
+                preselect(PROVINCE, TOWN);
+            </script>
+        </div>
+        <div class="contentUnit">
+            <div class="title">首页楼盘图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="BuildingIndex" value='@(ViewBag.IsCreate?Model.BuildingIndex:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">建议上传图片尺寸：250*184</div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.BuildingIndex" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">次页楼盘图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePic" name="BuildingPics" value=''>
+                <div style="position:relative;height: 32px;" id="upload_headlinePic"></div>
+                <script src="~/BackSet/src/js/simple-uploader-NEdit.js"></script>
+            </div>
+            <div class="tip">建议上传图片尺寸：353*260</div>
+        </div>
+        <div class="contentUnit " id='imgUnit'>
+            @if (ViewBag.IsCreate)
+            {
+                string[] pics = Model.BuildingPics.Substring(0, Model.BuildingPics.Length - 1).Split(' ');
+
+                foreach (var pic in pics)
+                {
+                    <div class='imgContainer'>
+                        <img src="@pic" class='image'>
+                        <div class='deleteImg'></div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="contentUnit">
+            <div class="title">楼盘概况</div>
+            <div class="content">
+                <input id="inputIntro" type="text" name="BuildingIntro" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingIntro:"")' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">楼盘地址</div>
+            <div class="content">
+                <textarea id="inputAD" name="BuildingAD" class="inputText">@(ViewBag.IsCreate ? Model.BuildingAD : "")</textarea>
+            </div>
+        </div> 
+        
+        <!--=================把地图定位改为周边设施====================-->
+        <div class="contentUnit">
+            <div class="title">周边设施图片</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicCate" name="BuildingCate" value='@(ViewBag.IsCreate?Model.BuildingCate:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicCate"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicCate"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicCate"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicCate.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">建议上传图片尺寸：650*520</div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicCate"><img src="@Model.BuildingCate" style="width:300px;" /></div>
+        </div>
+        <!--=============End=======================-->
+
+        @*<!--==========把楼盘类别改为地图定位==================-->
+        <div class="contentUnit">
+            <div class="title">地图定位</div>
+            <div class="content">
+                <input id="inputCate" type="text" name="BuildingCate" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingCate:"")' />
+            </div>
+        </div>
+
+        @*<div class="contentUnit">
+            <div class="title">楼盘类别</div>
+            <div class="content">
+                <input id="inputCate" type="text" name="BuildingCate" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingCate:"")' />
+            </div>
+        </div>
+        <!--===================END====================-->*@
+
+
+        <!--=============================================2015-9-6  删除项目特色选项==================================-->
+        @*<div class="contentUnit">
+            <div class="title">楼盘特色</div>
+            <div class="content">
+                <input id="inputFeature" type="text" name="BuildingFeature" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingFeature:"")' />
+            </div>
+        </div>*@
+        <!--==========================================2015-9-6  END=====================================-->
+
+        <div class="contentUnit">
+            <div class="title">装修情况</div>
+            <div class="content">
+                <input id="inputDecorate" type="text" name="BuildingDecorate" class="inputText" value='@(ViewBag.IsCreate?Model.BuildingDecorate:"")' />
+            </div>
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Building/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titleNa = checkFunc("inputName");
+        titleS1 = checkFunc("s1");
+        titleS2 = checkFunc("s2");
+        titleS3 = checkFunc("s3");
+        titlePic = checkFunc("headlinePic");
+        titlePicH = checkFunc("headlinePicIndex");
+        titleIn = checkFunc("inputIntro");
+        titleAd = checkFunc("inputAD");
+        titleCa = checkFunc("headlinePicCate");
+        //titleFe = checkFunc("inputFeature");
+        titleDe = checkFunc("inputDecorate");
+
+        if (titleNa && titleS1 && titleS2 && titleS3 && titlePic && titlePicH && titleIn && titleAd && titleCa && titleDe) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认楼盘信息完整后提交！");
+    }
+
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

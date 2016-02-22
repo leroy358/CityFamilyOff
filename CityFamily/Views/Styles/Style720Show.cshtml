@@ -1,0 +1,57 @@
+﻿@model CityFamily.Models.StyleThird
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+
+    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/VIP/FuncList' class='menuItem'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer3'>
+                <div class="pathTip">
+                    <a href='/Styles/List' class="pathTipItem">城市人家八大设计风格体系</a>
+                    @*<!--===========判断是否要显示二级导航===========-->
+                    @if (ViewBag.StyleId != 3 && ViewBag.StyleId != 6 && ViewBag.StyleId != 8)
+                    {
+                        <a href="/Styles/SecList/@ViewBag.StyleId" class="pathTipItem">@ViewBag.StyleName</a>
+                    }                    
+                    <!--======================END========-->*@
+                    <a href='/Styles/SecList/@ViewBag.StyleId' class="pathTipItem">@ViewBag.StyleName</a>
+                    <a href='/Styles/ThirdList/@Model.StyleDetailId' class="pathTipItem">@ViewBag.StyleDetailName</a>
+                    <a href='/Styles/StyleThird/@Model.Id' class="pathTipItem">@Model.StyleThirdName</a>
+                    <a class="pathTipItem">720全景展示</a>
+                </div>
+                <div id='part2_contentContainer2_content2' class='pics_content1 pageIn'>
+                    <div id='picsContainer'>
+                        @*<div class="iframe_720" id="mgdiv" style="text-align: center; margin: 0px auto; background-color: #F0F0F0; ">
+                            <div style="margin: 0 auto; position: absolute; top: 30%; left: 40%; ">
+                                <input type="button" value="" style="border:none; cursor:pointer; width: 128px; height:128px; background-image:url(/fonts/5.png) " onclick="$('#mgdiv').hide(); $('#mgiframe').show(); $('#fenggeEnter_diy').show();" />
+                                <br />
+                                <span style="font-family:YouYuan; font-size:25px;">点击播放</span>
+                            </div>
+                        </div>*@
+                        <iframe class='iframe_720' src="@Model.StyleThird720" id="mgiframe" style=""></iframe>
+                    </div>
+                    <a href='/Styles/GuestDIY/@Model.Id' class='fengge_enter' id='fenggeEnter_diy' style='width:100px;  display:none;'>进入DIY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

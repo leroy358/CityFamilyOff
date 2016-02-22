@@ -1,0 +1,63 @@
+﻿@model CityFamily.Models.StyleThird
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src='/src/js/style_part3.js'></script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/VIP/FuncList' class='menuItem'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer3'>
+                <div class="pathTip">
+                    <a href='/Styles/List' class="pathTipItem">城市人家八大设计风格体系</a>
+                    @*<!--===========判断是否要显示二级导航===========-->
+                    @if (ViewBag.StyleId != 3 && ViewBag.StyleId != 6 && ViewBag.StyleId != 8)
+                    {
+                        <a href="/Styles/SecList/@ViewBag.StyleId" class="pathTipItem">@ViewBag.StyleName</a>
+                    }
+                   
+                    <!--======================END========-->*@ 
+                    <a href='/Styles/SecList/@ViewBag.StyleId' class="pathTipItem">@ViewBag.StyleName</a>
+                    <a href='/Styles/ThirdList/@Model.StyleDetailId' class="pathTipItem">@ViewBag.StyleDetailName</a>
+                    <div class="pathTipItem">@Model.StyleThirdName</div>
+                </div>
+                <div id='part2_contentContainer2_content2' class='pics_content1 pageIn'>
+                    <div id='picsContainer'>
+                        @{
+                            string[] pics = Model.StyleThirdPics.Substring(0, Model.StyleThirdPics.Length - 1).Split(' ');
+
+                            <div class='pics pageIn' style='background-image:url(@pics[0])'></div>
+                            if (pics.Length > 1)
+                            {
+                                foreach (var pic in pics.Skip(1))
+                                {
+                                    <div class='pics pageOut' style='background-image:url(@pic)'></div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div id='houseTypeChange_previous_fengge' class='houseTypeChange'></div>
+                    <div id='houseTypeChange_next_fengge' class='houseTypeChange'></div>
+                    <a href='/Styles/Style720Show/@Model.Id' class='fengge_enter' id='fenggeEnter_720'>进入720</a>
+                    <a href='/Styles/GuestDIY/@Model.Id' class='fengge_enter' id='fenggeEnter_diy'>进入DIY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

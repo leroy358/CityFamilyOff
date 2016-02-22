@@ -1,0 +1,69 @@
+﻿@model List<CityFamily.Models.FurnitureStyle>
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+
+    ViewBag.Title = "家具场景";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/subPage.css">
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/uiTree/uiInput.css">
+    <script type="text/javascript" src="/BackSet/src/js/address.js"></script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a class='menuItem' href="/Buildings/List">找我家</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href="/FurnitureView/CoverList">家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer1'>
+                <div class="pathTip">
+                    @*<div class="pathTipItem">城市人家八大设计风格体系</div>*@
+                </div>
+                <div id='part2_contentContainer1_content1' class='pics_content1'>
+                    @foreach (var item in Model)
+                    {
+                        <span>
+                            <a href='/FurnitureView/Detail/@item.Id' class='styleContainer' style='background-image:url(@item.IndexPic)'>
+                                @*<div class='styleContainerBottom'>
+                                    <div class='styleBottomMore'></div>
+                                </div>*@
+                                <div class="styleHoverContainer">
+                                    <div class="styleView"></div>
+                                    <div class="styleViewName">查看详情</div>
+                                </div>
+                            </a>
+                        </span>
+                    }
+                </div>
+                <form id="form_pageindex" action="/FurnitureView/List" method="get">
+                    <div class="inputSet" style="background:none;">
+                        <input type="hidden" name="searchStr" value="@ViewBag.searchStr" class="inputText">
+                        <!--==========================================================================-->
+                        <input type="hidden" name="StyleId" value='@Request.QueryString["StyleId"]' />
+                        <!--==========================================================================-->
+                        <a href="@ViewBag.firstPage" class="inputButton" style="background-color: #646464; color:white;">首页</a>
+                        <a href="@ViewBag.perPage" class="inputButton" style="background-color: #646464; color:white;"> &lt; 上一页</a>
+                        <div class="splitter"></div>
+                        <input type="text" class="inputText" name="pageIndex" style="width:40px;" value="@ViewBag.pageX" />
+                        <span style="position:relative; float:left; line-height:16px; padding:8px; margin-right:8px;">/@ViewBag.pageCount</span>
+                        <a onclick="document.getElementById('form_pageindex').submit()" class="inputButton" style="background-color: #646464; color:white;">转至</a>
+                        <div class="splitter"></div>
+                        <a href="@ViewBag.nextPage" class="inputButton" style="background-color: #646464; color:white;">下一页 &gt;</a>
+                        <a href="@ViewBag.lastPage" class="inputButton" style="background-color: #646464; color:white;">末页</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+}

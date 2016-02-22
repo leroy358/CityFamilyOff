@@ -1,0 +1,107 @@
+﻿@model IEnumerable<CityFamily.Models.Building>
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/BackSet/src/js/address.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/subPage.css">
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/uiTree/uiInput.css">
+}
+
+@section Content{
+    <div class='menu'>
+        @{
+            if (Session["RoleId"] != null && Session["RoleId"].ToString() == "5")
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+            }
+            else
+            {
+                <a href='/Buildings/List' class='menuItem choosed'>找我家</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem ' href="/FurnitureView/CoverList">家具场景</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Styles/List'>风格定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+                <div class='menuDivideLine'></div>
+                <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+            }
+
+        }
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer '>
+            <div id='part1_contentContainer1'>
+                <div id='part1_contentContainer1_content1'>
+                    <span class='backstage'>
+                        <form action="/Buildings/List" method="get" id='formSubmit'>
+                            <div id='form'>
+                                <select class="select" name="province" id="s1">
+                                    <option></option>
+                                </select>
+                                <select class="select" name="city" id="s2">
+                                    <option></option>
+                                </select>
+                                <select class="select" name="town" id="s3">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div id='searchkeyWords'>
+                                <input id='keywords' placeholder='输入搜索关键词' name='searchStr'>
+                                <a id='searchImg' onclick="document.getElementById('formSubmit').submit();"></a>
+                            </div>
+                        </form>
+                    </span>
+                </div>
+                <div id='part1_contentContainer1_content2' class='pics_content1'>
+                    @foreach (var item in Model)
+                    {
+                        <a href='/Buildings/BuildingDetails/@item.Id' class='bulidingContainer' style='background-image:url(@item.BuildingIndex)'>
+                            <div class='buildingContainerBottom'>
+                                <div class='buildingBottomMore'></div>
+                                <div class='buildingName'>@item.BuildingName</div>
+                            </div>
+                            <div class='buildingHoverContainer'>
+                                <div class='buildingView'></div>
+                                <div class='buildingViewName'>@item.BuildingName</div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+            <!--=========================================================================================================-->
+            <form id="form_pageindex" action="/Buildings/List" method="get">
+                <div class="inputSet" style="background:none;">
+                    <input type="hidden" name="privince" value='@Request.QueryString["province"]' class="inputText">
+                    <input type="hidden" name="city"value='@Request.QueryString["city"]' class="inputText">
+                    <input type="hidden" name="town" value='@Request.QueryString["town"]' class="inputText">
+                    <input type="hidden" name="searchStr"value='@Request.QueryString["searchStr"]' class="inputText">
+                    <a href="@ViewBag.firstPage" class="inputButton" style="background-color: #646464; color:white;">首页</a>
+                    <a href="@ViewBag.perPage" class="inputButton" style="background-color: #646464; color:white;"> &lt; 上一页</a>
+                    <div class="splitter"></div>
+                    <input type="text" class="inputText" name="pageIndex" style="width:40px;" value="@ViewBag.pageX" />
+                    <span style="position:relative; float:left; line-height:16px; padding:8px; margin-right:8px;">/@ViewBag.pageCount</span>
+                    <a onclick="document.getElementById('form_pageindex').submit()" class="inputButton" style="background-color: #646464; color:white;">转至</a>
+                    <div class="splitter"></div>
+                    <a href="@ViewBag.nextPage" class="inputButton" style="background-color: #646464; color:white;">下一页 &gt;</a>
+                    <a href="@ViewBag.lastPage" class="inputButton" style="background-color: #646464; color:white;">末页</a>
+                </div>
+            </form>
+            <!--=========================================================================================================-->
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var PROVINCE = ''; //默认省
+        var CITY = ''; //默认市
+        var TOWN = ''; //默认区
+        setup();
+        preselect(PROVINCE, TOWN);
+        // promptinfo();
+    </script>
+}

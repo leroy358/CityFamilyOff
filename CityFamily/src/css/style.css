@@ -1,0 +1,178 @@
+body{
+	width: 572px;
+	overflow: hidden;
+	border: none;
+	margin: 0;
+	padding: 0;
+	}
+#part1_contentContainer3_content1_left_topPics{
+	position: relative;
+	width: 572px;
+	height: 378px;
+}
+.part1_contentContainer3_content1_left_topDecoration{
+	position: absolute;
+	width: 572px;
+	height: 378px;
+	left: 0;
+	top: 0;
+}
+#changeDecorationPageContainer{
+	position: relative;
+	margin-top: 14px;
+	margin-bottom: 30px;
+	overflow: auto;
+	padding:  0 12px;
+	box-sizing:border-box;
+	width: 572px;
+}
+.changeDecorationPage{
+	position: relative;
+	float: left;
+	width: 30px;
+	height: 30px;
+	background: #efefef;
+	box-shadow: rgba(255,255,255,0.55) 0 0 2px inset,rgba(0,0,0,0.25) 1px 1px 2px;
+	margin: 2px;
+	border-radius: 4px;
+	background: -webkit-linear-gradient(left top,rgba(242,242,242,1),rgba(223,223,223,1));
+background: -moz-linear-gradient( left top,rgba(242,242,242,1),rgba(223,223,223,1));
+filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgba(242,242,242,1),endColorStr=rgba(223,223,223,1));
+background: -ms-linear-gradient(left top, rgba(242,242,242,1),rgba(223,223,223,1));
+background: -o-linear-gradient(left top,rgba(242,242,242,1),rgba(223,223,223,1));
+text-align: center;
+font-size: 12px;
+line-height: 30px;
+color: #6c6c6c;
+text-shadow:rgba(0,0,0,0.2) 0px 0px 1px;
+cursor: pointer;
+}
+.pageIn{
+	display: block;
+	opacity: 1;
+transition-duration: 0.2s;
+-webkit-transition-duration: 0.2s;
+}
+.pageOut{
+	display: none;
+	opacity: 0;
+}
+.changeDecorationPage[current_page]{
+	background: -webkit-linear-gradient(left top,rgba(245,221,73,1),rgba(220,189,3,1));
+background: -moz-linear-gradient( left top,rgba(245,221,73,1),rgba(220,189,3,1));
+filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=rgba(245,221,73,1),endColorStr=rgba(220,189,3,1));
+background: -ms-linear-gradient(left top, rgba(245,221,73,1),rgba(220,189,3,1));
+background: -o-linear-gradient(left top,rgba(245,221,73,1),rgba(220,189,3,1));
+}
+.changeDecorationPage:nth-of-type(1),.changeDecorationPage:nth-last-child(1){
+	width: 61px;
+}
+#part1_contentContainer3_content1_left_decoration{
+	position: relative;
+	width: 100%;
+	float: left;
+	overflow: hidden;
+}
+#loading{
+	position: absolute;
+	width: 572px;
+	height: 378px;
+	/*background: #fff;*/
+	z-index: 1;
+}
+.spinner {
+  /*margin: 100px auto;*/
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.container1 > div, .container2 > div, .container3 > div {
+  width: 8px;
+  height: 8px;
+  background-color: #333;
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+  animation: bouncedelay 1.2s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.spinner .spinner-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.container2 {
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+.container3 {
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+.circle1 { top: 0; left: 0; }
+.circle2 { top: 0; right: 0; }
+.circle3 { right: 0; bottom: 0; }
+.circle4 { left: 0; bottom: 0; }
+.container2 .circle1 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+.container3 .circle1 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+.container1 .circle2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+.container2 .circle2 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+.container3 .circle2 {
+  -webkit-animation-delay: -0.7s;
+  animation-delay: -0.7s;
+}
+.container1 .circle3 {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+.container2 .circle3 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+.container3 .circle3 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+.container1 .circle4 {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+.container2 .circle4 {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+.container3 .circle4 {
+  -webkit-animation-delay: -0.1s;
+  animation-delay: -0.1s;
+}
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+@keyframes bouncedelay {
+  0%, 80%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

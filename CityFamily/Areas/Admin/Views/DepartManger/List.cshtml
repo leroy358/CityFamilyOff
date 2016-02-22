@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CityFamily.Models.Admins>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "员工账号列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" @(string.IsNullOrEmpty(ViewBag.searchStr) ? "" : "href=/Admin/DepartManger/List")>员工账号列表</a>
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.searchStr))
+        {
+            <a class="pathTipItem">@ViewBag.searchStr</a>
+        }
+    }
+</div>
+<div class="inputSet">
+    <a class="inputButton" href='/Admin/DepartManger/Add' lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加员工账号</a>
+    <div class="splitter"></div>
+    <form action="/Admin/DepartManger/List" id="form1">
+        <input type="text" name="searchStr" class="inputText" placeholder="ID、员工账号" />
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style=" background-image:url(/BackSet/src/media/icon_search.png)">搜索</a>
+    </form>
+</div>
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="120">ID</td>
+                <td width="120">员工账号</td>
+                <td width="120">密码</td>
+                <td width="120">部门角色</td>
+                <td width="120">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var db = new CityFamily.Models.CityFamilyDbContext();
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.AdminName</td>
+                            <td>******</td>
+                            <td>@(db.T_RoleInfo.Where(o => (db.T_UserRole.Where(ur => ur.UserID == item.Id).Select(os => os.RoleID).Contains(o.RoleID))).FirstOrDefault().RoleName)</td>
+                            <td><a class="delete" href="@Url.Action("Delete", new{id=item.Id,returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<form id="form_pageindex" action="/Admin/DepartManger/List" method="get">
+    <div class="inputSet">
+        <input type="hidden" name="searchStr" value="@ViewBag.searchStr" class="inputText">
+        <a href="@ViewBag.firstPage" class="inputButton">首页</a>
+        <a href="@ViewBag.perPage" class="inputButton"> &lt; 上一页</a>
+        <div class="splitter"></div>
+        <input type="text" class="inputText" name="pageIndex" style="width:40px;" value="@ViewBag.pageX" />
+        <span style="position:relative; float:left; line-height:16px; padding:8px; margin-right:8px;">/@ViewBag.pageCount</span>
+        <a onclick="document.getElementById('form_pageindex').submit()" class="inputButton">转至</a>
+        <div class="splitter"></div>
+        <a href="@ViewBag.nextPage" class="inputButton">下一页 &gt;</a>
+        <a href="@ViewBag.lastPage" class="inputButton">末页</a>
+    </div>
+</form>

@@ -1,0 +1,447 @@
+﻿@model CityFamily.Models.JsonData
+
+@{
+    ViewBag.Title = "功能定位详情";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/subPage.css">
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/uiTree/uiInput.css">
+    <link rel="stylesheet" type="text/css" href="/src/css/public.css" />
+</head>
+<body style='background-image: url(/src/media/back.jpg)'>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div class='part4_Container ' style='margin-bottom:140px;'>
+                <span id='printContent'>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>设计问卷</div>
+                        <div class='part4_detailedContainer' style='float:left;margin-right: 114px;'>姓名：<span id='vipName'>@Model.Name</span></div>
+                        
+                        <!--====================2015-9-6  删除年龄选项===================================-->
+                        @*<div class='part4_detailedContainer' style='float:left;margin-right: 114px;'>年龄：<span id='vipAge'>@Model.Age</span></div>*@
+                        <!--====================2015-9-6  END===================================-->
+                        
+                        <div class='part4_detailedContainer' style='float:left;margin-right: 114px;'>联系电话：<span id='vipPhoneNumber'>@Model.Phone</span></div>
+                        @if (Model.Work.Count != 0)
+                        {
+                            string work = string.Empty;
+                            string other = string.Empty;
+                            for (int i = 0; i < Model.Work.Count; i++)
+                            {
+                                work += Model.Work[i].Name + "；";
+                                other += Model.Work[i].Other;
+                            }
+                            <div class='part4_detailedContainer' style='float:left'>职业：<span id='vipJob'>@(work=="；" ? "无" : (string.IsNullOrEmpty(other) ?work.Substring(0, work.Length - 1):work.Substring(0, work.Length - 2)))</span></div>
+                            <div class='part4_detailedContainer' style='clear:both;float:left;margin-right: 72px;'>职业需求：<span>@(string.IsNullOrEmpty(other) ? "无" : other)</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' style='float:left'>职业：<span id='vipJob'>无</span></div>
+                            <div class='part4_detailedContainer' style='clear:both;float:left;margin-right: 72px;'>职业需求：<span >无</span></div>
+                        }
+                        <div class='part4_detailedContainer' style='clear: both; float: left; margin-right: 72px; '>小区名字：<span id='vipXiaoQu'>@Model.XiaoQu</span></div>
+
+                        @if (Model.Usage.Count != 0)
+                        {
+                            string usage = string.Empty;
+                            for (int i = 0; i < Model.Usage.Count; i++)
+                            {
+                                usage += Model.Usage[i].Name + "；";
+                            }
+                            <div class='part4_detailedContainer' style='clear:both;float:left;margin-right: 72px;'>房屋用途：<span id='vipUse'>@usage.Substring(0, usage.Length - 1)</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' style='clear:both;float:left;margin-right: 72px;'>房屋用途：<span id='vipUse'></span></div>
+                        }
+
+                        <!--======================2015-9-6  删除特殊节日选项================================-->
+                        @*@if (Model.Anniversary.Count != 0)
+                        {
+                            <div class='part4_detailedContainer' style='clear:both;'>
+                                特殊节日：
+                                @for (int i = 0; i < Model.Anniversary.Count; i++)
+                                {
+                                    <div class='vipAnniversary'>
+                                        <span> @Model.Anniversary[i].Name</span>
+                                        <div class='familyOld'>&nbsp&nbsp日期：<span>@Model.Anniversary[i].Date</span></div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' style='clear:both;'>特殊节日：<span id='vipAnniversary'>无</span></div>
+                        }*@
+                        <!--======================2015-9-6  删除特殊节日选项================================-->
+
+                        @if (Model.Family.Count != 0)
+                        {
+                            <div class='part4_detailedContainer' style='clear: both;'>
+                                家庭成员：
+                                @for (int i = 0; i < Model.Family.Count; i++)
+                                {
+                                    <div class='vipFamily'>
+                                        <!--=============删除Other，添加Birthday=================-->
+                                        <div class='vipFamily'>关系：@Model.Family[i].Name
+                                            <div class='familyOld'>&nbsp&nbsp年龄：<span>@Model.Family[i].Age</span></div>
+                                            <div class='familyJob'>&nbsp&nbsp职业：<span>@Model.Family[i].Work</span></div>
+                                            <div class='familyHobby'>&nbsp&nbsp兴趣爱好：<span>@Model.Family[i].Hobby</span></div>
+                                            <div class='familyHobby'>&nbsp&nbsp生日：<span>@Model.Family[i].Birthday</span></div>
+                                        </div>
+                                        @*@if (Model.Family[i].Other == null)
+                                        {
+                                            @Model.Family[i].Name
+                                            <div class='familyOld'>&nbsp&nbsp年龄：<span>@Model.Family[i].Age</span></div>
+                                            <div class='familyJob'>&nbsp&nbsp职业：<span>@Model.Family[i].Work</span></div>
+                                            <div class='familyHobby'>&nbsp&nbsp兴趣爱好：<span>@Model.Family[i].Hobby</span></div>
+                                        }
+                                        else
+                                        {
+                                            string cont = "其他：" + Model.Family[i].Other;
+                                            @cont
+                                        }*@
+                                        <!--==============END=======================-->
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' style='clear: both;'>家庭成员：<span id='vipFamily'>无</span></div>
+                        }
+                        @if (Model.GoodsHad.Count != 0)
+                        {
+                            <div class='part4_detailedContainer'>
+                                现有物品保留清单：
+                                @for (int i = 0; i < Model.GoodsHad.Count; i++)
+                                {
+                                    <div class='vipGoods'>
+                                        <div class='vipGoodsName'>物品名称：<span>@Model.GoodsHad[i].Name</span></div>
+                                        <div class='vipGoodsSize'>&nbsp&nbsp尺寸规格：<span>@Model.GoodsHad[i].Size</span></div>
+                                        <div class='vipGoodsPosition'>&nbsp&nbsp使用位置：<span>@Model.GoodsHad[i].Position</span></div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>现有物品保留清单：<span id='vipGoods'>无</span></div>
+                        }
+                        <div class='part4_detailedContainer'>现居地址：<span id='vipAddress'>@Model.Address</span></div>
+                        <div class='part4_detailedContainer'>预约量房时间：<span id='vipOrderTime'>@Model.AgreedTime</span></div>
+                        <div class='part4_detailedContainer'>
+                            客户状态：
+                            @{
+                                if (ViewBag.IsLead == 1)
+                                {
+                                    <span id='vipOrderTime'>服务</span>
+                                    @*<input type="button" value="量房" name="btnLiangfang" style="background-color:gray; border:none;" onclick="SaveLeads(2)" />
+                                    <input type="button" value="签单" name="btnQiandan" style="background-color:gray; border:none;" onclick="SaveLeads(3)" />*@
+                                }
+                                else if (ViewBag.IsLead == 2)
+                                {
+                                    <span id='vipOrderTime'>量房</span>
+                                    @*<input type="button" value="签单" name="btnQiandan" style="background-color:gray; border:none;" onclick="SaveLeads(3)" />*@
+                                }
+                                else if (ViewBag.IsLead == 3)
+                                {
+                                    <span id='vipOrderTime'>签单</span>
+                                }
+                            }
+                        </div>
+
+                    </div>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>家具场景</div>
+                        <div class='part4_detailedContainer' style='clear: both; float: left;  '>
+                            家具场景：@{
+                                if (string.IsNullOrEmpty(Model.FurnitureViewUrl))
+                                {
+                                    <span id='vipAddress'>无</span>
+                                }
+                                else
+                                {
+                                    string[] viewUrls = Model.FurnitureViewUrl.Split('&');
+                                    for (int i = 0; i < viewUrls.Length; i++)
+                                    {
+                                        string xqy = "查看详情" + (i + 1).ToString();
+                                        <a href="@(Model.FurnitureViewUrl == "" ? "void()" : viewUrls[i])" style=" margin-right:5px; color:blue;" target="_blank">@xqy </a>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>风格定位</div>
+                        <div class='part4_detailedContainer' style='clear: both; float: left; '>
+                            风格定位：
+                            @{
+                                if (string.IsNullOrEmpty(Model.diyResultUrl))
+                                {
+                                    <span id='vipAddress'>无</span>
+                                }
+                                else
+                                {
+                                    <a href="@(Model.diyResultUrl =="" ? "void()" :Model.diyResultUrl )" style="color:blue;" target="_blank"> 查看详情 </a>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>设备系统</div>
+                        @if (Model.Equipment.Count != 0)
+                        {
+                            string equipment = string.Empty;
+                            for (int i = 0; i < Model.Equipment.Count; i++)
+                            {
+                                equipment += Model.Equipment[i].Name + "；";
+                            }
+                            <div class='part4_detailedContainer' id="vipEquipment">@equipment.Substring(0, equipment.Length - 1)</div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' id='vipEquipment'>无</div>
+                        }
+                    </div>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>兴趣展现</div>
+                        @if (Model.Intrest.Count != 0)
+                        {
+                            string interst = string.Empty;
+                            string intOther = string.Empty;
+                            for (int i = 0; i < Model.Intrest.Count; i++)
+                            {
+                                interst += Model.Intrest[i].Name + "；";
+                                intOther += Model.Intrest[i].Other;
+                            }
+                            <div class='part4_detailedContainer' id="vipHobbies">@(interst == "；" ? "无" : (string.IsNullOrEmpty(intOther) ? interst.Substring(0, interst.Length - 1) : interst.Substring(0, interst.Length - 2)))</div>
+                            <div class='part4_detailedContainer'>其他：<span>@(string.IsNullOrEmpty(intOther) ? "无" : intOther)</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' id='vipHobbies'>无</div>
+                            <div class='part4_detailedContainer'>其他：<span>无</span></div>
+                        }
+                    </div>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>敏感材质</div>
+                        @if (Model.Material.Count != 0)
+                        {
+                            string material = string.Empty;
+                            for (int i = 0; i < Model.Material.Count; i++)
+                            {
+                                material += Model.Material[i].Name + "；";
+                            }
+                            <div class='part4_detailedContainer' id="vipMaterial">需要：<span>@material.Substring(0, material.Length - 1)</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' id='vipMaterial'>需要：无</div>
+                        }
+                        <!--=======================添加不需要的材料=========================-->
+                        @if (Model.MaterialNo.Count != 0)
+                        {
+                            string material = string.Empty;
+                            for (int i = 0; i < Model.MaterialNo.Count; i++)
+                            {
+                                material += Model.MaterialNo[i].Name + "；";
+                            }
+                            <div class='part4_detailedContainer' id="vipMaterial">不需要：<span>@material.Substring(0, material.Length - 1)</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer' id='vipMaterial'>不需要：无</div>
+                        }
+                        <!--=================================END===========-->
+
+                        <!--=====================2015-9-6  敏感材料添加其他选项============================================-->
+                        @if (Model.MaterialOther != null)
+                        {
+                            //string material = string.Empty;
+                            //for (int i = 0; i < Model.MaterialNo.Count; i++)
+                            //{
+                            //    material += Model.MaterialNo[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>其他：<span>@Model.MaterialOther</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>其他：无</div>
+                        }
+                        <!--=====================2015-9-6  END============================================-->
+
+                    </div>
+                    <div class='part4_detailedItemContainer'>
+                        <div class='part4_detailedTitle'>空间分类</div>
+                        @if (!string.IsNullOrEmpty(Model.Space[0].Other))
+                        {
+                            //string op1 = string.Empty;
+                            //for (int i = 0; i < Model.Space[0].Options.Count; i++)
+                            //{
+                            //    op1 += Model.Space[0].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[0].Name：<span id='vipEntrance'>@Model.Space[0].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[0].Name：<span id='vipEntrance'>无</span></div>
+                        }
+
+                        <!--==================删除过道内容============-->
+                        @*@if (Model.Space[1].Options.Count != 0)
+            {
+                string op2 = string.Empty;
+                for (int i = 0; i < Model.Space[1].Options.Count; i++)
+                {
+                    op2 += Model.Space[1].Options[i].Name + "；";
+                }
+                <div class='part4_detailedContainer'>@Model.Space[1].Name：<span id='vipPassageway'>@op2.Substring(0, op2.Length - 1)</span></div>
+            }
+            else
+            {
+                <div class='part4_detailedContainer'>@Model.Space[1].Name：<span id='vipPassageway'>无</span></div>
+            }*@
+                        <!--=====================END==================-->
+                        @if (!string.IsNullOrEmpty(Model.Space[1].Other))
+                        {
+                            //string op9 = string.Empty;
+                            //for (int i = 0; i < Model.Space[2].Options.Count; i++)
+                            //{
+                            //    op9 += Model.Space[2].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[1].Name：<span id='vipPassageway'>@Model.Space[1].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[1].Name：<span id='vipPassageway'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[2].Other))
+                        {
+                            //string op2 = string.Empty;
+                            //for (int i = 0; i < Model.Space[3].Options.Count; i++)
+                            //{
+                            //    op2 += Model.Space[3].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[2].Name：<span id='vipPassageway'>@Model.Space[2].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[2].Name：<span id='vipPassageway'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[3].Other))
+                        {
+                            //string op3 = string.Empty;
+                            //for (int i = 0; i < Model.Space[4].Options.Count; i++)
+                            //{
+                            //    op3 += Model.Space[4].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[3].Name：<span id='vipBedroom'>@Model.Space[3].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[3].Name：<span id='vipBedroom'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[4].Other))
+                        {
+                            //string op4 = string.Empty;
+                            //for (int i = 0; i < Model.Space[5].Options.Count; i++)
+                            //{
+                            //    op4 += Model.Space[5].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[4].Name：<span id='vipOldmanroom'>@Model.Space[4].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[4].Name：<span id='vipOldmanroom'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[5].Other))
+                        {
+                            //string op5 = string.Empty;
+                            //for (int i = 0; i < Model.Space[6].Options.Count; i++)
+                            //{
+                            //    op5 += Model.Space[6].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[5].Name：<span id='vipChildrenroom'>@Model.Space[5].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[5].Name：<span id='vipChildrenroom'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[6].Other))
+                        {
+                            //string op6 = string.Empty;
+                            //for (int i = 0; i < Model.Space[7].Options.Count; i++)
+                            //{
+                            //    op6 += Model.Space[7].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[6].Name：<span id='vipKitchen'>@Model.Space[6].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[6].Name：<span id='vipKitchen'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[7].Other))
+                        {
+                            //string op7 = string.Empty;
+                            //for (int i = 0; i < Model.Space[8].Options.Count; i++)
+                            //{
+                            //    op7 += Model.Space[8].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[7].Name：<span id='vipToilet'>@Model.Space[7].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[7].Name：<span id='vipToilet'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[8].Other))
+                        {
+                            //string op8 = string.Empty;
+                            //for (int i = 0; i < Model.Space[9].Options.Count; i++)
+                            //{
+                            //    op8 += Model.Space[9].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[8].Name：<span id='vipStoreroom'>@Model.Space[8].Other</span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[8].Name：<span id='vipStoreroom'>无</span></div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.Space[9].Other))
+                        {
+                            //string op9 = string.Empty;
+                            //for (int i = 0; i < Model.Space[10].Options.Count; i++)
+                            //{
+                            //    op9 += Model.Space[10].Options[i].Name + "；";
+                            //}
+                            <div class='part4_detailedContainer'>@Model.Space[9].Name：<span id='vipMultifunctionSpace'>@Model.Space[9].Other </span></div>
+                        }
+                        else
+                        {
+                            <div class='part4_detailedContainer'>@Model.Space[9].Name：<span id='vipMultifunctionSpace'>无</span></div>
+                        }
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

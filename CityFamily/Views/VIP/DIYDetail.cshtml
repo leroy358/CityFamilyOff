@@ -1,0 +1,130 @@
+﻿@model CityFamily.Models.DIYResult
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/src/js/style_diynew.js"></script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Styles/List' class='menuItem '>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer4' class='pageIn'>
+                <div class="pathTip">
+                    <a class="pathTipItem" href='/VIP/DIYList'>VIP档案库</a>
+                    <div class="pathTipItem">DIY详情</div>
+                </div>
+                <div id='part2_contentContainer4_content'>
+                    @*<div id='loading' class='pageIn'>
+                        <div class='percentage'>
+                            <div id='progressBar'></div>
+                        </div>
+                    </div>*@
+                    <div id='part2_contentContainer4_contentLeft'>
+                        <div id='part2_contentContainer4_contentLeftTop'>
+                            <div class='diyChangeButton' id='diyLeft'>左转</div>
+                            <div class='diyChangeButton' id='diyRight'>右转</div>
+                            <div class='diyChangeButton' id='diyBack'>后退</div>
+                            <div class='diyChangeButton' id='diyAhead'>前进</div>
+                        </div>
+                        <div id='part2_contentContainer4_contentLeftBottom'>
+                            <div id='loading' class='pageIn'>
+                                <div class="spinner">
+                                    <div class="spinner-container container1">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container2">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                    <div class="spinner-container container3">
+                                        <div class="circle1"></div>
+                                        <div class="circle2"></div>
+                                        <div class="circle3"></div>
+                                        <div class="circle4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='addCanvasContainer'></div>
+                            <canvas id='allcanvas' width='758' height='568'></canvas>
+                        </div>
+                    </div>
+                    <div id='part2_contentContainer4_contentRight'>
+                        <div id='part2_contentContainer4_contentRightTop' >
+                            @*@{
+                                int length = ViewBag.styleResource.Length;
+                                string path = ViewBag.styleResource.Substring(16, length - 16);
+                                <a class='diyChangeButton' id='down3D' href='/Styles/DownLoad?filePath=@path' target="_blank">下载3D资源</a>
+                            }*@
+                            <div class='diyChangeButton' id='conserveProgramme'>保存方案</div>
+                        </div>
+                        <div id='part2_contentContainer4_contentRightCenter'>
+                            <div id='diyThingsContainer' tabindex="1">
+                                <div class='diyTitleContainer' id='diyThingsTitle'>物件&nbsp-&nbsp<span></span></div>
+                                <div id='diyThingsDetailedContainer' class='pageOut'>
+                                </div>
+                            </div>
+                            <div id='diyStyleContainer'>
+                                <div id="diyStyleTopContainer" tabindex="1">
+                                    <div class='diyTitleContainer' id='diyStyleTitle'>风格&nbsp-&nbsp<span>全部风格</span></div>
+                                    <div id='diyStyleItemDetailedContainer' class='pageOut'>
+                                    </div>
+                                </div>
+                                <div id='diyStyleDetailedContainer'>
+                                    <div id='diyStyleDetailedContainerIn'>
+                                    </div>
+                                </div>
+                                <div id='diyStyleBottomContainer'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='styleSaveContainer' class='pageOut'>
+        <div id='styleSaveContainerAll'>
+            <div id="closePart3More"></div>
+            <p>DIY方案保存</p>
+            <form action="/VIP/SaveDIY" method="post" id='diySubmit' target="hiddenFrame">
+                <div class='login_message'>
+                    <div class='loginName'>客户名</div>
+                    <input type='text' class='inputName' name='userName' value="@Model.GuestName">
+                </div>
+                <div class='login_message'>
+                    <div class='loginName'>备<span style="margin-left:16px;">注</span></div>
+                    <input type='text' class='inputName' name='comment' value="@Model.Remark">
+                </div>
+                <input id='submitInput' type="hidden" name='diyJson' value=''><!-- value值是提交保存时发送给后台的数据 -->
+                <input id='submitInput2' type="hidden" name='id' value='@Model.Id'>
+                <a id='styleSave' onclick="subclick();document.getElementById('submitInput').value =diyJson;document.getElementById('diySubmit').submit();">保存</a>
+                <iframe style='display:none' name='hiddenFrame' id='hiddenFrame'></iframe><!-- 提交的时候不刷新页面 刷新的是iframe -->
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var requestCode = '@ViewBag.styleCode';//页面进来时的requestCode
+        var diyUrl = '/Styles/GetData/@ViewBag.styleCode';//请求的后台地址
+        var getJson = '@Html.Raw(Model.DIYJson)'//在查看diy客户信息时页面进来时传进来的数据
+    </script>
+}

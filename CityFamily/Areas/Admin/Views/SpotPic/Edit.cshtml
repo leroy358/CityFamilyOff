@@ -1,0 +1,160 @@
+﻿@model CityFamily.Models.SpotPics
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "现场照片编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Building/List">楼盘列表</a>
+    <a class="pathTipItem" href="/Admin/Building/List?searchStr=@ViewBag.BuildName">@ViewBag.BuildName</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId">包含户型列表</a>
+    <a class="pathTipItem" href="/Admin/Layout/List/@ViewBag.BuildId?searchStr=@ViewBag.LayName">@ViewBag.LayName</a>
+    <a class="pathTipItem" href="/Admin/SpotPic/List/@ViewBag.LayId">包含现场照片列表</a>
+    <a class="pathTipItem">@(ViewBag.IsCreate ? "现场照片管理" : "添加现场照片")</a>
+</div>
+<form action="/Admin/SpotPic/SavEdit" id="form1" method="post">
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "现场照片管理" : "添加现场照片")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="LayoutId" value="@Model.LayoutId" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate ? "true" : "false")" />
+
+        <!--=========添加照片分类====================-->
+        <div class="contentUnit">
+            <div class="title">选择现场照片类型</div>
+            <div class="content">
+                <div class="inputListSelect">
+                    <div class="inputListSelectListWrapper">
+                        <label class="inputListSelectItem">
+                            <input class="inputListSelectItemInput" type="radio" name="Category" value="1"  @(Model.Category == 1 ? "checked" : "") @(ViewBag.IsCreate ? "disabled" : "") />
+                            <div class="inputListSelectItemContent">现场原状</div>
+                        </label>
+                        <label class="inputListSelectItem">
+                            <input class="inputListSelectItemInput" type="radio" name="Category" value="2"  @(Model.Category == 1 ? "" : "checked") @(ViewBag.IsCreate ? "disabled" : "") />
+                            <div class="inputListSelectItemContent">施工现场</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--==================END===========-->
+
+        <div class="contentUnit">
+            <div class="title">现场照片封面</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="SpotIndex" value='@(ViewBag.IsCreate?Model.SpotIndex:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+            <div class="tip">建议上传图片尺寸：130*88</div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.SpotIndex" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit" id="DecoratePic">
+            <div class="title">现场照片图集</div>
+            <div class="content">
+                <input type="hidden" id="headlinePic" name="SpotDetails" value=''>
+                <div style="position:relative;height: 32px;" id="upload_headlinePic"></div>
+                <script src="~/BackSet/src/js/simple-uploader-NEdit.js"></script>
+            </div>
+            <div class="tip">建议上传图片尺寸：572*378</div>
+        </div>
+        <div class="contentUnit " id='imgUnit'>
+            @if (ViewBag.IsCreate)
+            {
+                string[] pics = Model.SpotDetails.Substring(0, Model.SpotDetails.Length - 1).Split(' ');
+
+                foreach (var pic in pics)
+                {
+                    <div class='imgContainer'>
+                        <img src="@pic" class='image'>
+                        <div class='deleteImg'></div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/SpotPic/List/@Model.LayoutId' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck()" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titlePic = checkFunc("headlinePic");
+        titlePicH = checkFunc("headlinePicIndex");
+
+        if (titlePicH && (titlePic || title360)) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认现场照片信息完整后提交！");
+    }
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CityFamily.Models.T_FurnitureCover>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "家具风格分类列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" @(string.IsNullOrEmpty(ViewBag.searchStr) ? "" : "href=/Admin/FurnitureCover/List")>家具风格分类列表</a>
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.searchStr))
+        {
+            <a class="pathTipItem">@ViewBag.searchStr</a>
+        }
+    }
+</div>
+@{
+    if (string.IsNullOrEmpty(ViewBag.searchStr))
+    {
+        <div class="inputSet">
+            <a class="inputButton" href="/Admin/FurnitureCover/Create" lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加风格分类信息</a>
+            @{
+        if (Session["admin"] != null && Session["admin"].ToString() != "admin")
+        {
+            <a class="inputButton" href="/Admin/FurnitureCover/Shield" lefticon style="background-image: url(/BackSet/src/media/icon_edit2.png)">屏蔽集团数据</a>
+        }
+}
+        </div>
+    }
+}
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="80">ID</td>
+                <td width="120">风格名称</td>
+                <td>分类封皮图片</td>
+                <td width="120">分公司名称</td>
+                <td width="160">最近修改时间</td>
+                <td width="80">编辑封皮信息</td>
+                <td width="80">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var db = new CityFamily.Models.CityFamilyDbContext();
+
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.StyleName</td>
+                            <td><img src="@item.StylePic" style="width:150px;" /></td>
+                            <td>
+                               @db.T_CompanyInfo.Where(o=>o.CompanyID == item.CompanyId).FirstOrDefault().CompanyName
+                            </td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/FurnitureCover/Edit/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id,returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

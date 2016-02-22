@@ -1,0 +1,161 @@
+﻿@model CityFamily.Models.FurnitureStyle
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src='/src/js/home_scene2.js'></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+    <style>
+        .pointAlert {
+            position: absolute;
+            width: 280px;
+            background-color: #d0d0d0;
+            border: 1px solid #c5c5c5;
+            z-index: 200;
+            left: 9px;
+            top: 35px;
+            opacity: 1;
+            display: none;
+            transition: all 0.2s ease-out;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-right: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+}
+
+@section Content{
+    <div class='menu'>
+        <a class='menuItem' href="/Buildings/List">找我家</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href="/FurnitureView/CoverList">家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <form action="/FurnitureView/SaveSessionPic" id="form1" method="post">
+        <div id='contentContainer'>
+            <div class='partContainer'>
+
+                <div id='part2_contentContainer2_content2' class='pics_content1 pageIn'>
+                    <div id='picsContainer' style=''>
+                        @{
+                            var db = new CityFamily.Models.CityFamilyDbContext();
+                            var pics = db.FurnitureStyle.Where(o => o.StyleId == Model.StyleId).OrderByDescending(o=>o.Id).ToList();
+                            var picsone = db.FurnitureStyle.Where(o => o.StyleId == Model.StyleId && o.Id == Model.Id).FirstOrDefault();
+                            <div class='pics pageIn' urlzhi="@picsone.FurniturePics" sname="@picsone.StyleName" style='background-image: url(@picsone.FurniturePics)'  smodelid="@picsone.Id" >
+                                <div class='questionChoose' style="color: #1f1f1f; font-size: 15px; text-align: center; line-height: 50px; text-shadow: 1px 1px 1px rgba(255,255,255,0.75); cursor: pointer; bottom: 0; text-decoration: none; position: absolute; left: 0px; top: 0px; width: 164px; height: 50px; background: #fbdb00; ">
+                                    简介
+                                    <div class='pointContainer' style="width:400px;">
+                                        @{
+                                            var namestr = picsone.StyleName.Split('&').ToArray();
+                                            if (namestr.Length > 3)
+                                            {
+                                                <div class='pointTitle'>参考品牌</div>
+                                                <div class='pointContent' style='width:400px;'>@namestr[0]</div>
+                                                <div class='pointTitle'>详细规格</div>
+                                                <div class='pointContent' style='width:400px;'>@namestr[1]</div>
+                                                <div class='pointTitle'>价格区间</div>
+                                                <div class='pointContent' style='width:400px;'>@namestr[2]</div>
+                                                <div class='pointTitle'>质地用料</div>
+                                                <div class='pointContent' style='width:400px;'>@namestr[3]</div>
+                                            }
+                                            else
+                                            {
+                                                <div class="pointContent" style='width:400px;'>@pics[0].StyleName</div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <a href='#' class='fengge_enter' id='fenggeEnter_diy' onclick="saveurl()">保存</a>
+
+                            </div>
+    foreach (var pic in pics.Skip(1))
+    {
+        <div class='pics pageOut' urlzhi="@pic.FurniturePics" sname="@pic.StyleName" style='background-image:url(@pic.FurniturePics)' smodelid="@pic.Id">
+            <div class='questionChoose' style="color: #1f1f1f; font-size: 15px; text-align: center; line-height: 50px; text-shadow: 1px 1px 1px rgba(255,255,255,0.75); cursor: pointer; bottom: 0; text-decoration: none; position: absolute; left: 0px; top: 0px; width: 164px; height: 50px; background: #fbdb00; ">
+                简介
+                <div class='pointContainer' style="width:400px;">
+                    @{
+        var namestrs = pic.StyleName.Split('&').ToArray();
+        if (namestrs.Length > 3)
+        {
+            <div class='pointTitle'>参考品牌</div>
+                        <div class='pointContent' style='width:400px;'>@namestrs[0]</div>
+                        <div class='pointTitle'>详细规格</div>
+                        <div class='pointContent' style='width:400px;'>@namestrs[1]</div>
+                        <div class='pointTitle'>价格区间</div>
+                        <div class='pointContent style=' width:400px;''>@namestrs[2]</div>
+                        <div class='pointTitle'>质地用料</div>
+                        <div class='pointContent' style='width:400px;'>@namestrs[3]</div>
+        }
+        else
+        {
+            <div class="pointContent">@pic.StyleName</div>
+        }
+                    }
+                </div>
+            </div>
+            <a href='#' class='fengge_enter' id='fenggeEnter_diy' onclick="saveurl()">保存</a>
+        </div>
+    }
+}
+
+                        <div class="pointAlert">
+                            <div id="getdivContent" style="font-size:12px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id='homeScene_previous' class='homeSceneChange'></div>
+                    <div id='homeScene_next' class='homeSceneChange'></div>
+                </div>
+                <div style="margin-top:10px;">
+                    <input type="hidden" id="getpic" name="pic" value="" />
+                    <input type="hidden" id="getid" name="Id" value="@Model.StyleId" />
+                    <input type="hidden" id="ModelId" name="ModelId" value="@Model.Id" />
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // document.getElementById('form1').submit();
+            // var pichide = document.getElementById('form1').submit();
+
+            function saveurl() {
+                var objdiv = $("#picsContainer").children(".pageIn");
+                var zhi = objdiv.attr("urlzhi");
+                var zhi1 = objdiv.attr("smodelid");
+                $('#getpic').val(zhi);
+                $('#ModelId').val(zhi1);
+                document.getElementById('form1').submit();
+            }
+
+            function showpointer(txt) {
+                var zhi = $('.pointAlert').css('display');
+                if (zhi == 'none') {
+                    $('#getdivContent').html(txt);
+                    $('.pointAlert').css('display', 'block');
+                } else {
+                    $('.pointAlert').css('display', 'none');
+                }
+            }
+
+            //function saveurl() {
+            //    var zhi = $("#picsContainer").children(".pageIn").attr("sname");//.attr('urlzhi');//.find("input[type='hidden']").val();
+            //    $('#getpic').val(zhi);
+            //    document.getElementById('form1').submit();
+            //}
+
+
+        </script>
+
+    </form>
+}

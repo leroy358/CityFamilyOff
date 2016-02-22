@@ -1,0 +1,170 @@
+﻿@model CityFamily.Models.VIPListView
+
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src='/src/js/vip_partQuestion.js'></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/uiTree/uiInput.css">
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/css/subPage.css">
+}
+
+@section Content{
+    <script type="text/javascript">
+        var closeUrl = '/VIP/DeleteFunc';
+    </script>
+    <div class='menu'>
+        <a href='/Buildings/List' class='menuItem '>找我家</a>
+        <div class='menuDivideLine'></div>
+        <a href="/FurnitureView/CoverList" class='menuItem '>家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Styles/List' class='menuItem '>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a href='/Function/Questionnaire' class='menuItem'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div class='part4_Container'>
+                <div id='part4_contentContainer1'>
+                    <div class='part3_itemContainer'>
+                        @*<a class="part3_item" part3_current>调查问卷（功能定位）</a>
+                            <a href="/VIP/DIYList" class="part3_item">DIY（风格定位）</a>*@
+                        @{
+                            if (ViewBag.IsLead == 1)
+                            {
+                                <a class="part3_item" part3_current>服务客户</a>
+                                <a href="/VIP/FuncList?lead=2" class="part3_item">量房客户</a>
+                                <a href="/VIP/FuncList?lead=3" class="part3_item">签单客户</a>
+                            }
+                            else if (ViewBag.IsLead == 2)
+                            {
+                                <a href="/VIP/FuncList?lead=1" class="part3_item">服务客户</a>
+                                <a class="part3_item" part3_current>量房客户</a>
+                                <a href="/VIP/FuncList?lead=3" class="part3_item">签单客户</a>
+                            }
+                            else if (ViewBag.IsLead == 3)
+                            {
+                                <a href="/VIP/FuncList?lead=1" class="part3_item">服务客户</a>
+                                <a href="/VIP/FuncList?lead=2" class="part3_item">量房客户</a>
+                                <a class="part3_item" part3_current>签单客户</a>
+                            }
+                        }
+                    </div>
+                    <div class='part3_titleLine'></div>
+                    <span class='backstage'>
+                        <!--========================================================================================-->
+                        @*<form action="/VIP/FuncList" method="get" id='formSubmit'>
+                            <div id='searchkeyWords' style="margin:15px 0;">
+                                <input type="hidden" name="lead" value='@Request.QueryString["lead"]' />
+                                <input id='keywords' placeholder='输入用户姓名' name='userName' style="margin-right:5px">
+                                <input id='keywords' placeholder='输入联系电话' name='userPhone'>
+                                <a id='searchImg' onclick="document.getElementById('formSubmit').submit();"></a>
+                            </div>
+                        </form>*@
+                        <!--========================================================================================-->
+
+                    </span>
+                </div>
+                <div class='part4_contentContainer2'>
+                    <!-- 调查问卷（功能定位） -->
+                    @if (Model.funcResult.Count != 0)
+                    {
+                        for (int i = 0; i < Model.funcResult.Count; i++)
+                        {
+                            <div class='part4_vipContainer' style="height:267px;" @(Model.jsonData[i].Name.Contains("先生") ? "man" : "woman") id='@Model.funcResult[i].Id'>
+                                @{
+                            if (ViewBag.IsLead < 0)
+                            {
+                                <div class='vipClose'></div>
+                            }
+                                }
+                                <a href='/VIP/FuncDetails/@Model.funcResult[i].Id' class='part4_vipBackground'></a>
+                                <div class='vipInfoContainer' style="height:133px;">
+                                    <div class='vipInfo'>姓名：<span>@Model.jsonData[i].Name</span></div>
+                                    <div class='vipInfo'>电话：<span>@Model.jsonData[i].Phone</span></div>
+                                    <div class='vipInfo'>小区名：<span>@Model.jsonData[i].XiaoQu</span></div>
+                                    <div class='vipInfo'>
+                                        状态：
+                                        @{
+                            if (ViewBag.IsLead == 1)
+                            {
+                                <span>服务</span>
+                            }
+                            else if (ViewBag.IsLead == 2)
+                            {
+                                <span>量房</span>
+                            }
+                            else if (ViewBag.IsLead == 3)
+                            {
+                                <span>签单</span>
+                            }
+                                        }
+
+                                    </div>
+                                    @if (Model.jsonData[i].Work.Count != 0)
+                                    {
+                                        string work = string.Empty;
+                                    <!---->
+                                        string other = string.Empty;
+                                    <!---->
+                                        for (int j = 0; j < Model.jsonData[i].Work.Count; j++)
+                                        {
+                                            work += Model.jsonData[i].Work[j].Name + "；";
+                                        <!---->
+                                            other += Model.jsonData[i].Work[j].Other;
+                                        <!---->
+                                        }
+                                    <!---->
+                                        @*<div class='vipInfo'>职业：<span>@work.Substring(0, work.Length - 1)</span></div>*@
+                                        <div class='vipInfo'>职业：<span>@(work == "；" ? "其他" : (string.IsNullOrEmpty(other) ? work.Substring(0, work.Length - 1) : work.Substring(0, work.Length - 2)))</span></div>
+                                    <!---->
+                                    }
+                                    else
+                                    {
+                                        <div class='vipInfo'>职业：<span>无</span></div>
+                                    }
+                                    @if (Model.jsonData[i].Usage.Count != 0)
+                                    {
+                                        string usage = string.Empty;
+                                        for (int j = 0; j < Model.jsonData[i].Usage.Count; j++)
+                                        {
+                                            usage += Model.jsonData[i].Usage[j].Name + "；";
+                                        }
+                                        <div class='vipInfo'>用途：<span>@usage.Substring(0, usage.Length - 1)</span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class='vipInfo'>用途：<span></span></div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <!--=========================================================================================================-->
+        @*<form id="form_pageindex" action="/VIP/FuncList" method="get">
+            <div class="inputSet" style="background:none;">
+                <input type="hidden" name="userName" value='@Request.QueryString["userName"]' class="inputText">
+                <input type="hidden" name="userPhone" value='@Request.QueryString["userPhone"]' class="inputText">
+                <input type="hidden" name="lead" value='@Request.QueryString["lead"]' class="inputText">
+                <a href="@ViewBag.firstPage" class="inputButton" style="background-color: #646464; color:white;">首页</a>
+                <a href="@ViewBag.perPage" class="inputButton" style="background-color: #646464; color:white;"> &lt; 上一页</a>
+                <div class="splitter"></div>
+                <input type="text" class="inputText" name="pageIndex" style="width:40px;" value="@ViewBag.pageX" />
+                <span style="position:relative; float:left; line-height:16px; padding:8px; margin-right:8px;">/@ViewBag.pageCount</span>
+                <a onclick="document.getElementById('form_pageindex').submit()" class="inputButton" style="background-color: #646464; color:white;">转至</a>
+                <div class="splitter"></div>
+                <a href="@ViewBag.nextPage" class="inputButton" style="background-color: #646464; color:white;">下一页 &gt;</a>
+                <a href="@ViewBag.lastPage" class="inputButton" style="background-color: #646464; color:white;">末页</a>
+            </div>
+        </form>*@
+        <!--=========================================================================================================-->
+
+    </div>
+}

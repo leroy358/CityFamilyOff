@@ -1,0 +1,90 @@
+﻿@model List<CityFamily.Models.T_FurnitureCover>
+@{
+    Layout = "~/Views/Shared/HeadFoot.cshtml";
+    ViewBag.Title = "城市人家";
+}
+
+@section Head{
+    <script type="text/javascript" src="/BackSet/src/js/address.js"></script>
+    <script type="text/javascript">
+
+        function PageImg() {
+            var divimg = document.getElementById("divContentImg");
+            var divwidth = divimg.style.width;
+            divwidth = divwidth.substring(0, divwidth.length - 2);
+            var previous = document.getElementById("homeScene_previous");
+            var next = document.getElementById("homeScene_next");
+            next.onclick = function (event) {
+                var leftpx = divimg.style.left;
+                leftpx = leftpx.substring(0, leftpx.length - 2);
+                if ((parseInt(leftpx) + parseInt(divwidth)) > 885) {
+                    var yileft = parseInt(leftpx) + (-885);
+                    divimg.style.left = yileft + "px";
+                }
+            }
+
+           
+            previous.onclick = function (event) {
+                var leftpx = divimg.style.left;
+                leftpx = leftpx.substring(0, leftpx.length - 2);
+                if (leftpx != 0 && parseInt(divwidth) - parseInt(leftpx) >0) {
+                    var yileft = parseInt(leftpx) + (885);
+                    divimg.style.left = yileft + "px";
+                }
+            }
+        }
+
+        window.onload = function () {
+            PageImg();
+        }
+
+    </script>
+}
+
+@section Content{
+    <div class='menu'>
+        <a class='menuItem' href="/Buildings/List">找我家</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem choosed' href="/FurnitureView/CoverList">家具场景</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Styles/List'>风格定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/Function/Questionnaire'>功能定位</a>
+        <div class='menuDivideLine'></div>
+        <a class='menuItem' href='/VIP/FuncList'>VIP档案库</a>
+    </div>
+    <div id='contentContainer'>
+        <div class='partContainer'>
+            <div id='part2_contentContainer1' style=" float:left;">
+                <div class="pathTip">
+                </div>
+                @{int leftpx = Model.Count * 295; var leftpxstr = leftpx + "px";}
+                <div id='part2_contentContainer1_content1' class='pics_content1' style=" margin-right: auto; margin-left: 70px; width: 885px; height: 430px; overflow: hidden; ">
+                    <div id="divContentImg" style="position:relative; left:0px; width:@leftpxstr; height:430px;">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <span style="clear:both;">
+                                    <a href='/FurnitureView/List?styleid=@item.Id' class='styleContainer' style='background-image:url(@item.StylePic);border: 6px solid #363636;  height: 394px; width: 270px; margin-right: 8px;'>
+                                        <div class="styleHoverContainer" style="text-align:center;vertical-align:middle;margin:0px auto;">
+                                            <div class='styleView' style='margin-left:18px; margin-top:100px;'></div>
+                                            <div class='styleViewName' style=' margin-top:100px; '>@item.StyleName</div>
+                                        </div>
+                                    </a>
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+                @{
+                    if (Model.Count > 3)
+                    {
+                        <div id='homeScene_previous' class='houseTypeChange'></div>
+                        <div id='homeScene_next' class='houseTypeChange'></div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+

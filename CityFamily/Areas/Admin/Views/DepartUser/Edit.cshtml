@@ -1,0 +1,56 @@
+﻿@model CityFamily.Models.Admins
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "员工账号编辑";
+}
+
+<form action="/Admin/DepartUser/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/DepartUser/List">员工账号列表</a>
+
+        <a class="pathTipItem" href="/Admin/DepartUser/List?searchStr=@Model.AdminName">@Model.AdminName</a>
+        <a class="pathTipItem">修改员工账号</a>
+
+    </div>
+    <div class="contentGroup">
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <input type="hidden" name="ReturnURL" value="@Request.Url.ToString()" />
+
+        <div class="contentGroupTitle">
+            修改密码
+        </div>
+        <div class="contentUnit">
+            <div class="title">员工账号</div>
+            <div class="content">
+                <input type="text" name="UserName" class="inputText" value='@(ViewBag.IsCreate ? Model.AdminName : "")' readonly />
+            </div>
+            <div class="tip">用户名无法编辑更改</div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">原始密码</div>
+            <div class="content">
+                <input type="password" name="Password" class="inputText" value='' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">新密码</div>
+            <div class="content">
+                <input type="password" name="newPassword" class="inputText" value='' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">确认新密码</div>
+            <div class="content">
+                <input type="password" name="confirmPassword" class="inputText" value='' />
+            </div>
+        </div>
+
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/DepartUser/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>

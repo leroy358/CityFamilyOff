@@ -1,0 +1,212 @@
+﻿@model CityFamily.Models.StyleThird
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "子风格编辑";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" href="/Admin/Style/List">一级风格列表</a>
+    <a class="pathTipItem" href="/Admin/Style/List?searchStr=@ViewBag.StyleName">@ViewBag.StyleName</a>
+    <a class="pathTipItem" href="/Admin/StyleDetail/List/@ViewBag.StyleId">包含子风格列表</a>
+    <a class="pathTipItem" href="/Admin/StyleDetail/List/@ViewBag.StyleId?searchStr=@ViewBag.StyleDetailName">@ViewBag.StyleDetailName</a>
+    <a class="pathTipItem" href="/Admin/StyleThird/List/@ViewBag.StyleDetailId">包含风格列表</a>
+    <a class="pathTipItem">@(ViewBag.IsCreate ? "子风格管理" : "添加子风格")</a>
+</div>
+<form action="/Admin/StyleThird/SavEdit" id="form1" method="post">
+    <div class="contentGroup">
+        <div class="contentGroupTitle">
+            @(ViewBag.IsCreate ? "风格管理" : "添加风格")
+        </div>
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Id.ToString():"")" />
+        <input type="hidden" name="StyleDetailId" value="@Model.StyleDetailId" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate ? "true" : "false")" />
+        <div class="contentUnit">
+            <div class="title">风格名称</div>
+            <div class="content">
+                <input id="inputName" type="text" name="StyleThirdName" class="inputText" value='@(ViewBag.IsCreate?Model.StyleThirdName:"")' />
+            </div>
+        </div>
+        <div class="contentUnit">            
+            <div class="title">风格封面</div>
+            <div class="content">
+                <input type="hidden" id="headlinePicIndex" name="StyleThirdIndex" value='@(ViewBag.IsCreate?Model.StyleThirdIndex:"")'>
+                <div style="position:relative;height: 32px;" id="upload_headlinePicIndex"></div>
+                <script>
+                    headline = simple.uploader.create({
+                        appendTo: document.getElementById("upload_headlinePicIndex"),
+                        url: "/Upload/Images",//上传地址
+                        valueBindTo: document.getElementById("headlinePicIndex"),
+                        limit: {
+                            fileFormat: "jpg|jpeg|png"//文件格式
+                        },
+                        uiText: {
+                            selectFile: "上传图片（单张）",
+                            limit: "没选对文件"
+                        },
+                        onEvent: {
+                            onSelectFile: function (files, limitValidateResult) {
+                                a_onSelectFile_a = files;
+                                a_onSelectFile_b = limitValidateResult;
+                            },
+                            onProgress: function (e) {
+                                a_onProgress_a = e.loaded;
+                            },
+                            onError: function (e) {
+                                a_onError_a = e;
+                            },
+                            onCancelWhenUpload: function () {
+                                a_onCancelWhenUpload_a = 111;
+                            },
+                            onCancelWhenComplete: function () {
+                                a_onCancelWhenComplete_a = 111;
+                            },
+                            onComplete: function (files, returnResult) {
+                                a_onComplete_a = files;
+                                a_onComplete_b = returnResult;
+                                var str = "";
+                                var pics = returnResult.substring(0, returnResult.length).split('|');
+                                for (var i = 0; i < pics.length; i++) {
+                                    str += "<img style='width:300px;' src='" + pics[i] + "' />";
+                                }
+                                showpicIndex.innerHTML = str;
+                            }
+                        }
+                    });
+
+                    headline.setData({
+                        multiple: false,
+                        limit: {
+                            fileSizeMin: 1,
+                            fileSizeMax: 20480
+                        }
+                    });
+                    ab = headline.getData();
+                </script>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div id="showpicIndex"><img src="@Model.StyleThirdIndex" style="width:300px;" /></div>
+        </div>
+        <div class="contentUnit" id="DecoratePic">
+            <div class="title">风格图集</div>
+            <div class="content">
+                <input type="hidden" id="headlinePic" name="StyleThirdPics" value=''>
+                <div style="position:relative;height: 32px;" id="upload_headlinePic"></div>
+                <script src="~/BackSet/src/js/simple-uploader-NEdit.js"></script>
+            </div>
+        </div>
+        <div class="contentUnit " id='imgUnit'>
+            @if (ViewBag.IsCreate)
+            {
+                string[] pics = Model.StyleThirdPics.Substring(0, Model.StyleThirdPics.Length - 1).Split(' ');
+
+                foreach (var pic in pics)
+                {
+                    <div class='imgContainer'>
+                        <img src="@pic" class='image'>
+                        <div class='deleteImg'></div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="contentUnit">
+            <div class="title">720展示网址</div>
+            <div class="content">
+                <input id="input720" type="text" name="StyleThird720" class="inputText" value='@(ViewBag.IsCreate?Model.StyleThird720:"")'  />
+            </div>
+            <div class="tip">请参照  http://www.baidu.com  样式填写</div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">RequestCode</div>
+            <div class="content">
+                <input id="inputCode" type="text" name="StyleThirdCode" class="inputText" value='@(ViewBag.IsCreate?Model.StyleThirdCode:"")'  />
+            </div>
+        </div>
+        @*<div class="contentUnit">
+        <div class="title">3D资源文件</div>
+        <div class="content">
+            <input type="hidden" id="StyleResource" name="StyleResource" value='@(ViewBag.IsCreate?Model.StyleResource:"")'>
+            <div style="position:relative;height: 32px;" id="upload_headlineFile"></div>
+            <script>
+                headline = simple.uploader.create({
+                    appendTo: document.getElementById("upload_headlineFile"),
+                    url: "/Upload/ResourceFiles",//上传地址
+                    valueBindTo: document.getElementById("StyleResource"),
+                    limit: {
+                        fileFormat: "zip|rar"//文件格式
+                    },
+                    uiText: {
+                        selectFile: "上传3D资源文件",
+                        limit: "没选对文件"
+                    },
+                    onEvent: {
+                        onSelectFile: function (files, limitValidateResult) {
+                            a_onSelectFile_a = files;
+                            a_onSelectFile_b = limitValidateResult;
+                        },
+                        onProgress: function (e) {
+                            a_onProgress_a = e.loaded;
+                        },
+                        onError: function (e) {
+                            a_onError_a = e;
+                        },
+                        onCancelWhenUpload: function () {
+                            a_onCancelWhenUpload_a = 111;
+                        },
+                        onCancelWhenComplete: function () {
+                            a_onCancelWhenComplete_a = 111;
+                        },
+                        onComplete: function (files, returnResult) {
+                            a_onComplete_a = files;
+                            a_onComplete_b = returnResult;
+                        }
+                    }
+                });
+
+                headline.setData({
+                    multiple: false,
+                    limit: {
+                        fileSizeMin: 1,
+                        fileSizeMax: 102400
+                    }
+                });
+                ab = headline.getData();
+            </script>
+        </div>
+    </div>*@
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/StyleThird/List/@Model.StyleDetailId' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="doCheck()" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>
+<script>
+    var titleT, titleP, titleA;
+    //点提交调用此函数
+    function doCheck() {
+        titlePic = checkFunc("headlinePic");
+        titlePicH = checkFunc("headlinePicIndex");
+        titleName = checkFunc("inputName");
+        title720 = checkFunc("input720");
+        titleCode = checkFunc("inputCode");
+        //title3D = checkFunc("StyleResource");
+
+        if (titlePicH && titlePic && titleName && title720 && titleCode) {
+            document.getElementById("form1").submit();
+        }
+        else alert("请确认风格信息完整后提交！");
+    }
+    //判断值是否空
+    function checkFunc(idd) {
+        if (document.getElementById(idd).value != "") return true;
+        else return false;
+    }
+</script>

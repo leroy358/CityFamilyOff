@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/src/css/public.css">
+    <title>@ViewBag.Title</title>
+    @RenderSection("Head", false)
+</head>
+<body>
+    <div class='headContainer'>
+        <div class='headblack'></div>
+        <div class='headmain'>
+            <a class='headmainleft' href="/Buildings/List"></a>
+            <div class='headmainright'>
+                @if (Session["userName"] == null)
+                {                    
+                    <a href="/Home/Login" class='headUser'>登录</a>
+                }
+                else
+                {
+                    <a class='headUser'>【@Session["userName"]】</a>
+                    <a href="/Home/Exit" class='headUser'>退出</a>
+                }                
+            </div>
+        </div>
+    </div>
+    @RenderSection("Content",true)
+    <div class='foot'>
+        <div class='footmain'>
+            集团总部地址：北京市大兴区亦庄经济开发区4号街区力宝广场C座12层&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp全国服务热线：4008088259&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp联系电话：4008088259<br>
+            公司地址：xxxxxxx
+        </div>
+    </div>
+</body>
+</html>

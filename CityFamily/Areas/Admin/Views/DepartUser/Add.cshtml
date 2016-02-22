@@ -1,0 +1,70 @@
+﻿@model CityFamily.Models.DepartmentRole
+
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "用户编辑";
+}
+
+
+@section Head{
+    <script src="~/Scripts//jquery-1.10.2.min.js"></script>
+    <script src="~/BackSet/src/js/smp.tips.js"></script>
+    <script src="~/BackSet/src/other/simple.validator/simple-validator.js"></script>
+    @*<script src="/src/js/valid_user.js"></script>*@
+}
+
+<form action="/Admin/DepartUser/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/DepartUser/List">用户列表</a>
+        <a class="pathTipItem">添加用户</a>
+    </div>
+    <div class="contentGroup">
+
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <div class="contentGroupTitle">
+            添加用户
+        </div>
+        <div class="contentUnit">
+            <div class="title">部门</div>
+            <div class="content">
+                <select class="select chooseTeam" name="Department" id="s1">
+                    @foreach (var item in Model.DepartmentInfo)
+                    {
+                        <option value="@item.DepartmentID">@item.DepartmentName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">角色</div>
+            <div class="content">
+                <select class="select chooseTeam" name="Role" id="s2">
+                    @foreach (var item in Model.RoleInfo)
+                    {
+                        <option value="@item.RoleID">@item.RoleName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">用户名</div>
+            <div class="content">
+                <input type="text" id="UserName" name="UserName" class="inputText" value='' />
+            </div>
+        </div>
+        <div class="contentUnit">
+            <div class="title">密码</div>
+            <div class="content">
+                <input type="password" name="Password" class="inputText" value='' />
+            </div>
+        </div>
+
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/DepartUser/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        @*<a class="inputButton" onclick="doSubmit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>*@
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+    </div>
+</form>

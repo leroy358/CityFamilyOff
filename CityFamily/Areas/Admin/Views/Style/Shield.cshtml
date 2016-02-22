@@ -1,0 +1,78 @@
+﻿@model List<CityFamily.Models.Styles>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "风格信息屏蔽";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/simple-Uploader/simple-uploader.css">
+    <script src="~/BackSet/src/other/simple-Uploader/simple-uploader.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/BackSet/src/other/subPage_article_edit.css">
+}
+
+<form action="/Admin/Style/SavShield" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Style/List">一级风格列表</a>
+    </div>
+    <div class="contentGroup">
+        <div class="contentlist">
+            <table>
+                <thead>
+                    <tr>
+                        <td width="80">ID</td>
+                        <td width="120">风格名称</td>
+                        <td>风格首页图片</td>
+                        <td width="100">最近修改时间</td>
+                        <td>屏蔽操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.StyleName</td>
+                                    <td><img src="@item.StyleIndex" style="width:150px;" /></td>
+                                    <td>@item.CreateTime</td>
+                                    <td>
+                                        @if (item.FStyleState == 1)
+                                        {
+                                            <a class="inputButton" href='/Admin/Style/ShowData?stylesid=@item.Id&state=0'>屏蔽数据</a>
+
+                                        }
+                                        else
+                                        {
+                                            <a class="inputButton" href="/Admin/Style/ShowData?stylesid=@item.Id&state=1">显示数据</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="inputSet">
+            <a class="inputButton" href='/Admin/Style/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+            <div class="splitter"></div>
+          
+        </div>
+    </div>
+</form>
+<script>
+    function doCheck() {
+        var objcheck = document.getElementById("IsShield").checked;
+        if (objcheck == true) {
+            document.getElementById("IsShield").value = 1;
+        } else {
+            document.getElementById("IsShield").value = 0;
+        }
+        document.getElementById("form1").submit();
+    }
+
+</script>

@@ -1,0 +1,55 @@
+﻿@model CityFamily.Models.Decorate
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城市人家</title>
+    <script type="text/javascript" src="/src/js/myhome_part4.js"></script>
+    <link rel="stylesheet" href="/src/css/style.css" />
+    <script src="/src/js/simple.preloader.js"></script>
+</head>
+<body>
+    <div id='part1_contentContainer3_content1_left_decoration'>
+        <div id='loading' class='pageIn'>
+            <div class="spinner">
+                <div class="spinner-container container1">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container2">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container3">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+            </div>
+        </div>
+        <div id='part1_contentContainer3_content1_left_topPics'>
+
+            <!-- 每个装修方案的详细图片,第一张有个pageIn的class,后面几张是pageOut-->
+            @{
+                string[] pics = Model.DecoratePics.Substring(0, Model.DecoratePics.Length - 1).Split(' ');
+                foreach (var pic in pics)
+                {
+                     <img class='part1_contentContainer3_content1_left_topDecoration ' src='@pic'>
+                }
+            }
+        </div>
+        <div id='changeDecorationPageContainer'>
+            <!-- <div class='changeDecorationPage' style='width:62px;'>上一张</div> -->
+        </div>
+    </div>
+    <script type="text/javascript">
+        menuItem1();
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CityFamily.Models.Styles>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "风格列表";
+}
+
+<div class="pathTip">
+    <a class="pathTipItem" @(string.IsNullOrEmpty(ViewBag.searchStr) ? "" : "href=/Admin/Style/List")>一级风格列表</a>
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.searchStr))
+        {
+            <a class="pathTipItem">@ViewBag.searchStr</a>
+        }
+    }
+</div>
+@{
+    if (string.IsNullOrEmpty(ViewBag.searchStr))
+    {
+        <div class="inputSet" @(Model.Count() >= 8 ? "style=" + "display:none;" : "")>
+            <a class="inputButton" href="/Admin/Style/Create" lefticon style="background-image: url(/BackSet/src/media/icon_plus.png)">添加风格信息</a>
+            @{
+                    if (Session["admin"] != null && Session["admin"].ToString() != "admin")
+                    {
+                        <a class="inputButton" href="/Admin/Style/Shield" lefticon style="background-image: url(/BackSet/src/media/icon_edit2.png)">屏蔽集团数据</a>
+                    }
+            }
+        </div>
+    }
+}
+<div class="contentlist">
+    <table>
+        <thead>
+            <tr>
+                <td width="80">ID</td>
+                <td width="120">风格名称</td>
+                <td>风格首页图片</td>
+                <td width="100">最近修改时间</td>
+                <td width="80">编辑风格信息</td>
+                <td width="80">包含子风格</td>
+                <td width="80">删除</td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.StyleName</td>
+                            <td><img src="@item.StyleIndex" style="width:150px;" /></td>
+                            <td>@item.CreateTime</td>
+                            <td><a class="edit" href="/Admin/Style/Edit/@item.Id"></a></td>
+                            <td><a class="detail" href="/Admin/StyleDetail/List/@item.Id"></a></td>
+                            <td><a class="delete" href="@Url.Action("Delete", new { id=item.Id,returnURL=Request.Url.ToString()})"></a></td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

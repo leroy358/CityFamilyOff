@@ -1,0 +1,105 @@
+﻿@model CityFamily.Models.AdminsCompany
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    ViewBag.Title = "管理员账号编辑";
+}
+
+@section Head{
+    <script src="~/Scripts//jquery-1.10.2.min.js"></script>
+    <script src="~/BackSet/src/js/smp.tips.js"></script>
+    <script src="~/BackSet/src/other/simple.validator/simple-validator.js"></script>
+    @*<script src="/src/js/valid_user.js"></script>*@
+}
+
+<form action="/Admin/Config/SavEdit" id="form1" method="post">
+    <div class="pathTip">
+        <a class="pathTipItem" href="/Admin/Config/List">分公司管理员列表</a>
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <a class="pathTipItem" href="/Admin/AddUserInfo/List?searchStr=@Model.Admins.AdminName">@Model.Admins.AdminName</a>
+                <a class="pathTipItem">修改密码</a>
+            }
+            else
+            {
+                <a class="pathTipItem">添加管理员</a>
+            }
+        }
+    </div>
+    <div class="contentGroup">
+        <input type="hidden" name="Id" value="@(ViewBag.IsCreate?Model.Admins.Id.ToString():"")" />
+        <input type="hidden" name="IsCreate" value="@(ViewBag.IsCreate?"true":"false")" />
+        <input type="hidden" name="ReturnURL" value="@Request.Url.ToString()" />
+
+        @{
+            if (ViewBag.IsCreate)
+            {
+                <div class="contentGroupTitle">
+                    修改密码
+                </div>
+                <div class="contentUnit">
+                    <div class="title">管理员账号</div>
+                    <div class="content">
+                        <input type="text" name="UserName" class="inputText" value='@(ViewBag.IsCreate?Model.Admins.AdminName:"")' readonly />
+                    </div>
+                    <div class="tip">管理员账号无法编辑更改</div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">原始密码</div>
+                    <div class="content">
+                        <input type="password" name="Password" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">新密码</div>
+                    <div class="content">
+                        <input type="password" name="newPassword" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">确认新密码</div>
+                    <div class="content">
+                        <input type="password" name="confirmPassword" class="inputText" value='' />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="contentGroupTitle">
+                    添加用户
+                </div>
+                <div class="contentUnit">
+                    <div class="title">分公司名称</div>
+                    <div class="content">
+                        <select class="select chooseTeam" name="CompanyName" id="s2">
+                            @foreach (var item in Model.T_CompanyInfoList)
+                            {
+                                <option value="@item.CompanyID">@item.CompanyName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">管理员账号</div>
+                    <div class="content">
+                        <input type="text" id="UserName" name="UserName" class="inputText" value='' />
+                    </div>
+                </div>
+                <div class="contentUnit">
+                    <div class="title">密码</div>
+                    <div class="content">
+                        <input type="password" name="Password" class="inputText" value='@(ViewBag.IsCreate?Model.Admins.AdminName:"")' />
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+    <div class="inputSet">
+        <a class="inputButton" href='/Admin/Config/List' lefticon style="background-image:url(/BackSet/src/media/icon_return.png)">退出</a>
+        <div class="splitter"></div>
+        <a class="inputButton" onclick="document.getElementById('form1').submit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>
+        @*<a class="inputButton" onclick="doSubmit();" lefticon style="background-image:url(/BackSet/src/media/icon_disk.png)">提交</a>*@
+    </div>
+</form>
