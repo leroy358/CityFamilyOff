@@ -44,7 +44,23 @@
 
                         <tr>
                             <td>@item.Id</td>
-                            <td>@(item.CompanyID == 0 ? "公司总部" : db.T_CompanyInfo.Where(o => o.CompanyID == item.CompanyID).FirstOrDefault().CompanyName)</td>
+                            @if (item.CompanyID == 0)
+                            {
+                                <td>公司总部</td>
+                            }
+                            else
+                            {
+                                var comm = db.T_CompanyInfo.FirstOrDefault(o => o.CompanyID == item.CompanyID);
+                                if (comm != null)
+                                {
+                                    <td>@comm.CompanyName</td>
+                                }
+                                else
+                                {
+                                    <td>--</td>
+                                }
+                            }
+                            @*<td>@(item.CompanyID == 0 ? "公司总部" : db.T_CompanyInfo.Where(o => o.CompanyID == item.CompanyID).FirstOrDefault().CompanyName)</td>*@
                             <td>@item.AdminName</td>
                             <td>******</td>
                             <td><a class="edit" href="/Admin/Config/AddUserInfo/@item.Id"></a></td>

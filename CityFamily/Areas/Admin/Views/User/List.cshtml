@@ -46,8 +46,42 @@
                         <tr>
                             <td>@item.Id</td>
                             <td>@item.AdminName</td>
-                            <td>@db.T_RoleInfo.Where(o => o.RoleID == userRole.RoleID).FirstOrDefault().RoleName</td>
-                            <td>@db.T_CompanyInfo.Where(o => o.CompanyID == item.CompanyID).FirstOrDefault().CompanyName</td>
+                            <td>
+                                @{
+                                    if (userRole != null && userRole.RoleID > 0)
+                                    {
+                                        var role = db.T_RoleInfo.FirstOrDefault(o => o.RoleID == userRole.RoleID);
+                                        if (role == null)
+                                        {
+                                            <span>-</span>
+                                        }
+                                        else
+                                        {
+                                            @role.RoleName
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>--</span>
+
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @{
+                                    var com = db.T_CompanyInfo.FirstOrDefault(o => o.CompanyID == item.CompanyID);
+                                    if (com == null)
+                                    {
+                                        <span>--</span>
+                                    }
+                                    else
+                                    {
+                                        @com.CompanyName
+                                    }
+                                }
+                            </td>
+                            @*<td>@db.T_RoleInfo.Where(o => o.RoleID == userRole.RoleID).FirstOrDefault().RoleName</td>*@
+                            @*<td>@db.T_CompanyInfo.Where(o => o.CompanyID == item.CompanyID).FirstOrDefault().CompanyName</td>*@
                             <td>******</td>
                             <td><a class="edit" href="/Admin/User/Edit/@item.Id"></a></td>
                             <td><a class="delete" href="@Url.Action("Delete", new{id=item.Id,returnURL=Request.Url.ToString()})"></a></td>

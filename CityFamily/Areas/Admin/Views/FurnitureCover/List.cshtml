@@ -54,7 +54,18 @@
                             <td>@item.StyleName</td>
                             <td><img src="@item.StylePic" style="width:150px;" /></td>
                             <td>
-                               @db.T_CompanyInfo.Where(o=>o.CompanyID == item.CompanyId).FirstOrDefault().CompanyName
+                                @{
+                                    var comm = db.T_CompanyInfo.FirstOrDefault(o => o.CompanyID == item.CompanyId);
+                                    if (comm != null)
+                                    {
+                                        @comm.CompanyName
+                                    }
+                                    else
+                                    {
+                                        <span>--</span>
+                                    }
+                                }
+                               @*@db.T_CompanyInfo.Where(o=>o.CompanyID == item.CompanyId).FirstOrDefault().CompanyName*@
                             </td>
                             <td>@item.CreateTime</td>
                             <td><a class="edit" href="/Admin/FurnitureCover/Edit/@item.Id"></a></td>
