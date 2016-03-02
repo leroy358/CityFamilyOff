@@ -226,5 +226,169 @@ namespace CityFamily.Controllers
             ViewBag.lastPage = lastPage;
             ViewBag.firstPage = firstPage;
         }
+
+        /// <summary>
+        /// 批量获取楼盘下所有信息
+        /// </summary>
+        /// <param name="id">楼盘Id</param>
+        /// <returns>
+        /// {
+        ///     "data":{
+        ///         "BuildingId":4,
+        ///         "BuildingName":"德阳-温莎湖畔庄园",
+        ///         "BuildingIndex":"/Images/data/201601/8dcf05dc-0216-40b4-acd7-ec37c046ec520.jpg",
+        ///         "BuildingPics":"/Images/data/201601/09c0f90f-8aa8-469c-b399-38883f5e9f200.jpg /Images/data/201601/860ef511-193b-4828-8ab1-3df5a62a65380.jpg ",
+        ///         "BuildingIntro":"塔楼 高层 ",
+        ///         "BuildingAD":"德阳市嘉陵江桥东岸（八一中学西侧100米处）",
+        ///         "BuildingAroundPic":"/Images/data/201507/99cfdbd7-dfaf-43c9-aff2-bf59e3bbc1af0.jpg",
+        ///         "BuildingDeco":"毛胚",
+        ///         "LayoutData":[
+        ///             {
+        ///                 "LayoutId":9,
+        ///                 "LayoutName":"温莎湖畔庄园A1户型两室两厅一厨两卫91.24平米",
+        ///                 "LayoutPic":"/Images/data/201507/d76ed0af-9456-449c-b55a-17fb3dcd72570.jpg",
+        ///                 "LayoutAdvantages":"1、客厅开间4.05米，活动空间充足。\r\n2、南北双卧，互不干扰休息生活。\r\n3、整个房型分割较合理，布局紧凑，功能划分明确。\r\n4、主卧室朝南，冬暖夏凉，采光充足。厨房与主卧相隔较远，减少油烟味。",
+        ///                 "LayoutDisadvantages":"1、起居厅的面积标准应大于卧室，\r\n2、厨房/卫生间的面积相应地也应大一些。\r\n3、门多，无稳定间，\r\n4、采光小或采光凹槽深，光线较暗，窗正对墙面，视野差、形状不好或尺度不合理。",
+        ///                 "Decotate":[
+        ///                     {
+        ///                         "DecorateId":37,
+        ///                         "DecorateIndex":"/Images/data/201507/2d7e78e6-96ab-4f15-8b41-749d72255f5b0.jpg",
+        ///                         "DecoratePics":"/Images/data/201507/0a95b33c-7242-47c6-baca-8f8215ea08dd0.jpg ",
+        ///                         "Decorate360":null
+        ///                     },
+        ///                     {
+        ///                         "DecorateId":38,
+        ///                         "DecorateIndex":"/Images/data/201507/4b0e576f-b680-46d0-a856-17c930eafd940.jpg",
+        ///                         "DecoratePics":"/Images/data/201507/66878e71-8363-4b2d-b1fd-46775cbbf1080.jpg ",
+        ///                         "Decorate360":null
+        ///                     },
+        ///                     {
+        ///                         "DecorateId":45,
+        ///                         "DecorateIndex":"/Images/data/201507/ae9abd2e-374d-4aa2-a5e0-91ba40d4f9cf0.jpg",
+        ///                         "DecoratePics":null,
+        ///                         "Decorate360":"http://119.188.126.108:8081/ZhuangXiu/DeYang/DeYang.html"
+        ///                     }
+        ///                 ],
+        ///                 "SpotYuanZhuangData":[
+        ///                     {
+        ///                         "SpotId":21,
+        ///                         "SpotIndex":"/Images/data/201507/d21af7a4-d5e3-432d-a973-2077345dfc440.jpg",
+        ///                         "SpotPics":"/Images/data/201507/6f0915ac-6096-471d-b180-41eabb67308d0.jpg "
+        ///                     },
+        ///                     {
+        ///                         "SpotId":47,
+        ///                         "SpotIndex":"/Images/data/201507/ad5867f0-18e1-452f-9bd4-2513e2b0d1e60.png",
+        ///                         "SpotPics":"/Images/data/201507/52a32a90-c4d3-46b8-af86-a25af1cc17440.png "
+        ///                     }
+        ///                 ],
+        ///                 "SpotShiGongData":[
+        ///                     {
+        ///                         "SpotId":22,
+        ///                         "SpotIndex":"/Images/data/201507/ad5867f0-18e1-452f-9bd4-2513e2b0d1e60.png",
+        ///                         "SpotPics":"/Images/data/201507/52a32a90-c4d3-46b8-af86-a25af1cc17440.png "
+        ///                     },
+        ///                     {
+        ///                         "SpotId":46,
+        ///                         "SpotIndex":"/Images/data/201507/d21af7a4-d5e3-432d-a973-2077345dfc440.jpg",
+        ///                         "SpotPics":"/Images/data/201507/6f0915ac-6096-471d-b180-41eabb67308d0.jpg "
+        ///                     }
+        ///                 ]
+        ///             },
+        ///             {
+        ///                 "LayoutId":21,
+        ///                 "LayoutName":"温莎湖畔庄园A2户型三室两厅一厨一卫96.53平米",
+        ///                 "LayoutPic":"/Images/data/201507/26f6a7ea-314e-4d2b-bbd9-792684b242f70.jpg",
+        ///                 "LayoutAdvantages":"1、客厅开间4.05米，活动空间充足。\r\n2、南北双卧，互不干扰休息生活。\r\n3、整个房型分割较合理，布局紧凑，功能划分明确。\r\n4、主卧室朝南，冬暖夏凉，采光充足。厨房与主卧相隔较远，减少油烟味。",
+        ///                 "LayoutDisadvantages":"1、起居厅的面积标准应大于卧室，\r\n2、厨房/卫生间的面积相应地也应大一些。\r\n3、门多，无稳定间，\r\n4、采光小或采光凹槽深，光线较暗，窗正对墙面，视野差、形状不好或尺度不合理。",
+        ///                 "Decotate":[
+        ///                     {
+        ///                         "DecorateId":39,
+        ///                         "DecorateIndex":"/Images/data/201507/dc644352-30ee-483b-8a36-730899918b840.jpg",
+        ///                         "DecoratePics":"/Images/data/201507/1cf9bfb9-8c1c-42e8-a4c8-f44e86b0342d0.jpg /Images/data/201507/51bcf0c3-791f-4945-9387-357b9ecb071a1.jpg ",
+        ///                         "Decorate360":null
+        ///                     },
+        ///                     {
+        ///                         "DecorateId":40,
+        ///                         "DecorateIndex":"/Images/data/201507/e47f9b21-f8d2-43ec-801b-1164710675410.jpg",
+        ///                         "DecoratePics":null,
+        ///                         "Decorate360":"http://119.188.126.108:8081/ZhuangXiu/DeYang/DeYang.html"
+        ///                     }
+        ///                 ],
+        ///                 "SpotYuanZhuangData":[
+        ///                 ],
+        ///                 "SpotShiGongData":[
+        ///                 ]
+        ///             }
+        ///         ]
+        ///     }
+        /// }
+        /// </returns>
+
+        public JsonResult GetBuildingData(int id)
+        {
+            Building building = db.Building.Find(id);
+            BuildingData buildingData = new BuildingData();
+            buildingData.BuildingId = id;
+            buildingData.BuildingName = building.BuildingName;
+            buildingData.BuildingIndex = building.BuildingIndex;
+            buildingData.BuildingPics = building.BuildingPics;
+            buildingData.BuildingIntro = building.BuildingIntro;
+            buildingData.BuildingAD = building.BuildingAD;
+            buildingData.BuildingAroundPic = building.BuildingCate;
+            buildingData.BuildingDeco = building.BuildingDecorate;
+            List<LayoutData> layoutDataList = new List<LayoutData>();
+           
+            List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == id).ToList();
+            foreach(Layout layout in layoutList)
+            {
+                List<DecorateData> decorateData = new List<DecorateData>();
+                List<SpotYuanZhuangData> spotYuanZhuangData = new List<SpotYuanZhuangData>();
+                List<SpotShiGongData> spotShiGongData = new List<SpotShiGongData>();
+                LayoutData layoutData = new LayoutData();
+                layoutData.LayoutId = layout.Id;
+                layoutData.LayoutName = layout.LayoutName;
+                layoutData.LayoutPic = layout.LayoutPic;
+                layoutData.LayoutAdvantages = layout.Advantage;
+                layoutData.LayoutDisadvantages = layout.Disadvantage;
+
+                List<Decorate> decorateList = db.Decorate.Where(item => item.LayoutId == layout.Id).ToList();
+                List<SpotPics> spotPicsList = db.SpotPics.Where(item => item.LayoutId == layout.Id).ToList();
+                SpotYuanZhuangData yuanZhuangData = new SpotYuanZhuangData();
+                SpotShiGongData shiGongData = new SpotShiGongData();
+                foreach (Decorate decorate in decorateList)
+                {
+                    DecorateData decoratedata = new DecorateData();
+                    decoratedata.DecorateId = decorate.Id;
+                    decoratedata.DecorateIndex = decorate.DecorateIndex;
+                    decoratedata.DecoratePics = decorate.DecoratePics;
+                    decoratedata.Decorate360 = decorate.Decorate360;
+                    decorateData.Add(decoratedata);
+                }
+                foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 1))
+                {
+                    SpotYuanZhuangData yuanzhuangdata = new SpotYuanZhuangData();
+                    yuanzhuangdata.SpotId = spotPic.Id;
+                    yuanzhuangdata.SpotIndex = spotPic.SpotIndex;
+                    yuanzhuangdata.SpotPics = spotPic.SpotDetails;
+                    spotYuanZhuangData.Add(yuanzhuangdata);
+                }
+                foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 2))
+                {
+                    SpotShiGongData shigongdata = new SpotShiGongData();
+                    shigongdata.SpotId = spotPic.Id;
+                    shigongdata.SpotIndex = spotPic.SpotIndex;
+                    shigongdata.SpotPics = spotPic.SpotDetails;
+                    spotShiGongData.Add(shigongdata);
+                }
+                layoutData.Decotate = decorateData;
+                layoutData.SpotYuanZhuangData = spotYuanZhuangData;
+                layoutData.SpotShiGongData = spotShiGongData;
+
+                layoutDataList.Add(layoutData);                
+            }
+            buildingData.LayoutData = layoutDataList;
+            return Json(new { data = buildingData }, JsonRequestBehavior.AllowGet);
+            
+        }
     }
 }
