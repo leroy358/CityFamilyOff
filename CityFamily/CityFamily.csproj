@@ -200,7 +200,6 @@
     </Compile>
     <Compile Include="Models\Admins.cs" />
     <Compile Include="Models\AdminsCompany.cs" />
-    <Compile Include="Models\BuildingData.cs" />
     <Compile Include="Models\BuildingLayoutView.cs" />
     <Compile Include="Models\CityFamily.cs" />
     <Compile Include="Models\Building.cs" />
