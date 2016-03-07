@@ -228,6 +228,106 @@ namespace CityFamily.Controllers
         }
 
         /// <summary>
+        /// 获取楼盘列表页信息
+        /// </summary>
+        /// <param name="companyId">登录用户所属分公司ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "BuildingId":21,
+        ///             "BuildingName":"轩苑紫郡",
+        ///             "BuildingIndex":"/Images/data/201601/4b27b7ee-73eb-4d7b-8f54-a48ca0844b2e0.jpg"
+        ///         },
+        ///         {
+        ///             "BuildingId":22,
+        ///             "BuildingName":"温莎湖畔庄园",
+        ///             "BuildingIndex":"/Images/data/201601/42d68f01-2842-479a-b7fa-772ffa24b9b70.jpg"
+        ///         },
+        ///         {
+        ///             "BuildingId":23,
+        ///             "BuildingName":"水晶七号",
+        ///             "BuildingIndex":"/Images/data/201601/b5fef54b-4a00-45d1-8289-9052e79e23350.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
+        public ActionResult GetBuildingList(int companyId)
+        {
+            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId));
+            List<BuildingList> buildingList = new List<BuildingList>();
+            foreach(Building building in buildings)
+            {
+                BuildingList buildingIndex = new BuildingList();
+                buildingIndex.BuildingId = building.Id;
+                buildingIndex.BuildingName = building.BuildingName;
+                buildingIndex.BuildingIndex = building.BuildingIndex;
+                buildingList.Add(buildingIndex);
+            }
+            return Json(new { data = buildingList }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 获取楼盘详情页信息
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns>
+        /// {
+        ///     "data":{
+        ///         "BuildingId":1,
+        ///         "BuildingName":"22222",
+        ///         "BuildingPics":"/Images/data/201507/3385a56d-d561-4a0f-9033-99259ca172190.jpg /Images/data/201507/adb16dd1-c3cd-496f-8057-b482b37d4fca1.jpg /Images/data/201507/72cb6c36-a9a6-41a1-aa39-af8e49041e7e2.jpg /Images/data/201507/8e2c9b6b-004e-4270-b640-b3b5785434503.jpg /Images/data/201507/8713d2aa-8f9e-4957-872c-af61e69f346b4.jpg /Images/data/201507/d7542f53-fdaa-4930-ad8b-e9dc70051ab55.jpg ",
+        ///         "BuildingIntro":"住宅、普通住宅",
+        ///         "BuildingAD":"宝鸡市陈仓园二路",
+        ///         "BuildingAroundPic":"/Images/data/201507/8b23c94d-00e5-4425-97d1-dbf11926dc810.jpg",
+        ///         "BuildingDeco":"毛坯房",
+        ///         "BuildingLayout":[
+        ///             {
+        ///                 "LayoutId":16,
+        ///                 "LayoutName":"轩苑紫郡108㎡",
+        ///                 "LayoutPic":"/Images/data/201507/0d74c585-f32b-4cff-9774-3a9bec8b4e400.jpg"
+        ///             },
+        ///             {
+        ///                 "LayoutId":17,
+        ///                 "LayoutName":"轩苑紫郡110㎡",
+        ///                 "LayoutPic":"/Images/data/201507/7ebedc14-cb69-40f7-a285-e9bba51378ba0.jpg"
+        ///             },
+        ///             {
+        ///                 "LayoutId":18,
+        ///                 "LayoutName":"轩苑紫郡141㎡",
+        ///                 "LayoutPic":"/Images/data/201507/4f2c4142-af1c-46f3-bb2a-742b865f00060.jpg"
+        ///             }
+        ///         ]
+        ///     }
+        /// }
+        /// </returns>
+        public ActionResult GetBuildingDetails(int buildingId)
+        {
+            Building building = db.Building.Find(buildingId);
+            BuildingDetails buildingDetails = new BuildingDetails();
+            buildingDetails.BuildingId = building.Id;
+            buildingDetails.BuildingName = building.BuildingName;
+            buildingDetails.BuildingPics = building.BuildingPics;
+            buildingDetails.BuildingIntro = building.BuildingIntro;
+            buildingDetails.BuildingAD = building.BuildingAD;
+            buildingDetails.BuildingAroundPic = building.BuildingCate;
+            buildingDetails.BuildingDeco = building.BuildingDecorate;
+            List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == buildingId).ToList();
+            List<BuildingLayout> buildingLayoutList = new List<BuildingLayout>();
+            foreach(Layout layout in layoutList)
+            {
+                BuildingLayout buildingLayout = new BuildingLayout();
+                buildingLayout.LayoutId = layout.Id;
+                buildingLayout.LayoutName = layout.LayoutName;
+                buildingLayout.LayoutPic = layout.LayoutPic;
+                buildingLayoutList.Add(buildingLayout);
+            }
+            buildingDetails.BuildingLayout = buildingLayoutList;
+            return Json(new { data = buildingDetails }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 根据客户端最近更新时间判断服务器端是否有更新，并批量获取楼盘下所有信息
         /// </summary>
         /// <param name="id">楼盘Id</param>
@@ -245,6 +345,7 @@ namespace CityFamily.Controllers
         ///         "BuildingAD":"德阳市嘉陵江桥东岸（八一中学西侧100米处）",
         ///         "BuildingAroundPic":"/Images/data/201507/99cfdbd7-dfaf-43c9-aff2-bf59e3bbc1af0.jpg",
         ///         "BuildingDeco":"毛胚",
+        ///         "BuildingUpdate":"2016-01-01 11:10:05",
         ///         "LayoutData":[
         ///             {
         ///                 "LayoutId":9,
