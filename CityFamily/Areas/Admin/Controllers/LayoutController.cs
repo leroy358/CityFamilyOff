@@ -101,6 +101,10 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.Layout.Add(layout);
                 }
                 db.SaveChanges();
+                Building building = db.Building.Find(layout.BuildingId);
+                building.UpdateTime = DateTime.Now;
+                db.Entry(building).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("List", new { id = layout.BuildingId });
             }
             else

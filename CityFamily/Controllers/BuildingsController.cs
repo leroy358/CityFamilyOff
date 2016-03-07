@@ -228,11 +228,14 @@ namespace CityFamily.Controllers
         }
 
         /// <summary>
-        /// 批量获取楼盘下所有信息
+        /// 根据客户端最近更新时间判断服务器端是否有更新，并批量获取楼盘下所有信息
         /// </summary>
         /// <param name="id">楼盘Id</param>
+        /// <param name="updateTime">客户端最近更新时间</param>
         /// <returns>
+        /// 若有更新
         /// {
+        ///     "IsUpdate":1,
         ///     "data":{
         ///         "BuildingId":4,
         ///         "BuildingName":"德阳-温莎湖畔庄园",
@@ -322,72 +325,86 @@ namespace CityFamily.Controllers
         ///         ]
         ///     }
         /// }
+        /// 若无更新
+        /// {
+        ///     IsUpdate:0;
+        ///     data:""
+        /// }
         /// </returns>
 
-        public JsonResult GetBuildingData(int id)
+        public JsonResult GetBuildingData(int id, string updateTime)
         {
             Building building = db.Building.Find(id);
-            BuildingData buildingData = new BuildingData();
-            buildingData.BuildingId = id;
-            buildingData.BuildingName = building.BuildingName;
-            buildingData.BuildingIndex = building.BuildingIndex;
-            buildingData.BuildingPics = building.BuildingPics;
-            buildingData.BuildingIntro = building.BuildingIntro;
-            buildingData.BuildingAD = building.BuildingAD;
-            buildingData.BuildingAroundPic = building.BuildingCate;
-            buildingData.BuildingDeco = building.BuildingDecorate;
-            List<LayoutData> layoutDataList = new List<LayoutData>();
-           
-            List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == id).ToList();
-            foreach(Layout layout in layoutList)
+            DateTime time = Convert.ToDateTime(updateTime);
+            if (building.UpdateTime > time)
             {
-                List<DecorateData> decorateData = new List<DecorateData>();
-                List<SpotYuanZhuangData> spotYuanZhuangData = new List<SpotYuanZhuangData>();
-                List<SpotShiGongData> spotShiGongData = new List<SpotShiGongData>();
-                LayoutData layoutData = new LayoutData();
-                layoutData.LayoutId = layout.Id;
-                layoutData.LayoutName = layout.LayoutName;
-                layoutData.LayoutPic = layout.LayoutPic;
-                layoutData.LayoutAdvantages = layout.Advantage;
-                layoutData.LayoutDisadvantages = layout.Disadvantage;
+                BuildingData buildingData = new BuildingData();
+                buildingData.BuildingId = id;
+                buildingData.BuildingName = building.BuildingName;
+                buildingData.BuildingIndex = building.BuildingIndex;
+                buildingData.BuildingPics = building.BuildingPics;
+                buildingData.BuildingIntro = building.BuildingIntro;
+                buildingData.BuildingAD = building.BuildingAD;
+                buildingData.BuildingAroundPic = building.BuildingCate;
+                buildingData.BuildingDeco = building.BuildingDecorate;
+                List<LayoutData> layoutDataList = new List<LayoutData>();
 
-                List<Decorate> decorateList = db.Decorate.Where(item => item.LayoutId == layout.Id).ToList();
-                List<SpotPics> spotPicsList = db.SpotPics.Where(item => item.LayoutId == layout.Id).ToList();
-                SpotYuanZhuangData yuanZhuangData = new SpotYuanZhuangData();
-                SpotShiGongData shiGongData = new SpotShiGongData();
-                foreach (Decorate decorate in decorateList)
+                List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == id).ToList();
+                foreach (Layout layout in layoutList)
                 {
-                    DecorateData decoratedata = new DecorateData();
-                    decoratedata.DecorateId = decorate.Id;
-                    decoratedata.DecorateIndex = decorate.DecorateIndex;
-                    decoratedata.DecoratePics = decorate.DecoratePics;
-                    decoratedata.Decorate360 = decorate.Decorate360;
-                    decorateData.Add(decoratedata);
-                }
-                foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 1))
-                {
-                    SpotYuanZhuangData yuanzhuangdata = new SpotYuanZhuangData();
-                    yuanzhuangdata.SpotId = spotPic.Id;
-                    yuanzhuangdata.SpotIndex = spotPic.SpotIndex;
-                    yuanzhuangdata.SpotPics = spotPic.SpotDetails;
-                    spotYuanZhuangData.Add(yuanzhuangdata);
-                }
-                foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 2))
-                {
-                    SpotShiGongData shigongdata = new SpotShiGongData();
-                    shigongdata.SpotId = spotPic.Id;
-                    shigongdata.SpotIndex = spotPic.SpotIndex;
-                    shigongdata.SpotPics = spotPic.SpotDetails;
-                    spotShiGongData.Add(shigongdata);
-                }
-                layoutData.Decotate = decorateData;
-                layoutData.SpotYuanZhuangData = spotYuanZhuangData;
-                layoutData.SpotShiGongData = spotShiGongData;
+                    List<DecorateData> decorateData = new List<DecorateData>();
+                    List<SpotYuanZhuangData> spotYuanZhuangData = new List<SpotYuanZhuangData>();
+                    List<SpotShiGongData> spotShiGongData = new List<SpotShiGongData>();
+                    LayoutData layoutData = new LayoutData();
+                    layoutData.LayoutId = layout.Id;
+                    layoutData.LayoutName = layout.LayoutName;
+                    layoutData.LayoutPic = layout.LayoutPic;
+                    layoutData.LayoutAdvantages = layout.Advantage;
+                    layoutData.LayoutDisadvantages = layout.Disadvantage;
 
-                layoutDataList.Add(layoutData);                
+                    List<Decorate> decorateList = db.Decorate.Where(item => item.LayoutId == layout.Id).ToList();
+                    List<SpotPics> spotPicsList = db.SpotPics.Where(item => item.LayoutId == layout.Id).ToList();
+                    SpotYuanZhuangData yuanZhuangData = new SpotYuanZhuangData();
+                    SpotShiGongData shiGongData = new SpotShiGongData();
+                    foreach (Decorate decorate in decorateList)
+                    {
+                        DecorateData decoratedata = new DecorateData();
+                        decoratedata.DecorateId = decorate.Id;
+                        decoratedata.DecorateIndex = decorate.DecorateIndex;
+                        decoratedata.DecoratePics = decorate.DecoratePics;
+                        decoratedata.Decorate360 = decorate.Decorate360;
+                        decorateData.Add(decoratedata);
+                    }
+                    foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 1))
+                    {
+                        SpotYuanZhuangData yuanzhuangdata = new SpotYuanZhuangData();
+                        yuanzhuangdata.SpotId = spotPic.Id;
+                        yuanzhuangdata.SpotIndex = spotPic.SpotIndex;
+                        yuanzhuangdata.SpotPics = spotPic.SpotDetails;
+                        spotYuanZhuangData.Add(yuanzhuangdata);
+                    }
+                    foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 2))
+                    {
+                        SpotShiGongData shigongdata = new SpotShiGongData();
+                        shigongdata.SpotId = spotPic.Id;
+                        shigongdata.SpotIndex = spotPic.SpotIndex;
+                        shigongdata.SpotPics = spotPic.SpotDetails;
+                        spotShiGongData.Add(shigongdata);
+                    }
+                    layoutData.Decotate = decorateData;
+                    layoutData.SpotYuanZhuangData = spotYuanZhuangData;
+                    layoutData.SpotShiGongData = spotShiGongData;
+
+                    layoutDataList.Add(layoutData);
+                }
+                buildingData.LayoutData = layoutDataList;
+                return Json(new { IsUpdate = 1, data = buildingData }, JsonRequestBehavior.AllowGet);
             }
-            buildingData.LayoutData = layoutDataList;
-            return Json(new { data = buildingData }, JsonRequestBehavior.AllowGet);
+            else
+            {
+                return Json(new { IsUpdate = 0, data = "" }, JsonRequestBehavior.AllowGet);
+            }
+            
             
         }
     }

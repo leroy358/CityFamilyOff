@@ -93,6 +93,11 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.SpotPics.Add(spotPic);
                 }
                 db.SaveChanges();
+                Layout layout = db.Layout.Find(spotPic.LayoutId);
+                Building building = db.Building.Find(layout.BuildingId);
+                building.UpdateTime = DateTime.Now;
+                db.Entry(building).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("List", new { id = spotPic.LayoutId });
             }
             else

@@ -98,6 +98,7 @@ namespace CityFamily.Areas.Admin.Controllers
                     sb.Append(" ");
                 }
                 building.BuildingPics = sb.ToString();
+                building.UpdateTime = DateTime.Now;
                 if (IsCreate)
                 {
                     /////////////////////////////////////////////////////////////////////////////////

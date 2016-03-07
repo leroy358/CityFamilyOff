@@ -24,6 +24,7 @@ namespace CityFamily.Models
         public int CreateUserId { get; set; }
 
         public int CompanyId { get; set; }
+        public DateTime UpdateTime { get; set; }
 
     }
 }

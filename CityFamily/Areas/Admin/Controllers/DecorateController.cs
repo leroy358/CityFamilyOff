@@ -98,7 +98,14 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.Decorate.Add(decorate);
                 }
                 db.SaveChanges();
+                Layout layout = db.Layout.Find(decorate.LayoutId);
+                Building building = db.Building.Find(layout.BuildingId);
+                building.UpdateTime = DateTime.Now;
+                db.Entry(building).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("List", new { id = decorate.LayoutId });
+               
+
             }
             else
             {
