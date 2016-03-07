@@ -15,6 +15,7 @@ namespace CityFamily.Models
         public string BuildingAD { get; set; }
         public string BuildingAroundPic { get; set; }
         public string BuildingDeco { get; set; }
+        public string BuildingUpdate { get; set; }
         public List<LayoutData> LayoutData { get; set; }
     }
     public class LayoutData

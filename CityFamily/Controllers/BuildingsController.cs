@@ -347,6 +347,7 @@ namespace CityFamily.Controllers
                 buildingData.BuildingAD = building.BuildingAD;
                 buildingData.BuildingAroundPic = building.BuildingCate;
                 buildingData.BuildingDeco = building.BuildingDecorate;
+                buildingData.BuildingUpdate = building.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 List<LayoutData> layoutDataList = new List<LayoutData>();
 
                 List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == id).ToList();
