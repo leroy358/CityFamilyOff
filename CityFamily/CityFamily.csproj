@@ -222,6 +222,7 @@
     </Compile>
     <Compile Include="Models\Layout.cs" />
     <Compile Include="Models\LayoutDecorateView.cs" />
+    <Compile Include="Models\LayoutDetails.cs" />
     <Compile Include="Models\SpaceCate.cs" />
     <Compile Include="Models\SpotPics.cs" />
     <Compile Include="Models\StyleDetails.cs" />
