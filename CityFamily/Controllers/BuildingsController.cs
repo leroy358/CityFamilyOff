@@ -269,7 +269,7 @@ namespace CityFamily.Controllers
 
         public ActionResult GetBuildingListNext(int companyId,int buildingId)
         {
-            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Id < buildingId).OrderByDescending(item => item.UpdateTime).Take(12);
+            var buildings = db.Building.OrderByDescending(item => item.Id).Where(item => item.Id < buildingId && (item.CreateUserId == 1 || item.CompanyId == companyId)).Take(12);
             List<BuildingList> buildingList = new List<BuildingList>();
             foreach (Building building in buildings)
             {

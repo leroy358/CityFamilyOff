@@ -170,5 +170,60 @@ namespace CityFamily.Controllers
             return Json(new { data = furnitureList }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 获取家具场景二级封面
+        /// </summary>
+        /// <param name="companyId">登录用户分公司ID</param>
+        /// <param name="styleId">家具场景一级分类ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "FurnitureId":178,
+        ///             "FurniturePic":"/Images/data/201512/8c18f02e-03e8-4ea0-9c9b-63b1fc84f8400.jpg"
+        ///         },
+        ///         {
+        ///             "FurnitureId":177,
+        ///             "FurniturePic":"/Images/data/201512/7b13c4f5-4369-4059-bc27-603e93b39c900.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
+        public ActionResult GetFurnitureIndex(int companyId ,int styleId)
+        {
+            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
+            List<FurnitureStyleList> furnitureStyleList = new List<FurnitureStyleList>();
+            foreach(FurnitureStyle furnitureStyle in fsmodelAll)
+            {
+                FurnitureStyleList furniturestyleList = new FurnitureStyleList();
+                furniturestyleList.FurnitureId = furnitureStyle.Id;
+                furniturestyleList.FurniturePic = furnitureStyle.FurniturePics;
+                furnitureStyleList.Add(furniturestyleList);
+            }
+            return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="styleId"></param>
+        /// <param name="furnitureId"></param>
+        /// <returns></returns>
+        public ActionResult GetFurnitureIndexNext(int companyId, int styleId, int furnitureId)
+        {
+            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            var fsmodelAll = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < furnitureId && (item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id)))).Take(12);
+            List<FurnitureStyleList> furnitureStyleList = new List<FurnitureStyleList>();
+            foreach (FurnitureStyle furnitureStyle in fsmodelAll)
+            {
+                FurnitureStyleList furniturestyleList = new FurnitureStyleList();
+                furniturestyleList.FurnitureId = furnitureStyle.Id;
+                furniturestyleList.FurniturePic = furnitureStyle.FurniturePics;
+                furnitureStyleList.Add(furniturestyleList);
+            }
+            return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

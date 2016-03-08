@@ -215,6 +215,7 @@
     <Compile Include="Models\FuncResult.cs" />
     <Compile Include="Models\FurnitureResult.cs" />
     <Compile Include="Models\FurnitureStyle.cs" />
+    <Compile Include="Models\FurnitureStyleList.cs" />
     <Compile Include="Models\FurnitureStylePics.cs" />
     <Compile Include="Models\GetWebSession.cs" />
     <Compile Include="Models\JsonData.cs">
