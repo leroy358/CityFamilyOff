@@ -254,9 +254,24 @@ namespace CityFamily.Controllers
         /// </returns>
         public ActionResult GetBuildingList(int companyId)
         {
-            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId));
+            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId)).OrderByDescending(item=>item.Id).Take(12);
             List<BuildingList> buildingList = new List<BuildingList>();
             foreach(Building building in buildings)
+            {
+                BuildingList buildingIndex = new BuildingList();
+                buildingIndex.BuildingId = building.Id;
+                buildingIndex.BuildingName = building.BuildingName;
+                buildingIndex.BuildingIndex = building.BuildingIndex;
+                buildingList.Add(buildingIndex);
+            }
+            return Json(new { data = buildingList }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetBuildingListNext(int companyId,int buildingId)
+        {
+            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Id < buildingId).OrderByDescending(item => item.UpdateTime).Take(12);
+            List<BuildingList> buildingList = new List<BuildingList>();
+            foreach (Building building in buildings)
             {
                 BuildingList buildingIndex = new BuildingList();
                 buildingIndex.BuildingId = building.Id;
