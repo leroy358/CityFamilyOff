@@ -134,5 +134,41 @@ namespace CityFamily.Controllers
             }
         }
 
+        /// <summary>
+        /// 获取家具场景封面列表
+        /// </summary>
+        /// <param name="companyId">登录用户分公司ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "FurnitureId":20,
+        ///             "FurnitureName":"华丽·高贵·浪漫",
+        ///             "FurnitureIndex":"/Images/data/201512/d5309c85-a612-45af-b89d-1d3ad0d0b7a10.jpg"
+        ///         },
+        ///         {
+        ///             "FurnitureId":21,
+        ///             "FurnitureName":"简洁·现代·时尚",
+        ///             "FurnitureIndex":"/Images/data/201512/200b882c-3d1b-40f9-b527-dcd40da2885a0.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
+        public ActionResult GetFurnitureCover(int companyId)
+        {
+            var notshowdata = db.FCoverID.Where(o => o.CompanyId == companyId).Select(o => o.FCoverId).ToList();
+            List<T_FurnitureCover> list = db.T_FurnitureCover.Where(o => o.CompanyId == companyId || (o.CreateUserId == 1 && !notshowdata.Contains(o.Id))).ToList();
+            List<T_FurnitureCoverList> furnitureList = new List<T_FurnitureCoverList>();
+            foreach(T_FurnitureCover furniture in list)
+            {
+                T_FurnitureCoverList furnitureCover = new T_FurnitureCoverList();
+                furnitureCover.FurnitureId = furniture.Id;
+                furnitureCover.FurnitureName = furniture.StyleName;
+                furnitureCover.FurnitureIndex = furniture.StylePic;
+                furnitureList.Add(furnitureCover);
+            }
+            return Json(new { data = furnitureList }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
