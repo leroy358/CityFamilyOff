@@ -219,11 +219,45 @@ namespace CityFamily.Controllers
             {
                 FurnitureStyleList furniturestyleList = new FurnitureStyleList();
                 furniturestyleList.FurnitureId = furnitureStyle.Id;
-                furniturestyleList.FurniturePic = furnitureStyle.FurniturePics;
+                furniturestyleList.FurniturePic = furnitureStyle.IndexPic;
                 furnitureStyleList.Add(furniturestyleList);
             }
             return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 获取家具场景详情
+        /// </summary>
+        /// <param name="furnitureId"></param>
+        /// <returns>
+        /// {
+        ///     "data":{
+        ///         "FurnitureId":170,
+        ///         "FurnitureBrand":"瑞名华高档定制餐桌",
+        ///         "FurnitureSize":"餐桌【1600*850*750】 餐椅【480*440*940】 ",
+        ///         "FurniturePrize":"实木框架+布艺",
+        ///         "FurnitureMaterial":"组合【26000元】",
+        ///         "FurniturePic":"/Images/data/201512/a0638776-f92a-4678-b7d8-4f67600dc6870.jpg"
+        ///     }
+        /// }
+        /// </returns>
+        public ActionResult GetFurnitureDetails(int furnitureId)
+        {
+            FurnitureStyle furnitureStyle = db.FurnitureStyle.Find(furnitureId);
+            FurnitureStyleDetails furnitureDetail = new FurnitureStyleDetails();
+            furnitureDetail.FurnitureId = furnitureStyle.Id;
+
+            string[] args = furnitureStyle.StyleName.Split('&').ToArray();
+
+            furnitureDetail.FurnitureBrand = args[0];
+            furnitureDetail.FurnitureSize = args[1];
+            furnitureDetail.FurniturePrize = args[2];
+            furnitureDetail.FurnitureMaterial = args[3];
+
+            furnitureDetail.FurniturePic = furnitureStyle.FurniturePics;
+            return Json(new { data = furnitureDetail }, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }
