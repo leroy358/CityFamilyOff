@@ -235,6 +235,7 @@
     <Compile Include="Models\T_CompanyInfo.cs" />
     <Compile Include="Models\T_DepartmentInfo.cs" />
     <Compile Include="Models\T_FurnitureCover.cs" />
+    <Compile Include="Models\T_FurnitureCoverData.cs" />
     <Compile Include="Models\T_FurnitureCoverList.cs" />
     <Compile Include="Models\T_MenuInfo.cs" />
     <Compile Include="Models\T_RoleInfo.cs" />
