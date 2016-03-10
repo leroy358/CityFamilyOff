@@ -10,6 +10,7 @@ namespace CityFamily.Models
         public int FurnitureCoverId { get; set; }
         public string FurnitureCoverName { get; set; }
         public string FurnitureCoverIndex { get; set; }
+        public string FurnitureCoverUpdate { get; set; }
         public List<FurnitureStyleData> FurnitureStyleData { get; set; }
     }
     public class FurnitureStyleData
