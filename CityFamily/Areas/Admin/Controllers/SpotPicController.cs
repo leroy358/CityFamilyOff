@@ -94,9 +94,20 @@ namespace CityFamily.Areas.Admin.Controllers
                 }
                 db.SaveChanges();
                 Layout layout = db.Layout.Find(spotPic.LayoutId);
-                Building building = db.Building.Find(layout.BuildingId);
-                building.UpdateTime = DateTime.Now;
-                db.Entry(building).State = EntityState.Modified;
+                string buildingId = layout.BuildingId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
                 return RedirectToAction("List", new { id = spotPic.LayoutId });
             }
@@ -124,6 +135,21 @@ namespace CityFamily.Areas.Admin.Controllers
             {
                 SpotPics spotPic = db.SpotPics.Find(id);
                 db.SpotPics.Remove(spotPic);
+                Layout layout = db.Layout.Find(spotPic.LayoutId);
+                string buildingId = layout.BuildingId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
                 return Redirect(returnURL);
             }

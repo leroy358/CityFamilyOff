@@ -98,7 +98,6 @@ namespace CityFamily.Areas.Admin.Controllers
                     sb.Append(" ");
                 }
                 building.BuildingPics = sb.ToString();
-                building.UpdateTime = DateTime.Now;
                 if (IsCreate)
                 {
                     /////////////////////////////////////////////////////////////////////////////////
@@ -112,6 +111,21 @@ namespace CityFamily.Areas.Admin.Controllers
                     building.CompanyId = getSession.CompanyId;
                     building.CreateUserId = getSession.AdminId;
                     db.Building.Add(building);
+                }
+                db.SaveChanges();
+                string buildingId = building.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
                 }
                 db.SaveChanges();
                 return RedirectToAction("List");
@@ -136,6 +150,20 @@ namespace CityFamily.Areas.Admin.Controllers
                     {
                         db.Decorate.Remove(decorate);
                     }
+                }
+                string buildingId = building.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
                 }
                 db.SaveChanges();
                 return Redirect(returnURL);

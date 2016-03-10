@@ -452,7 +452,9 @@ namespace CityFamily.Controllers
         {
             Building building = db.Building.Find(id);
             DateTime time = Convert.ToDateTime(updateTime);
-            if (building.UpdateTime > time)
+            string buildingId = id.ToString();
+            UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+            if (record.UpdateTime > time)
             {
                 BuildingData buildingData = new BuildingData();
                 buildingData.BuildingId = id;
@@ -463,7 +465,7 @@ namespace CityFamily.Controllers
                 buildingData.BuildingAD = building.BuildingAD;
                 buildingData.BuildingAroundPic = building.BuildingCate;
                 buildingData.BuildingDeco = building.BuildingDecorate;
-                buildingData.BuildingUpdate = building.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                buildingData.BuildingUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 List<LayoutData> layoutDataList = new List<LayoutData>();
 
                 List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == id).ToList();

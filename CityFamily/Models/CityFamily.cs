@@ -46,6 +46,7 @@ namespace CityFamily.Models
         public DbSet<FCoverID> FCoverID { get; set; }
 
         public DbSet<StylesID> StylesID { get; set; }
+        public DbSet<UpdateRecord> UpdateRecord { get; set; }
 
         public CityFamilyDbContext()
             : base("DefaultConnection")

@@ -242,6 +242,7 @@
     <Compile Include="Models\T_StyleFurniturePics.cs" />
     <Compile Include="Models\T_UserDepartment.cs" />
     <Compile Include="Models\T_UserRole.cs" />
+    <Compile Include="Models\UpdateRecord.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\VIPListView.cs" />

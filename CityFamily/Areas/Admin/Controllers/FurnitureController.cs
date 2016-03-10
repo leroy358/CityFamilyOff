@@ -124,6 +124,22 @@ namespace CityFamily.Areas.Admin.Controllers
                     //SavePicData(style.FurniturePics, style.StyleId, style.IdentityId);
                 }
 
+                string styleId = style.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.FurnitureId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 return Redirect("List");
             }
             else
@@ -193,6 +209,21 @@ namespace CityFamily.Areas.Admin.Controllers
 
                 List<T_StyleFurniturePics> styles = db.T_StyleFurniturePics.Where(o => o.IdentityId == style.IdentityId).ToList();
                 db.T_StyleFurniturePics.RemoveRange(styles);
+
+                string styleId = style.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.FurnitureId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
 
                 return Redirect(returnURL);
@@ -304,6 +335,22 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.FStyleID.Remove(fstyleid);
                     db.SaveChanges();
                 }
+                FurnitureStyle furniture = db.FurnitureStyle.Find(styid);
+                string styleId = furniture.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.FurnitureId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
                 return RedirectToAction("Shield", "Furniture");
             }
             else

@@ -101,9 +101,21 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.Layout.Add(layout);
                 }
                 db.SaveChanges();
-                Building building = db.Building.Find(layout.BuildingId);
-                building.UpdateTime = DateTime.Now;
-                db.Entry(building).State = EntityState.Modified;
+
+                string buildingId = layout.BuildingId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
                 return RedirectToAction("List", new { id = layout.BuildingId });
             }
@@ -122,6 +134,20 @@ namespace CityFamily.Areas.Admin.Controllers
                 foreach (Decorate decorate in decorates)
                 {
                     db.Decorate.Remove(decorate);
+                }
+                string buildingId = layout.BuildingId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = buildingId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
                 }
                 db.SaveChanges();
                 return Redirect(returnURL);
