@@ -102,14 +102,12 @@ namespace CityFamily.Controllers
         ///             {
         ///                 "DecorateId":35,
         ///                 "DecorateIndex":"/Images/data/201507/d302d0f6-b9f6-47f1-9141-f49a8c7c7cf30.jpg",
-        ///                 "DecoratePics":"/Images/data/201507/b480a31d-3f82-4903-85c5-11f0f2a7a2aa0.jpg /Images/data/201507/28c599a0-d4b2-4c82-870f-28877c2455e41.jpg ",
-        ///                 "Decorate360":null
+        ///                 "Is360":0
         ///             },
         ///             {
         ///                 "DecorateId":41,
         ///                 "DecorateIndex":"/Images/data/201507/53e13946-4f37-488f-bc4c-0ba8449115390.jpg",
-        ///                 "DecoratePics":null,
-        ///                 "Decorate360":"http://119.188.126.108:8081/ZhuangXiu/BaoJi/BaoJi.html"
+        ///                 "Is360":1
         ///             }
         ///         ],
         ///         "SpotYuanZhuangData":[
@@ -161,8 +159,7 @@ namespace CityFamily.Controllers
                 LayoutDecorate decoratedata = new LayoutDecorate();
                 decoratedata.DecorateId = decorate.Id;
                 decoratedata.DecorateIndex = decorate.DecorateIndex;
-                decoratedata.DecoratePics = decorate.DecoratePics;
-                decoratedata.Decorate360 = decorate.Decorate360;
+                decoratedata.Is360 = (decorate.Decorate360 == null) ? 0 : 1;
                 decorateData.Add(decoratedata);
             }
             foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 1))

@@ -207,6 +207,7 @@
     <Compile Include="Models\CityFamily.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Decorate.cs" />
+    <Compile Include="Models\DecorateDetailData.cs" />
     <Compile Include="Models\DepartmentRole.cs" />
     <Compile Include="Models\DIYResult.cs" />
     <Compile Include="Models\FCoverID.cs" />
@@ -227,11 +228,14 @@
     <Compile Include="Models\LayoutDetails.cs" />
     <Compile Include="Models\SpaceCate.cs" />
     <Compile Include="Models\SpotPics.cs" />
+    <Compile Include="Models\SpotPicsDetailData.cs" />
     <Compile Include="Models\StyleDetails.cs" />
+    <Compile Include="Models\StyleDetailsData.cs" />
     <Compile Include="Models\Styles.cs" />
     <Compile Include="Models\StylesData.cs" />
     <Compile Include="Models\StylesID.cs" />
     <Compile Include="Models\StyleThird.cs" />
+    <Compile Include="Models\StyleThirdData.cs" />
     <Compile Include="Models\T_AuthInfo.cs" />
     <Compile Include="Models\T_CompanyInfo.cs" />
     <Compile Include="Models\T_DepartmentInfo.cs" />

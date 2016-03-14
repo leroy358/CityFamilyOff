@@ -23,8 +23,7 @@ namespace CityFamily.Models
     {
         public int DecorateId { get; set; }
         public string DecorateIndex { get; set; }
-        public string DecoratePics { get; set; }
-        public string Decorate360 { get; set; }
+        public int Is360 { get; set; }
     }
     public class LayoutSpotYuanZhuang
     {

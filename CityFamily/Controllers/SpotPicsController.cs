@@ -22,5 +22,26 @@ namespace CityFamily.Controllers
                 return RedirectToAction("Login", "Home");
             }
         }
-	}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spotId"></param>
+        /// <returns>
+        /// {
+        ///     "data":{
+        ///         "SpotId":35,
+        ///         "SpotPics":"/Images/data/201507/b480a31d-3f82-4903-85c5-11f0f2a7a2aa0.jpg /Images/data/201507/28c599a0-d4b2-4c82-870f-28877c2455e41.jpg "
+        ///     }
+        /// }
+        /// </returns>
+        public ActionResult GetSpotDetail(int spotId)
+        {
+            SpotPics spot = db.SpotPics.Find(spotId);
+            SpotPicsDetailData spotDetail = new SpotPicsDetailData();
+            spotDetail.SpotId = spotId;
+            spotDetail.SpotPics = spot.SpotDetails;
+            return Json(new { data = spotDetail }, JsonRequestBehavior.AllowGet);
+        }
+    }
 }
