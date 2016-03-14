@@ -538,7 +538,7 @@ namespace CityFamily.Controllers
                 layoutDataList.Add(layoutData);
             }
             buildingData.LayoutData = layoutDataList;
-            return Json(new { IsUpdate = 1, data = buildingData }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = buildingData }, JsonRequestBehavior.AllowGet);
 
 
 
