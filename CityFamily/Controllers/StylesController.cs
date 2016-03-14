@@ -244,6 +244,32 @@ namespace CityFamily.Controllers
 
         }
 
+
+        /// <summary>
+        /// 获取风格定位首页列表
+        /// </summary>
+        /// <param name="companyId">登录用户分公司ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "StyleId":1,
+        ///             "StyleName":"自然风格",
+        ///             "StyleIndex":"/Images/data/201507/a8612312-2ec8-4b4e-9108-53f881bbb3a60.jpg"
+        ///         },
+        ///         {
+        ///             "StyleId":2,
+        ///             "StyleName":"中式风格",
+        ///             "StyleIndex":"/Images/data/201507/1629faa7-c6bd-411f-974a-96e0258017960.jpg"
+        ///         },
+        ///         {
+        ///             "StyleId":3,
+        ///             "StyleName":"地中海风格",
+        ///             "StyleIndex":"/Images/data/201507/45e76ec8-f7cc-43a9-ae6a-e1b4e81f19a00.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
         public ActionResult GetStyleList(int companyId)
         {
             var notshowdata = db.StylesID.Where(o => o.CompanyId == companyId).Select(o => o.StylesId).ToList();
@@ -258,6 +284,77 @@ namespace CityFamily.Controllers
                 styleDataList.Add(stylesData);
             }
             return Json(new { data = styleDataList }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        ///  获取二级风格列表
+        /// </summary>
+        /// <param name="styleId">一级风格ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "StyleSecondId":1
+        ///             "StyleDSecondName":"美式乡村",
+        ///             "StyleSecondIndex":"/Images/data/201508/b8bfa8bc-54f3-4450-9d43-5243e622397a0.png"
+        ///         },
+        ///         {
+        ///             "StyleSecondId":16,
+        ///             "StyleDSecondName":"英式田园",
+        ///             "StyleSecondIndex":"/Images/data/201508/38ae5c2b-5fe6-475e-8179-348fffafde570.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
+        public ActionResult GetStyleSecList(int styleId)
+        {
+            var secStyles = db.StyleDetails.Where(item => item.StyleId == styleId);
+            List<StyleDetailsData> styleDetailList = new List<StyleDetailsData>();
+            foreach(StyleDetails styleDetail in secStyles)
+            {
+                StyleDetailsData styleDetailData = new StyleDetailsData();
+                styleDetailData.StyleSecondId = styleDetail.Id;
+                styleDetailData.StyleDSecondName = styleDetail.StyleDetailName;
+                styleDetailData.StyleSecondIndex = styleDetail.StyleDetailIndex;
+                styleDetailList.Add(styleDetailData);
+            }
+            return Json(new { data = styleDetailList }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取三级风格列表信息
+        /// </summary>
+        /// <param name="styleSecId">二级风格ID</param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "StyleThirdId":22,
+        ///             "StyleThirdName":"美式乡村160平米--客厅",
+        ///             "StyleThirdIndex":"/Images/data/201508/9af34ee7-6675-41d4-9b61-eb18775ef6180.png"
+        ///         },
+        ///         {
+        ///             "StyleThirdId":55,
+        ///             "StyleThirdName":"美式乡村160平米--餐厅",
+        ///             "StyleThirdIndex":"/Images/data/201508/fdafe0b6-fb9b-4ddf-96da-b847d744a1200.jpg"
+        ///         }
+        ///     ]
+        /// }
+        /// </returns>
+        public ActionResult GetStyleThiList(int styleSecId)
+        {
+            List<StyleThird> styleThirds = db.StyleThird.Where(item => item.StyleDetailId == styleSecId).ToList();
+            List<StyleThirdData> styleThirdList = new List<StyleThirdData>();
+            foreach(StyleThird styleThird in styleThirds)
+            {
+                StyleThirdData styleThirdData = new StyleThirdData();
+                styleThirdData.StyleThirdId = styleThird.Id;
+                styleThirdData.StyleThirdName = styleThird.StyleThirdName;
+                styleThirdData.StyleThirdIndex = styleThird.StyleThirdIndex;
+                styleThirdList.Add(styleThirdData);
+            }
+            return Json(new { data = styleThirdList }, JsonRequestBehavior.AllowGet);
         }
 
     }
