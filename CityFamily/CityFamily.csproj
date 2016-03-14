@@ -229,6 +229,7 @@
     <Compile Include="Models\SpotPics.cs" />
     <Compile Include="Models\StyleDetails.cs" />
     <Compile Include="Models\Styles.cs" />
+    <Compile Include="Models\StylesData.cs" />
     <Compile Include="Models\StylesID.cs" />
     <Compile Include="Models\StyleThird.cs" />
     <Compile Include="Models\T_AuthInfo.cs" />

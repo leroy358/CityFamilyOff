@@ -244,7 +244,21 @@ namespace CityFamily.Controllers
 
         }
 
-
+        public ActionResult GetStyleList(int companyId)
+        {
+            var notshowdata = db.StylesID.Where(o => o.CompanyId == companyId).Select(o => o.StylesId).ToList();
+            var styles = db.Styles.Where(o => o.CompanyId == companyId || (o.CreateUserId == 1 && !notshowdata.Contains(o.Id))).OrderBy(item => item.Id);
+            List<StylesData> styleDataList = new List<StylesData>();
+            foreach(Styles style in styles)
+            {
+                StylesData stylesData = new StylesData();
+                stylesData.StyleId = style.Id;
+                stylesData.StyleName = style.StyleName;
+                stylesData.StyleIndex = style.StyleIndex;
+                styleDataList.Add(stylesData);
+            }
+            return Json(new { data = styleDataList }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
