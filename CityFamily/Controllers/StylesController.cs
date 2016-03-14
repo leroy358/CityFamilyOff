@@ -360,33 +360,49 @@ namespace CityFamily.Controllers
         /// <summary>
         /// 获取三级风格图片详情
         /// </summary>
-        /// <param name="styleThirdId"></param>
+        /// <param name="styleThirdId">三级风格ID</param>
         /// <returns>
         /// {
-        ///     "styleThirdPics":"/Images/data/201507/9f202d77-641f-45f2-9684-5e8d3199d59a0.jpg /Images/data/201507/f9886162-0ca8-4d44-b931-fe86c01fbed91.jpg /Images/data/201507/718708ca-d6d0-4390-bfe4-bf1460d353512.jpg /Images/data/201507/acd768d4-d1f2-4835-99de-7cb2a99ba90c3.jpg "
+        ///     "StyleThirdPics":"/Images/data/201507/9f202d77-641f-45f2-9684-5e8d3199d59a0.jpg /Images/data/201507/f9886162-0ca8-4d44-b931-fe86c01fbed91.jpg /Images/data/201507/718708ca-d6d0-4390-bfe4-bf1460d353512.jpg /Images/data/201507/acd768d4-d1f2-4835-99de-7cb2a99ba90c3.jpg "
         /// }
         /// </returns>
         public ActionResult GetStyleThirdDetail(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
             string styleThirdPics = styleThird.StyleThirdPics;
-            return Json(new { styleThirdPics = styleThirdPics }, JsonRequestBehavior.AllowGet);
+            return Json(new { StyleThirdPics = styleThirdPics }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
         /// 获取三级风格720地址
         /// </summary>
-        /// <param name="styleThirdId"></param>
+        /// <param name="styleThirdId">三级风格ID</param>
         /// <returns>
         /// {
-        ///     "styleThird720":"http://119.188.113.104:8081/Show/chuanTongOuShi/chuanTongOuShi.html"
+        ///     "StyleThird720":"http://119.188.113.104:8081/Show/chuanTongOuShi/chuanTongOuShi.html"
         /// }
         /// </returns>
         public ActionResult GetStyleThird360(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
             string styleThird720 = styleThird.StyleThird720;
-            return Json(new { styleThird720 = styleThird720 }, JsonRequestBehavior.AllowGet);
+            return Json(new { StyleThird720 = styleThird720 }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取三级风格RequestCode
+        /// </summary>
+        /// <param name="styleThirdId">三级风格ID</param>
+        /// <returns>
+        /// {
+        ///     "StyleThirdCode":"ded0065a-f46e-446a-8250-326418863f41"
+        /// }
+        /// </returns>
+        public ActionResult GetStyleThirdCode(int styleThirdId)
+        {
+            StyleThird styleThird = db.StyleThird.Find(styleThirdId);
+            string styleThirdCode = styleThird.StyleThirdCode;
+            return Json(new { StyleThirdCode = styleThirdCode }, JsonRequestBehavior.AllowGet);
         }
 
     }
