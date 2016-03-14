@@ -113,6 +113,23 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.Styles.Add(style);
                 }
                 db.SaveChanges();
+
+                string styleId = style.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 return Redirect("List");
             }
             else
@@ -126,6 +143,23 @@ namespace CityFamily.Areas.Admin.Controllers
             {
                 Styles style = db.Styles.Find(id);
                 db.Styles.Remove(style);
+
+                string styleId = style.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 db.SaveChanges();
                 return Redirect(returnURL);
             }
@@ -202,6 +236,23 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.StylesID.Remove(fstyleid);
                     db.SaveChanges();
                 }
+
+                string styleId = stylesid.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("Shield", "Style");
             }
             else

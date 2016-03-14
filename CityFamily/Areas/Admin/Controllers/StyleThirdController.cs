@@ -93,6 +93,24 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.StyleThird.Add(styleThird);
                 }
                 db.SaveChanges();
+
+                StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
+                string styleIdId = styleDetail.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleIdId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleIdId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("List", new { id = styleThird.StyleDetailId });
             }
             else
@@ -106,7 +124,24 @@ namespace CityFamily.Areas.Admin.Controllers
             {
                 StyleThird styleThird=db.StyleThird.Find(id);
                 db.StyleThird.Remove(styleThird);
+
+                StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
+                string styleId = styleDetail.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
+                
                 return Redirect(returnURL);
             }
             else

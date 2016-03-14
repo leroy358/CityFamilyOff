@@ -86,6 +86,23 @@ namespace CityFamily.Areas.Admin.Controllers
                     db.StyleDetails.Add(styleDetail);
                 }
                 db.SaveChanges();
+
+                string styleId = styleDetail.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("List", new { id = styleDetail.StyleId });
             }
             else
@@ -99,7 +116,23 @@ namespace CityFamily.Areas.Admin.Controllers
             {
                 StyleDetails styleDetail = db.StyleDetails.Find(id);
                 db.StyleDetails.Remove(styleDetail);
+
+                string styleId = styleDetail.StyleId.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.UpdateTime = DateTime.Now;
+                    db.Entry(record).State = EntityState.Modified;
+                }
+                else
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = styleId;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                }
                 db.SaveChanges();
+
                 return Redirect(returnURL);
             }
             else
