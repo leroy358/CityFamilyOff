@@ -154,6 +154,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetFurnitureCover(int companyId)
         {
             var notshowdata = db.FCoverID.Where(o => o.CompanyId == companyId).Select(o => o.FCoverId).ToList();
@@ -189,6 +190,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetFurnitureIndex(int companyId, int styleId)
         {
             var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
@@ -210,6 +212,7 @@ namespace CityFamily.Controllers
         /// <param name="styleId"></param>
         /// <param name="furnitureId"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult GetFurnitureIndexNext(int companyId, int styleId, int furnitureId)
         {
             var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
@@ -241,6 +244,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetFurnitureDetails(int furnitureId)
         {
             FurnitureStyle furnitureStyle = db.FurnitureStyle.Find(furnitureId);
@@ -273,6 +277,7 @@ namespace CityFamily.Controllers
         ///     "IsUpdate":0
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult IsFurnitureUpdate(int styleId, string updateTime)
         {
             DateTime time = Convert.ToDateTime(updateTime);
@@ -323,6 +328,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetFurnitureData(int companyId, int styleId)
         {
             string id = styleId.ToString();

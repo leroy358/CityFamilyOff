@@ -36,6 +36,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetDecorateDetail(int decorateId)
         {
             Decorate decorate = db.Decorate.Find(decorateId);

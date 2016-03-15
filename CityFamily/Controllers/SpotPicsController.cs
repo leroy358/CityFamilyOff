@@ -35,6 +35,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetSpotDetail(int spotId)
         {
             SpotPics spot = db.SpotPics.Find(spotId);

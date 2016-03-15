@@ -252,6 +252,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetBuildingList(int companyId)
         {
             var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId)).OrderByDescending(item => item.Id).Take(12);
@@ -266,7 +267,7 @@ namespace CityFamily.Controllers
             }
             return Json(new { data = buildingList }, JsonRequestBehavior.AllowGet);
         }
-
+        [HttpPost]
         public ActionResult GetBuildingListNext(int companyId, int buildingId)
         {
             var buildings = db.Building.OrderByDescending(item => item.Id).Where(item => item.Id < buildingId && (item.CreateUserId == 1 || item.CompanyId == companyId)).Take(12);
@@ -317,6 +318,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetBuildingDetails(int buildingId)
         {
             Building building = db.Building.Find(buildingId);
@@ -357,6 +359,7 @@ namespace CityFamily.Controllers
         ///     "IsUpdate":0
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult IsBuildingUpdate(int id, string updateTime)
         {
             Building building = db.Building.Find(id);
@@ -470,7 +473,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
-
+        [HttpPost]
         public JsonResult GetBuildingData(int id)
         {
             Building building = db.Building.Find(id);

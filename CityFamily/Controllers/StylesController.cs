@@ -270,6 +270,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleList(int companyId)
         {
             var notshowdata = db.StylesID.Where(o => o.CompanyId == companyId).Select(o => o.StylesId).ToList();
@@ -307,6 +308,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleSecList(int styleId)
         {
             var secStyles = db.StyleDetails.Where(item => item.StyleId == styleId);
@@ -342,6 +344,7 @@ namespace CityFamily.Controllers
         ///     ]
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleThiList(int styleSecId)
         {
             List<StyleThird> styleThirds = db.StyleThird.Where(item => item.StyleDetailId == styleSecId).ToList();
@@ -366,6 +369,7 @@ namespace CityFamily.Controllers
         ///     "StyleThirdPics":"/Images/data/201507/9f202d77-641f-45f2-9684-5e8d3199d59a0.jpg /Images/data/201507/f9886162-0ca8-4d44-b931-fe86c01fbed91.jpg /Images/data/201507/718708ca-d6d0-4390-bfe4-bf1460d353512.jpg /Images/data/201507/acd768d4-d1f2-4835-99de-7cb2a99ba90c3.jpg "
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleThirdDetail(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
@@ -382,6 +386,7 @@ namespace CityFamily.Controllers
         ///     "StyleThird720":"http://119.188.113.104:8081/Show/chuanTongOuShi/chuanTongOuShi.html"
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleThird360(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
@@ -398,6 +403,7 @@ namespace CityFamily.Controllers
         ///     "StyleThirdCode":"ded0065a-f46e-446a-8250-326418863f41"
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetStyleThirdCode(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
@@ -615,6 +621,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetDIYData(string code)
         {
             string targetUrl = TargetUrl;

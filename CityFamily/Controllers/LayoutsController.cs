@@ -137,6 +137,7 @@ namespace CityFamily.Controllers
         ///     }
         /// }
         /// </returns>
+        [HttpPost]
         public ActionResult GetLayoutDetails(int layoutId)
         {
             Layout layout = db.Layout.Find(layoutId);
