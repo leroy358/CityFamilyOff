@@ -405,5 +405,262 @@ namespace CityFamily.Controllers
             return Json(new { StyleThirdCode = styleThirdCode }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 获取DIY数据
+        /// </summary>
+        /// <param name="code">三级风格的RequestCode</param>
+        /// <returns>
+        /// {
+        ///     "Result":{
+        ///         "Success":true,
+        ///         "Note":""
+        ///     },
+        ///     "SampleRoom":{
+        ///         "id":58,
+        ///         "name":"美式乡村160平米（客厅）",
+        ///         "summary":"",
+        ///         "itemPlaceholderList":[
+        ///             {
+        ///                 "id":341,
+        ///                 "name":"造型",
+        ///                 "replaceableItemList":[
+        ///                     {
+        ///                         "id":1855,
+        ///                         "name":"造型06",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1810,
+        ///                             "name":"造型06",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141618676.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米06"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":false,
+        ///                         "styleKeywords":"美式乡村风格160平米06"
+        ///                     },
+        ///                     {
+        ///                         "id":1854,
+        ///                         "name":"造型05",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1809,
+        ///                             "name":"造型05",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141607693.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米05"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":false,
+        ///                         "styleKeywords":"美式乡村风格160平米05"
+        ///                     },
+        ///                     {
+        ///                         "id":1853,
+        ///                         "name":"造型04",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1808,
+        ///                             "name":"造型04",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141557990.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米04"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":false,
+        ///                         "styleKeywords":"美式乡村风格160平米04"
+        ///                     },
+        ///                     {
+        ///                         "id":1852,
+        ///                         "name":"造型03",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1807,
+        ///                             "name":"造型03",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141547351.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米03"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":false,
+        ///                         "styleKeywords":"美式乡村风格160平米03"
+        ///                     },
+        ///                     {
+        ///                         "id":1851,
+        ///                         "name":"造型02",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1806,
+        ///                             "name":"造型02",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141510581.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米02"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":false,
+        ///                         "styleKeywords":"美式乡村风格160平米02"
+        ///                     },
+        ///                     {
+        ///                         "id":1850,
+        ///                         "name":"造型01",
+        ///                         "useDictionaryItem":{
+        ///                             "id":1805,
+        ///                             "name":"造型01",
+        ///                             "thumbnailUrl":"/Images/201508/20150812141459583.jpg",
+        ///                             "unitPrice":1,
+        ///                             "measurementUnits":"1",
+        ///                             "styleKeywords":"美式乡村风格160平米01"
+        ///                         },
+        ///                         "count":1,
+        ///                         "asDefaultItem":true,
+        ///                         "styleKeywords":"美式乡村风格160平米01"
+        ///                     }
+        ///                 ]
+        ///             },
+        ///             {"id":340,"name":"墙","replaceableItemList":[{"id":1849,"name":"墙06","useDictionaryItem":{"id":1804,"name":"墙06","thumbnailUrl":"/Images/201508/20150812141433157.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米06"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米06"},{"id":1848,"name":"墙05","useDictionaryItem":{"id":1803,"name":"墙05","thumbnailUrl":"/Images/201508/20150812141421473.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米05"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米05"},{"id":1847,"name":"墙04","useDictionaryItem":{"id":1802,"name":"墙04","thumbnailUrl":"/Images/201508/20150812141410287.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米04"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米04"},{"id":1846,"name":"墙03","useDictionaryItem":{"id":1801,"name":"墙03","thumbnailUrl":"/Images/201508/20150812141359086.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米03"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米03"},{"id":1845,"name":"墙02","useDictionaryItem":{"id":1800,"name":"墙02","thumbnailUrl":"/Images/201508/20150812141346669.jpg","unitPrice":11,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米02"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米02"},{"id":1844,"name":"墙01","useDictionaryItem":{"id":1799,"name":"墙01","thumbnailUrl":"/Images/201508/20150812141335218.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米01"},"count":1,"asDefaultItem":true,"styleKeywords":"美式乡村风格160平米01"}]},
+        ///             {"id":339,"name":"门","replaceableItemList":[{"id":1843,"name":"门06","useDictionaryItem":{"id":1798,"name":"门06","thumbnailUrl":"/Images/201508/20150812141322536.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米06"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米06"},{"id":1842,"name":"门05","useDictionaryItem":{"id":1797,"name":"门05","thumbnailUrl":"/Images/201508/20150812141311101.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米05"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米05"},{"id":1841,"name":"门04","useDictionaryItem":{"id":1796,"name":"门04","thumbnailUrl":"/Images/201508/20150812141300150.jpg","unitPrice":11,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米04"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米04"},{"id":1840,"name":"门03","useDictionaryItem":{"id":1795,"name":"门03","thumbnailUrl":"/Images/201508/20150812141235065.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米03"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米03"},{"id":1839,"name":"门02","useDictionaryItem":{"id":1794,"name":"门02","thumbnailUrl":"/Images/201508/20150812141223521.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米02"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米02"},{"id":1838,"name":"门01","useDictionaryItem":{"id":1793,"name":"门01","thumbnailUrl":"/Images/201508/20150812141209247.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米01"},"count":1,"asDefaultItem":true,"styleKeywords":"美式乡村风格160平米01"}]},
+        ///             {"id":338,"name":"家具","replaceableItemList":[{"id":1837,"name":"家具06","useDictionaryItem":{"id":1792,"name":"家具06","thumbnailUrl":"/Images/201508/20150814152645368.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米06"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米06"},{"id":1836,"name":"家具05","useDictionaryItem":{"id":1791,"name":"家具05","thumbnailUrl":"/Images/201508/20150814152637661.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米05"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米05"},{"id":1835,"name":"家具04","useDictionaryItem":{"id":1790,"name":"家具04","thumbnailUrl":"/Images/201508/20150814152630922.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米04"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米04"},{"id":1834,"name":"家具03","useDictionaryItem":{"id":1789,"name":"家具03","thumbnailUrl":"/Images/201508/20150814152623762.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米03"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米03"},{"id":1833,"name":"家具02","useDictionaryItem":{"id":1788,"name":"家具02","thumbnailUrl":"/Images/201508/20150814152616601.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米02"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米02"},{"id":1832,"name":"家具01","useDictionaryItem":{"id":1787,"name":"家具01","thumbnailUrl":"/Images/201508/20150814152604199.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米01"},"count":1,"asDefaultItem":true,"styleKeywords":"美式乡村风格160平米01"}]},
+        ///             {"id":337,"name":"顶面","replaceableItemList":[{"id":1831,"name":"顶面06","useDictionaryItem":{"id":1786,"name":"顶面06","thumbnailUrl":"/Images/201508/20150814152512095.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米06"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米06"},{"id":1830,"name":"顶面05","useDictionaryItem":{"id":1785,"name":"顶面05","thumbnailUrl":"/Images/201508/20150814152522048.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米05"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米05"},{"id":1829,"name":"顶面04","useDictionaryItem":{"id":1784,"name":"顶面04","thumbnailUrl":"/Images/201508/20150814152530425.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米04"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米04"},{"id":1828,"name":"顶面03","useDictionaryItem":{"id":1783,"name":"顶面03","thumbnailUrl":"/Images/201508/20150814152537523.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米03"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米03"},{"id":1827,"name":"顶面02","useDictionaryItem":{"id":1782,"name":"顶面02","thumbnailUrl":"/Images/201508/20150814152544434.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米02"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米02"},{"id":1826,"name":"顶面01","useDictionaryItem":{"id":1781,"name":"顶面01","thumbnailUrl":"/Images/201508/20150814152551189.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米01"},"count":1,"asDefaultItem":true,"styleKeywords":"美式乡村风格160平米01"}]},
+        ///             {"id":336,"name":"地面","replaceableItemList":[{"id":1825,"name":"地面06","useDictionaryItem":{"id":1780,"name":"地面06","thumbnailUrl":"/Images/201508/20150813102931754.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米06"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米06"},{"id":1824,"name":"地面05","useDictionaryItem":{"id":1779,"name":"地面05","thumbnailUrl":"/Images/201508/20150812140709789.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米05"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米05"},{"id":1823,"name":"地面04","useDictionaryItem":{"id":1778,"name":"地面04","thumbnailUrl":"/Images/201508/20150813102806937.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米04"},"count":0,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米04"},{"id":1822,"name":"地面03","useDictionaryItem":{"id":1777,"name":"地面03","thumbnailUrl":"/Images/201508/20150813103321667.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米03"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米03"},{"id":1821,"name":"地面02","useDictionaryItem":{"id":1776,"name":"地面02","thumbnailUrl":"/Images/201508/20150812140633113.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米02"},"count":1,"asDefaultItem":false,"styleKeywords":"美式乡村风格160平米02"},{"id":1820,"name":"地面01","useDictionaryItem":{"id":1775,"name":"地面01","thumbnailUrl":"/Images/201508/20150813103222028.jpg","unitPrice":1,"measurementUnits":"1","styleKeywords":"美式乡村风格160平米01"},"count":1,"asDefaultItem":true,"styleKeywords":"美式乡村风格160平米01"}]}
+        ///         ],
+        ///         "perspectiveList":[
+        ///             {
+        ///                 "id":65,
+        ///                 "name":"视角1",
+        ///                 "backgroundImageUrl":"/Images/201508/20150812142430810.jpg",
+        ///                 "visibleItemPlaceholderList":[
+        ///                     {
+        ///                         "id":337,
+        ///                         "displayIndex":5
+        ///                     },
+        ///                     {
+        ///                         "id":338,
+        ///                         "displayIndex":4
+        ///                     },
+        ///                     {
+        ///                         "id":341,
+        ///                         "displayIndex":3
+        ///                     },
+        ///                     {
+        ///                         "id":339
+        ///                         "displayIndex":2
+        ///                     },
+        ///                     {
+        ///                         "id":336,
+        ///                         "displayIndex":1
+        ///                     },
+        ///                     {
+        ///                         "id":340,
+        ///                         "displayIndex":0
+        ///                     }
+        ///                 ]
+        ///             }
+        ///         ],
+        ///         "materialList":[
+        ///             {
+        ///                 "id":2057,
+        ///                 "forPerspective":{
+        ///                     "id":65
+        ///                 },
+        ///                 "forReplaceableItem":{
+        ///                     "id":1855
+        ///                 },
+        ///                 "imageUrl":"/Images/201508/20150812142502524.png"
+        ///             },
+        ///             {
+        ///                 "id":2056,
+        ///                 "forPerspective":{
+        ///                     "id":65
+        ///                 },"
+        ///                 forReplaceableItem":
+        ///                 {
+        ///                     "id":1854
+        ///                 },
+        ///                 "imageUrl":"/Images/201508/20150812142507828.png"
+        ///             },
+        ///             {"id":2055,"forPerspective":{"id":65},"forReplaceableItem":{"id":1853},"imageUrl":"/Images/201508/20150812142512025.png"},
+        ///             {"id":2054,"forPerspective":{"id":65},"forReplaceableItem":{"id":1852},"imageUrl":"/Images/201508/20150812142516596.png"},
+        ///             {"id":2053,"forPerspective":{"id":65},"forReplaceableItem":{"id":1851},"imageUrl":"/Images/201508/20150812142520683.png"},
+        ///             {"id":2052,"forPerspective":{"id":65},"forReplaceableItem":{"id":1850},"imageUrl":"/Images/201508/20150812142524474.png"},
+        ///             {"id":2051,"forPerspective":{"id":65},"forReplaceableItem":{"id":1849},"imageUrl":"/Images/201508/20150812142528249.png"},
+        ///             {"id":2050,"forPerspective":{"id":65},"forReplaceableItem":{"id":1848},"imageUrl":"/Images/201508/20150812142533366.png"},
+        ///             {"id":2049,"forPerspective":{"id":65},"forReplaceableItem":{"id":1847},"imageUrl":"/Images/201508/20150812142540167.png"},
+        ///             {"id":2048,"forPerspective":{"id":65},"forReplaceableItem":{"id":1846},"imageUrl":"/Images/201508/20150812142544660.png"},
+        ///             {"id":2047,"forPerspective":{"id":65},"forReplaceableItem":{"id":1845},"imageUrl":"/Images/201508/20150812142550666.png"},
+        ///             {"id":2046,"forPerspective":{"id":65},"forReplaceableItem":{"id":1844},"imageUrl":"/Images/201508/20150812142556594.png"},
+        ///             {"id":2045,"forPerspective":{"id":65},"forReplaceableItem":{"id":1843},"imageUrl":"/Images/201508/20150812142600993.png"},
+        ///             {"id":2044,"forPerspective":{"id":65},"forReplaceableItem":{"id":1842},"imageUrl":"/Images/201508/20150812142605970.png"},
+        ///             {"id":2043,"forPerspective":{"id":65},"forReplaceableItem":{"id":1841},"imageUrl":"/Images/201508/20150812142611523.png"},
+        ///             {"id":2042,"forPerspective":{"id":65},"forReplaceableItem":{"id":1840},"imageUrl":"/Images/201508/20150812142616469.png"},
+        ///             {"id":2041,"forPerspective":{"id":65},"forReplaceableItem":{"id":1839},"imageUrl":"/Images/201508/20150812142620805.png"},
+        ///             {"id":2040,"forPerspective":{"id":65},"forReplaceableItem":{"id":1838},"imageUrl":"/Images/201508/20150812142625485.png"},
+        ///             {"id":2039,"forPerspective":{"id":65},"forReplaceableItem":{"id":1837},"imageUrl":"/Images/201508/20150813101602191.png"},
+        ///             {"id":2038,"forPerspective":{"id":65},"forReplaceableItem":{"id":1836},"imageUrl":"/Images/201508/20150813101612674.png"},
+        ///             {"id":2037,"forPerspective":{"id":65},"forReplaceableItem":{"id":1835},"imageUrl":"/Images/201508/20150813101621784.png"},
+        ///             {"id":2036,"forPerspective":{"id":65},"forReplaceableItem":{"id":1834},"imageUrl":"/Images/201508/20150813101638710.png"},
+        ///             {"id":2035,"forPerspective":{"id":65},"forReplaceableItem":{"id":1833},"imageUrl":"/Images/201508/20150813102433497.png"},
+        ///             {"id":2034,"forPerspective":{"id":65},"forReplaceableItem":{"id":1832},"imageUrl":"/Images/201508/20150812162545539.png"},
+        ///             {"id":2033,"forPerspective":{"id":65},"forReplaceableItem":{"id":1831},"imageUrl":"/Images/201508/20150813101654264.png"},
+        ///             {"id":2032,"forPerspective":{"id":65},"forReplaceableItem":{"id":1830},"imageUrl":"/Images/201508/20150813101702968.png"},
+        ///             {"id":2031,"forPerspective":{"id":65},"forReplaceableItem":{"id":1829},"imageUrl":"/Images/201508/20150813101710394.png"},
+        ///             {"id":2030,"forPerspective":{"id":65},"forReplaceableItem":{"id":1828},"imageUrl":"/Images/201508/20150813101717866.png"},
+        ///             {"id":2029,"forPerspective":{"id":65},"forReplaceableItem":{"id":1827},"imageUrl":"/Images/201508/20150813101725386.png"},
+        ///             {"id":2028,"forPerspective":{"id":65},"forReplaceableItem":{"id":1826},"imageUrl":"/Images/201508/20150813101733201.png"},
+        ///             {"id":2027,"forPerspective":{"id":65},"forReplaceableItem":{"id":1825},"imageUrl":"/Images/201508/20150812142727932.png"},
+        ///             {"id":2026,"forPerspective":{"id":65},"forReplaceableItem":{"id":1824},"imageUrl":"/Images/201508/20150812142733127.png"},
+        ///             {"id":2025,"forPerspective":{"id":65},"forReplaceableItem":{"id":1823},"imageUrl":"/Images/201508/20150812142738072.png"},
+        ///             {"id":2024,"forPerspective":{"id":65},"forReplaceableItem":{"id":1822},"imageUrl":"/Images/201508/20150813103349373.png"},
+        ///             {"id":2023,"forPerspective":{"id":65},"forReplaceableItem":{"id":1821},"imageUrl":"/Images/201508/20150812142748041.png"},
+        ///             {"id":2022,"forPerspective":{"id":65},"forReplaceableItem":{"id":1820},"imageUrl":"/Images/201508/20150812142753813.png"}
+        ///         ]
+        ///     }
+        /// }
+        /// </returns>
+        public ActionResult GetDIYData(string code)
+        {
+            string targetUrl = TargetUrl;
+            if (!string.IsNullOrEmpty(targetUrl))
+            {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(targetUrl);
+                req.Method = "Post";
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{");
+                sb.Append("\"request\"");
+                sb.Append(":");
+                sb.Append("\"getSampleRoom\"");
+                sb.Append(",");
+                sb.Append("\"sampleRoom\"");
+                sb.Append(":{");
+                sb.Append("\"requestCode\"");
+                sb.Append(":");
+                sb.Append("\"" + code + "\"");
+                sb.Append("}");
+                sb.Append("}");
+
+                string reqJson = sb.ToString();
+
+                //return Content(reqJson);
+
+                byte[] postBytes = Encoding.UTF8.GetBytes(reqJson);
+                req.ContentType = "application/json;charset=utf-8";
+                req.ContentLength = Encoding.UTF8.GetByteCount(reqJson);
+                req.Accept = "*";
+                Stream stream = req.GetRequestStream();
+                stream.Write(postBytes, 0, postBytes.Length);
+                stream.Close();
+                
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+
+
+                StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8);
+                string respHtml = sr.ReadToEnd();
+                return Content(respHtml);
+            }
+            else
+            {
+                return Content("");
+            }
+        }
+
     }
 }
