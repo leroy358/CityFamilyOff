@@ -193,6 +193,7 @@
     <Compile Include="Controllers\SpaceCatesController.cs" />
     <Compile Include="Controllers\SpotPicsController.cs" />
     <Compile Include="Controllers\StylesController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Global.asax.cs">
@@ -967,7 +968,7 @@
     <Content Include="Views\SpotPics\SpotShow.cshtml" />
     <Content Include="Views\Styles\Style720Show.cshtml" />
     <Content Include="Views\Styles\GuestDIY.cshtml" />
-    <Content Include="Views\VIP\DIYDetail.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\VIP\DIYList.cshtml" />
     <Content Include="Views\Styles\ThirdList.cshtml" />
     <Content Include="Views\Styles\StyleThird.cshtml" />
@@ -975,6 +976,7 @@
     <Content Include="Views\FurnitureView\List.cshtml" />
     <Content Include="Views\FurnitureView\Detail.cshtml" />
     <Content Include="Views\FurnitureView\CoverList.cshtml" />
+    <Content Include="Views\VIP\DIYDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

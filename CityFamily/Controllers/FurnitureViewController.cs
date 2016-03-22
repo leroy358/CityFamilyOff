@@ -1,6 +1,7 @@
 ﻿using CityFamily.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -165,7 +166,7 @@ namespace CityFamily.Controllers
                 T_FurnitureCoverList furnitureCover = new T_FurnitureCoverList();
                 furnitureCover.FurnitureId = furniture.Id;
                 furnitureCover.FurnitureName = furniture.StyleName;
-                furnitureCover.FurnitureIndex = furniture.StylePic;
+                furnitureCover.FurnitureIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furniture.StylePic;
                 furnitureList.Add(furnitureCover);
             }
             return Json(new { data = furnitureList }, JsonRequestBehavior.AllowGet);
@@ -200,7 +201,7 @@ namespace CityFamily.Controllers
             {
                 FurnitureStyleList furniturestyleList = new FurnitureStyleList();
                 furniturestyleList.FurnitureId = furnitureStyle.Id;
-                furniturestyleList.FurniturePic = furnitureStyle.FurniturePics;
+                furniturestyleList.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
                 furnitureStyleList.Add(furniturestyleList);
             }
             return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
@@ -258,7 +259,7 @@ namespace CityFamily.Controllers
             furnitureDetail.FurniturePrize = args[2];
             furnitureDetail.FurnitureMaterial = args[3];
 
-            furnitureDetail.FurniturePic = furnitureStyle.FurniturePics;
+            furnitureDetail.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
             return Json(new { data = furnitureDetail }, JsonRequestBehavior.AllowGet);
         }
 
@@ -339,14 +340,14 @@ namespace CityFamily.Controllers
             T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
             furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
             furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;
-            furnitureCoverData.FurnitureCoverIndex = furnitureCover.StylePic;
+            furnitureCoverData.FurnitureCoverIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureCover.StylePic;
             furnitureCoverData.FurnitureCoverUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
             List<FurnitureStyleData> furnitureStyleList = new List<FurnitureStyleData>();
             foreach (FurnitureStyle furnitureStyle in fsmodelAll)
             {
                 FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
                 furnitureStyleData.FurnitureId = furnitureStyle.Id;
-                furnitureStyleData.FurnitureIndexPic = furnitureStyle.IndexPic;
+                furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
                 furnitureStyleData.FurniturePic = furnitureStyle.FurniturePics;
 
                 string[] args = furnitureStyle.StyleName.Split('&').ToArray();

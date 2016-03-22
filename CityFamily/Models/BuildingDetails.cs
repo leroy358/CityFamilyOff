@@ -9,7 +9,7 @@ namespace CityFamily.Models
     {
         public int BuildingId { get; set; }
         public string BuildingName { get; set; }
-        public string BuildingPics { get; set; }
+        public string[] BuildingPics { get; set; }
         public string BuildingIntro { get; set; }
         public string BuildingAD { get; set; }
         public string BuildingAroundPic { get; set; }

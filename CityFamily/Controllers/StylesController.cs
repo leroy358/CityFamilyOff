@@ -281,7 +281,7 @@ namespace CityFamily.Controllers
                 StylesData stylesData = new StylesData();
                 stylesData.StyleId = style.Id;
                 stylesData.StyleName = style.StyleName;
-                stylesData.StyleIndex = style.StyleIndex;
+                stylesData.StyleIndex = ConfigurationManager.AppSettings["ResourceUrl"] + style.StyleIndex;
                 styleDataList.Add(stylesData);
             }
             return Json(new { data = styleDataList }, JsonRequestBehavior.AllowGet);
@@ -318,7 +318,7 @@ namespace CityFamily.Controllers
                 StyleDetailsData styleDetailData = new StyleDetailsData();
                 styleDetailData.StyleSecondId = styleDetail.Id;
                 styleDetailData.StyleDSecondName = styleDetail.StyleDetailName;
-                styleDetailData.StyleSecondIndex = styleDetail.StyleDetailIndex;
+                styleDetailData.StyleSecondIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleDetail.StyleDetailIndex;
                 styleDetailList.Add(styleDetailData);
             }
             return Json(new { data = styleDetailList }, JsonRequestBehavior.AllowGet);
@@ -354,7 +354,7 @@ namespace CityFamily.Controllers
                 StyleThirdData styleThirdData = new StyleThirdData();
                 styleThirdData.StyleThirdId = styleThird.Id;
                 styleThirdData.StyleThirdName = styleThird.StyleThirdName;
-                styleThirdData.StyleThirdIndex = styleThird.StyleThirdIndex;
+                styleThirdData.StyleThirdIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleThird.StyleThirdIndex;
                 styleThirdList.Add(styleThirdData);
             }
             return Json(new { data = styleThirdList }, JsonRequestBehavior.AllowGet);
@@ -366,14 +366,24 @@ namespace CityFamily.Controllers
         /// <param name="styleThirdId">三级风格ID</param>
         /// <returns>
         /// {
-        ///     "StyleThirdPics":"/Images/data/201507/9f202d77-641f-45f2-9684-5e8d3199d59a0.jpg /Images/data/201507/f9886162-0ca8-4d44-b931-fe86c01fbed91.jpg /Images/data/201507/718708ca-d6d0-4390-bfe4-bf1460d353512.jpg /Images/data/201507/acd768d4-d1f2-4835-99de-7cb2a99ba90c3.jpg "
+        ///     {"StyleThirdPics":[
+        ///         "http://119.188.113.104:8085/Images/data/201507/6c150502-f7a8-4bff-bbaa-7b12df56386e0.jpg"
+        ///         "http://119.188.113.104:8085/Images/data/201507/1ba1f162-0fc7-469d-8337-d215d60b3fea1.jpg",
+        ///         "http://119.188.113.104:8085/Images/data/201508/2b2d1709-7294-40f7-93ad-22bb32b548b90.jpg",
+        ///         "http://119.188.113.104:8085/Images/data/201508/2fd4fd2c-a095-4a78-94d8-096eb4096e2f0.jpg"
+        ///     ]
+        /// }
         /// }
         /// </returns>
         [HttpPost]
         public ActionResult GetStyleThirdDetail(int styleThirdId)
         {
             StyleThird styleThird = db.StyleThird.Find(styleThirdId);
-            string styleThirdPics = styleThird.StyleThirdPics;
+            string[] styleThirdPics = styleThird.StyleThirdPics.Substring(0, styleThird.StyleThirdPics.Length - 1).Split(' ');
+            for (int i = 0; i < styleThirdPics.Length; i++)
+            {
+                styleThirdPics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + styleThirdPics[i];
+            }
             return Json(new { StyleThirdPics = styleThirdPics }, JsonRequestBehavior.AllowGet);
         }
 

@@ -1,6 +1,7 @@
 ﻿using CityFamily.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -42,7 +43,18 @@ namespace CityFamily.Controllers
             Decorate decorate = db.Decorate.Find(decorateId);
             DecorateDetailData decorateDetail = new DecorateDetailData();
             decorateDetail.DecorateId = decorateId;
-            decorateDetail.DecoratePics = decorate.DecoratePics;
+            if (decorate.DecoratePics != null)
+            {
+                decorateDetail.DecoratePics = decorate.DecoratePics.Substring(0, decorate.DecoratePics.Length - 1).Split(' ');
+                for (int i = 0; i < decorateDetail.DecoratePics.Length; i++)
+                {
+                    decorateDetail.DecoratePics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + decorateDetail.DecoratePics[i];
+                }
+            }
+            else
+            {
+                decorateDetail.DecoratePics = new string[] { "" };
+            }
             decorateDetail.Decorate360 = decorate.Decorate360;
             return Json(new { data = decorateDetail }, JsonRequestBehavior.AllowGet);
         }

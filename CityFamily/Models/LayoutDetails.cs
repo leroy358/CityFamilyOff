@@ -29,12 +29,12 @@ namespace CityFamily.Models
     {
         public int SpotId { get; set; }
         public string SpotIndex { get; set; }
-        public string SpotPics { get; set; }
+        //public string[] SpotPics { get; set; }
     }
     public class LayoutSpotShiGong
     {
         public int SpotId { get; set; }
         public string SpotIndex { get; set; }
-        public string SpotPics { get; set; }
+        //public string[] SpotPics { get; set; }
     }
 }

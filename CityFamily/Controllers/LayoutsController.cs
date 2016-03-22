@@ -1,6 +1,7 @@
 ﻿using CityFamily.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -147,7 +148,7 @@ namespace CityFamily.Controllers
             LayoutDetails layoutData = new LayoutDetails();
             layoutData.LayoutId = layout.Id;
             layoutData.LayoutName = layout.LayoutName;
-            layoutData.LayoutPic = layout.LayoutPic;
+            layoutData.LayoutPic = ConfigurationManager.AppSettings["ResourceUrl"] + layout.LayoutPic;
             layoutData.LayoutAdvantages = layout.Advantage;
             layoutData.LayoutDisadvantages = layout.Disadvantage;
 
@@ -159,7 +160,7 @@ namespace CityFamily.Controllers
             {
                 LayoutDecorate decoratedata = new LayoutDecorate();
                 decoratedata.DecorateId = decorate.Id;
-                decoratedata.DecorateIndex = decorate.DecorateIndex;
+                decoratedata.DecorateIndex = ConfigurationManager.AppSettings["ResourceUrl"] + decorate.DecorateIndex;
                 decoratedata.Is360 = (decorate.Decorate360 == null) ? 0 : 1;
                 decorateData.Add(decoratedata);
             }
@@ -167,16 +168,16 @@ namespace CityFamily.Controllers
             {
                 LayoutSpotYuanZhuang yuanzhuangdata = new LayoutSpotYuanZhuang();
                 yuanzhuangdata.SpotId = spotPic.Id;
-                yuanzhuangdata.SpotIndex = spotPic.SpotIndex;
-                yuanzhuangdata.SpotPics = spotPic.SpotDetails;
+                yuanzhuangdata.SpotIndex = ConfigurationManager.AppSettings["ResourceUrl"] + spotPic.SpotIndex;
+                //yuanzhuangdata.SpotPics = spotPic.SpotDetails;
                 spotYuanZhuangData.Add(yuanzhuangdata);
             }
             foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 2))
             {
                 LayoutSpotShiGong shigongdata = new LayoutSpotShiGong();
                 shigongdata.SpotId = spotPic.Id;
-                shigongdata.SpotIndex = spotPic.SpotIndex;
-                shigongdata.SpotPics = spotPic.SpotDetails;
+                shigongdata.SpotIndex = ConfigurationManager.AppSettings["ResourceUrl"] + spotPic.SpotIndex;
+                //shigongdata.SpotPics = spotPic.SpotDetails;
                 spotShiGongData.Add(shigongdata);
             }
             layoutData.Decotate = decorateData;

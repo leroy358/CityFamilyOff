@@ -1,6 +1,7 @@
 ﻿using CityFamily.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,108 +16,108 @@ namespace CityFamily.Controllers
         int pageSize = 8;
 
         //如用表单提交方式，则直接返回数据至视图
-        public ActionResult List(string province, string city, string town, string searchStr, int pageIndex = 1)
-        {
-            /////////////////////////////////////////////////////////////////////////////////添加pageIndex参数/////////////////////////////////////////////////////////////////////////////////
+        //public ActionResult List(string province, string city, string town, string searchStr, int pageIndex = 1)
+        //{
+        //    /////////////////////////////////////////////////////////////////////////////////添加pageIndex参数/////////////////////////////////////////////////////////////////////////////////
 
-            if (Session["userName"] != null)
-            {
-                int adminId = websession.AdminId;
-                int companyId = websession.CompanyId;
-                //    省是否为空
-                bool isProvince = (province == "省份" || string.IsNullOrEmpty(province));
-                //    市是否为空
-                bool isCity = (city == "地级市" || string.IsNullOrEmpty(city));
-                //    区是否为空
-                bool isDistrict = (town == "区/县" || string.IsNullOrEmpty(town));
-                //    搜索条件是否为空
-                bool isSearch = string.IsNullOrEmpty(searchStr);
+        //    if (Session["userName"] != null)
+        //    {
+        //        int adminId = websession.AdminId;
+        //        int companyId = websession.CompanyId;
+        //        //    省是否为空
+        //        bool isProvince = (province == "省份" || string.IsNullOrEmpty(province));
+        //        //    市是否为空
+        //        bool isCity = (city == "地级市" || string.IsNullOrEmpty(city));
+        //        //    区是否为空
+        //        bool isDistrict = (town == "区/县" || string.IsNullOrEmpty(town));
+        //        //    搜索条件是否为空
+        //        bool isSearch = string.IsNullOrEmpty(searchStr);
 
-                //    省、市、区筛选条件、搜索内容都不为空
-                if (!isProvince && !isCity && !isDistrict && !isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.District == town && item.BuildingName.Contains(searchStr));
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //    省、市、区筛选条件、搜索内容都不为空
+        //        if (!isProvince && !isCity && !isDistrict && !isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.District == town && item.BuildingName.Contains(searchStr));
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //    省、市、区筛选条件不为空、搜索内容为空
-                else if (!isProvince && !isCity && !isDistrict && isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.District == town);
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //    省、市、区筛选条件不为空、搜索内容为空
+        //        else if (!isProvince && !isCity && !isDistrict && isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.District == town);
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //    省、市筛选条件不为空，区为空，搜索内容不为空
-                else if (!isProvince && !isCity && isDistrict && !isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.BuildingName.Contains(searchStr));
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //    省、市筛选条件不为空，区为空，搜索内容不为空
+        //        else if (!isProvince && !isCity && isDistrict && !isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city && item.BuildingName.Contains(searchStr));
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //      省、市筛选条件不为空，区为空，搜索内容为空
-                else if (!isProvince && !isCity && isDistrict && isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city);
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //      省、市筛选条件不为空，区为空，搜索内容为空
+        //        else if (!isProvince && !isCity && isDistrict && isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.City == city);
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //      省筛选不为空，市、区筛选为空，搜索内容不为空
-                else if (!isProvince && isCity && isDistrict && !isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.BuildingName.Contains(searchStr));
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //      省筛选不为空，市、区筛选为空，搜索内容不为空
+        //        else if (!isProvince && isCity && isDistrict && !isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province && item.BuildingName.Contains(searchStr));
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //      省筛选不为空，市、区筛选为空，搜索内容为空
-                else if (!isProvince && isCity && isDistrict && isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province);
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //      省筛选不为空，市、区筛选为空，搜索内容为空
+        //        else if (!isProvince && isCity && isDistrict && isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.Province == province);
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //    省、市、区筛选为空，搜索内容不为空  
-                else if (isProvince && isCity && isDistrict && !isSearch)
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.BuildingName.Contains(searchStr));
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
+        //        //    省、市、区筛选为空，搜索内容不为空  
+        //        else if (isProvince && isCity && isDistrict && !isSearch)
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId) && item.BuildingName.Contains(searchStr));
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
 
-                //      省、市、区筛选为空，搜索内容为空 
-                else
-                {
-                    var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId));
-                    int count = buildings.Count();
-                    InitPage(province, city, town, searchStr, pageIndex, count);
-                    buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-                    return View(buildings);
-                }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
-        }
+        //        //      省、市、区筛选为空，搜索内容为空 
+        //        else
+        //        {
+        //            var buildings = db.Building.Where(item => (item.CreateUserId == 1 || item.CompanyId == companyId));
+        //            int count = buildings.Count();
+        //            InitPage(province, city, town, searchStr, pageIndex, count);
+        //            buildings = buildings.OrderByDescending(item => item.Id).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //            return View(buildings);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Home");
+        //    }
+        //}
 
 
         //若用AJAX POST方法请求，则返回如下JSON数据：
@@ -187,45 +188,45 @@ namespace CityFamily.Controllers
         //        return Json(new { data = buildings }, JsonRequestBehavior.AllowGet); 
         //    }
         //}
-        public ActionResult BuildingDetails(int id)
-        {
-            if (Session["userName"] != null)
-            {
-                BuildingLayoutView view = new BuildingLayoutView();
-                Building building = db.Building.Find(id);
-                var layouts = db.Layout.Where(item => item.BuildingId == id);
-                view.building = building;
-                view.layouts = layouts.ToList();
-                return View(view);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Home");
-            }
-        }
+        //public ActionResult BuildingDetails(int id)
+        //{
+        //    if (Session["userName"] != null)
+        //    {
+        //        BuildingLayoutView view = new BuildingLayoutView();
+        //        Building building = db.Building.Find(id);
+        //        var layouts = db.Layout.Where(item => item.BuildingId == id);
+        //        view.building = building;
+        //        view.layouts = layouts.ToList();
+        //        return View(view);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Login", "Home");
+        //    }
+        //}
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
 
-        private void InitPage(string province, string city, string town, string searchStr, int pageIndex, int count)
-        {
-            int pageCount = (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
-            if (pageCount == 0)
-            {
-                pageCount = 1;
-            }
-            string perPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = (pageIndex < 2) ? 1 : pageIndex - 1 });
-            string nextPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = (pageIndex == pageCount) ? pageCount : (pageIndex + 1) });
-            string lastPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = pageCount });
-            string firstPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = 1 });
-            string pageX = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = pageIndex });
-            ViewBag.perPage = perPage;
-            ViewBag.nextPage = nextPage;
-            ViewBag.pageCount = pageCount;
-            ViewBag.pageX = pageX.Substring(pageX.Length - 1, 1);
-            ViewBag.lastPage = lastPage;
-            ViewBag.firstPage = firstPage;
-        }
+        //private void InitPage(string province, string city, string town, string searchStr, int pageIndex, int count)
+        //{
+        //    int pageCount = (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
+        //    if (pageCount == 0)
+        //    {
+        //        pageCount = 1;
+        //    }
+        //    string perPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = (pageIndex < 2) ? 1 : pageIndex - 1 });
+        //    string nextPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = (pageIndex == pageCount) ? pageCount : (pageIndex + 1) });
+        //    string lastPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = pageCount });
+        //    string firstPage = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = 1 });
+        //    string pageX = Url.Action("List", new { province = province, city = city, town = town, searchStr = searchStr, pageIndex = pageIndex });
+        //    ViewBag.perPage = perPage;
+        //    ViewBag.nextPage = nextPage;
+        //    ViewBag.pageCount = pageCount;
+        //    ViewBag.pageX = pageX.Substring(pageX.Length - 1, 1);
+        //    ViewBag.lastPage = lastPage;
+        //    ViewBag.firstPage = firstPage;
+        //}
 
         /// <summary>
         /// 获取楼盘列表页信息
@@ -262,7 +263,7 @@ namespace CityFamily.Controllers
                 BuildingList buildingIndex = new BuildingList();
                 buildingIndex.BuildingId = building.Id;
                 buildingIndex.BuildingName = building.BuildingName;
-                buildingIndex.BuildingIndex = building.BuildingIndex;
+                buildingIndex.BuildingIndex = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingIndex;
                 buildingList.Add(buildingIndex);
             }
             return Json(new { data = buildingList }, JsonRequestBehavior.AllowGet);
@@ -277,7 +278,7 @@ namespace CityFamily.Controllers
                 BuildingList buildingIndex = new BuildingList();
                 buildingIndex.BuildingId = building.Id;
                 buildingIndex.BuildingName = building.BuildingName;
-                buildingIndex.BuildingIndex = building.BuildingIndex;
+                buildingIndex.BuildingIndex = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingIndex;
                 buildingList.Add(buildingIndex);
             }
             return Json(new { data = buildingList }, JsonRequestBehavior.AllowGet);
@@ -325,10 +326,14 @@ namespace CityFamily.Controllers
             BuildingDetails buildingDetails = new BuildingDetails();
             buildingDetails.BuildingId = building.Id;
             buildingDetails.BuildingName = building.BuildingName;
-            buildingDetails.BuildingPics = building.BuildingPics;
+            buildingDetails.BuildingPics = building.BuildingPics.Substring(0, building.BuildingPics.Length - 1).Split(' ');
+            for(int i=0;i< buildingDetails.BuildingPics.Length; i++)
+            {
+                buildingDetails.BuildingPics[i]= ConfigurationManager.AppSettings["ResourceUrl"] + buildingDetails.BuildingPics[i];
+            }
             buildingDetails.BuildingIntro = building.BuildingIntro;
             buildingDetails.BuildingAD = building.BuildingAD;
-            buildingDetails.BuildingAroundPic = building.BuildingCate;
+            buildingDetails.BuildingAroundPic = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingCate;
             buildingDetails.BuildingDeco = building.BuildingDecorate;
             List<Layout> layoutList = db.Layout.Where(item => item.BuildingId == buildingId).ToList();
             List<BuildingLayout> buildingLayoutList = new List<BuildingLayout>();
@@ -337,7 +342,7 @@ namespace CityFamily.Controllers
                 BuildingLayout buildingLayout = new BuildingLayout();
                 buildingLayout.LayoutId = layout.Id;
                 buildingLayout.LayoutName = layout.LayoutName;
-                buildingLayout.LayoutPic = layout.LayoutPic;
+                buildingLayout.LayoutPic = ConfigurationManager.AppSettings["ResourceUrl"] + layout.LayoutPic;
                 buildingLayoutList.Add(buildingLayout);
             }
             buildingDetails.BuildingLayout = buildingLayoutList;
@@ -472,6 +477,7 @@ namespace CityFamily.Controllers
         ///         ]
         ///     }
         /// }
+        /// 
         /// </returns>
         [HttpPost]
         public JsonResult GetBuildingData(int id)
@@ -483,11 +489,15 @@ namespace CityFamily.Controllers
             BuildingData buildingData = new BuildingData();
             buildingData.BuildingId = id;
             buildingData.BuildingName = building.BuildingName;
-            buildingData.BuildingIndex = building.BuildingIndex;
-            buildingData.BuildingPics = building.BuildingPics;
+            buildingData.BuildingIndex = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingIndex;
+            buildingData.BuildingPics = building.BuildingPics.Substring(0, building.BuildingPics.Length - 1).Split(' ');
+            for (int i = 0; i < buildingData.BuildingPics.Length; i++)
+            {
+                buildingData.BuildingPics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + buildingData.BuildingPics[i];
+            }
             buildingData.BuildingIntro = building.BuildingIntro;
             buildingData.BuildingAD = building.BuildingAD;
-            buildingData.BuildingAroundPic = building.BuildingCate;
+            buildingData.BuildingAroundPic = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingCate;
             buildingData.BuildingDeco = building.BuildingDecorate;
             buildingData.BuildingUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
             List<LayoutData> layoutDataList = new List<LayoutData>();
@@ -501,7 +511,7 @@ namespace CityFamily.Controllers
                 LayoutData layoutData = new LayoutData();
                 layoutData.LayoutId = layout.Id;
                 layoutData.LayoutName = layout.LayoutName;
-                layoutData.LayoutPic = layout.LayoutPic;
+                layoutData.LayoutPic = ConfigurationManager.AppSettings["ResourceUrl"] + layout.LayoutPic;
                 layoutData.LayoutAdvantages = layout.Advantage;
                 layoutData.LayoutDisadvantages = layout.Disadvantage;
 
@@ -513,8 +523,20 @@ namespace CityFamily.Controllers
                 {
                     DecorateData decoratedata = new DecorateData();
                     decoratedata.DecorateId = decorate.Id;
-                    decoratedata.DecorateIndex = decorate.DecorateIndex;
-                    decoratedata.DecoratePics = decorate.DecoratePics;
+                    decoratedata.DecorateIndex = ConfigurationManager.AppSettings["ResourceUrl"] + decorate.DecorateIndex;
+                    if (decoratedata.DecorateIndex != null)
+                    {
+                        decoratedata.DecoratePics = decorate.DecoratePics.Substring(0, decorate.DecoratePics.Length - 1).Split(' ');
+                        for (int i = 0; i < decoratedata.DecoratePics.Length; i++)
+                        {
+                            decoratedata.DecoratePics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + decoratedata.DecoratePics[i];
+                        }
+                    }
+                    else
+                    {
+                        decoratedata.DecoratePics = new string[] { "" };
+                    }
+                   
                     decoratedata.Decorate360 = decorate.Decorate360;
                     decorateData.Add(decoratedata);
                 }
@@ -522,16 +544,24 @@ namespace CityFamily.Controllers
                 {
                     SpotYuanZhuangData yuanzhuangdata = new SpotYuanZhuangData();
                     yuanzhuangdata.SpotId = spotPic.Id;
-                    yuanzhuangdata.SpotIndex = spotPic.SpotIndex;
-                    yuanzhuangdata.SpotPics = spotPic.SpotDetails;
+                    yuanzhuangdata.SpotIndex = ConfigurationManager.AppSettings["ResourceUrl"] + spotPic.SpotIndex;
+                    yuanzhuangdata.SpotPics = spotPic.SpotDetails.Substring(0, spotPic.SpotDetails.Length - 1).Split(' ');
+                    for (int i = 0; i < yuanzhuangdata.SpotPics.Length; i++)
+                    {
+                        yuanzhuangdata.SpotPics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + yuanzhuangdata.SpotPics[i];
+                    }
                     spotYuanZhuangData.Add(yuanzhuangdata);
                 }
                 foreach (SpotPics spotPic in spotPicsList.Where(item => item.Category == 2))
                 {
                     SpotShiGongData shigongdata = new SpotShiGongData();
                     shigongdata.SpotId = spotPic.Id;
-                    shigongdata.SpotIndex = spotPic.SpotIndex;
-                    shigongdata.SpotPics = spotPic.SpotDetails;
+                    shigongdata.SpotIndex = ConfigurationManager.AppSettings["ResourceUrl"] + spotPic.SpotIndex;
+                    shigongdata.SpotPics = spotPic.SpotDetails.Substring(0, spotPic.SpotDetails.Length - 1).Split(' ');
+                    for (int i = 0; i < shigongdata.SpotPics.Length; i++)
+                    {
+                        shigongdata.SpotPics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + shigongdata.SpotPics[i];
+                    }
                     spotShiGongData.Add(shigongdata);
                 }
                 layoutData.Decotate = decorateData;

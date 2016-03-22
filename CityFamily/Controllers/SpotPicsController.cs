@@ -1,6 +1,7 @@
 ﻿using CityFamily.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -41,7 +42,11 @@ namespace CityFamily.Controllers
             SpotPics spot = db.SpotPics.Find(spotId);
             SpotPicsDetailData spotDetail = new SpotPicsDetailData();
             spotDetail.SpotId = spotId;
-            spotDetail.SpotPics = spot.SpotDetails;
+            spotDetail.SpotPics = spot.SpotDetails.Substring(0, spot.SpotDetails.Length - 1).Split(' ');
+            for (int i = 0; i < spotDetail.SpotPics.Length; i++)
+            {
+                spotDetail.SpotPics[i] = ConfigurationManager.AppSettings["ResourceUrl"] + spotDetail.SpotPics[i];
+            }
             return Json(new { data = spotDetail }, JsonRequestBehavior.AllowGet);
         }
     }
