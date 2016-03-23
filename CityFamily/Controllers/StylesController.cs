@@ -296,11 +296,13 @@ namespace CityFamily.Controllers
         /// {
         ///     "data":[
         ///         {
+        ///             "StyleName":"自然风格",
         ///             "StyleSecondId":1
         ///             "StyleDSecondName":"美式乡村",
         ///             "StyleSecondIndex":"/Images/data/201508/b8bfa8bc-54f3-4450-9d43-5243e622397a0.png"
         ///         },
         ///         {
+        ///             "StyleName":"自然风格",
         ///             "StyleSecondId":16,
         ///             "StyleDSecondName":"英式田园",
         ///             "StyleSecondIndex":"/Images/data/201508/38ae5c2b-5fe6-475e-8179-348fffafde570.jpg"
@@ -311,11 +313,13 @@ namespace CityFamily.Controllers
         [HttpPost]
         public ActionResult GetStyleSecList(int styleId)
         {
+            Styles style = db.Styles.Find(styleId);
             var secStyles = db.StyleDetails.Where(item => item.StyleId == styleId);
             List<StyleDetailsData> styleDetailList = new List<StyleDetailsData>();
             foreach(StyleDetails styleDetail in secStyles)
             {
                 StyleDetailsData styleDetailData = new StyleDetailsData();
+                styleDetailData.StyleName = style.StyleName;
                 styleDetailData.StyleSecondId = styleDetail.Id;
                 styleDetailData.StyleDSecondName = styleDetail.StyleDetailName;
                 styleDetailData.StyleSecondIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleDetail.StyleDetailIndex;
@@ -332,11 +336,15 @@ namespace CityFamily.Controllers
         /// {
         ///     "data":[
         ///         {
+        ///              "StyleName”:"自然风格",
+        ///              "StyleSecName":"英式田园",
         ///             "StyleThirdId":22,
         ///             "StyleThirdName":"美式乡村160平米--客厅",
         ///             "StyleThirdIndex":"/Images/data/201508/9af34ee7-6675-41d4-9b61-eb18775ef6180.png"
         ///         },
         ///         {
+        ///              "StyleName”:"自然风格",
+        ///              "StyleSecName":"英式田园",
         ///             "StyleThirdId":55,
         ///             "StyleThirdName":"美式乡村160平米--餐厅",
         ///             "StyleThirdIndex":"/Images/data/201508/fdafe0b6-fb9b-4ddf-96da-b847d744a1200.jpg"
@@ -347,11 +355,16 @@ namespace CityFamily.Controllers
         [HttpPost]
         public ActionResult GetStyleThiList(int styleSecId)
         {
+            StyleDetails styleDetail = db.StyleDetails.Find(styleSecId);
+            Styles style = db.Styles.Find(styleDetail.StyleId);
+
             List<StyleThird> styleThirds = db.StyleThird.Where(item => item.StyleDetailId == styleSecId).ToList();
             List<StyleThirdData> styleThirdList = new List<StyleThirdData>();
             foreach(StyleThird styleThird in styleThirds)
             {
                 StyleThirdData styleThirdData = new StyleThirdData();
+                styleThirdData.StyleName = style.StyleName;
+                styleThirdData.StyleSecName = styleDetail.StyleDetailName;
                 styleThirdData.StyleThirdId = styleThird.Id;
                 styleThirdData.StyleThirdName = styleThird.StyleThirdName;
                 styleThirdData.StyleThirdIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleThird.StyleThirdIndex;

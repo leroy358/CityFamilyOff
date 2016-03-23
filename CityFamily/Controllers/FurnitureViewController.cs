@@ -196,10 +196,12 @@ namespace CityFamily.Controllers
         {
             var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
             var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
+            T_FurnitureCover cover = db.T_FurnitureCover.Find(styleId);
             List<FurnitureStyleList> furnitureStyleList = new List<FurnitureStyleList>();
             foreach (FurnitureStyle furnitureStyle in fsmodelAll)
             {
                 FurnitureStyleList furniturestyleList = new FurnitureStyleList();
+                furniturestyleList.FurnitureCoverName = cover.StyleName;
                 furniturestyleList.FurnitureId = furnitureStyle.Id;
                 furniturestyleList.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
                 furnitureStyleList.Add(furniturestyleList);
@@ -348,7 +350,7 @@ namespace CityFamily.Controllers
                 FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
                 furnitureStyleData.FurnitureId = furnitureStyle.Id;
                 furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
-                furnitureStyleData.FurniturePic = furnitureStyle.FurniturePics;
+                furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
 
                 string[] args = furnitureStyle.StyleName.Split('&').ToArray();
 
