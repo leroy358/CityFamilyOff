@@ -485,7 +485,14 @@ namespace CityFamily.Controllers
             Building building = db.Building.Find(id);
             string buildingId = id.ToString();
             UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == buildingId).FirstOrDefault();
-
+            if (record == null)
+            {
+                record = new UpdateRecord();
+                record.BuildingId = buildingId;
+                record.UpdateTime = DateTime.Now;
+                db.UpdateRecord.Add(record);
+                db.SaveChanges();
+            }
             BuildingData buildingData = new BuildingData();
             buildingData.BuildingId = id;
             buildingData.BuildingName = building.BuildingName;

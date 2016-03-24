@@ -203,7 +203,7 @@ namespace CityFamily.Controllers
                 FurnitureStyleList furniturestyleList = new FurnitureStyleList();
                 furniturestyleList.FurnitureCoverName = cover.StyleName;
                 furniturestyleList.FurnitureId = furnitureStyle.Id;
-                furniturestyleList.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
+                furniturestyleList.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
                 furnitureStyleList.Add(furniturestyleList);
             }
             return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
@@ -225,7 +225,7 @@ namespace CityFamily.Controllers
             {
                 FurnitureStyleList furniturestyleList = new FurnitureStyleList();
                 furniturestyleList.FurnitureId = furnitureStyle.Id;
-                furniturestyleList.FurniturePic = furnitureStyle.IndexPic;
+                furniturestyleList.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
                 furnitureStyleList.Add(furniturestyleList);
             }
             return Json(new { data = furnitureStyleList }, JsonRequestBehavior.AllowGet);
@@ -332,42 +332,64 @@ namespace CityFamily.Controllers
         /// }
         /// </returns>
         [HttpPost]
-        public ActionResult GetFurnitureData(int companyId, int styleId)
+        public ActionResult GetFurnitureData(int styleId)
         {
+            //string id = styleId.ToString();
+            //UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
+            //T_FurnitureCover furnitureCover = db.T_FurnitureCover.Find(styleId);
+            //var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            //var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
+            //T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
+            //furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
+            //furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;
+            //furnitureCoverData.FurnitureCoverIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureCover.StylePic;
+            //furnitureCoverData.FurnitureCoverUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            //List<FurnitureStyleData> furnitureStyleList = new List<FurnitureStyleData>();
+            //foreach (FurnitureStyle furnitureStyle in fsmodelAll)
+            //{
+            //    FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
+            //    furnitureStyleData.FurnitureId = furnitureStyle.Id;
+            //    furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
+            //    furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
+
+            //    string[] args = furnitureStyle.StyleName.Split('&').ToArray();
+
+            //    furnitureStyleData.FurnitureBrand = args[0];
+            //    furnitureStyleData.FurnitureSize = args[1];
+            //    furnitureStyleData.FurniturePrize = args[2];
+            //    furnitureStyleData.FurnitureMaterial = args[3];
+
+            //    furnitureStyleList.Add(furnitureStyleData);
+            //}
+            //furnitureCoverData.FurnitureStyleData = furnitureStyleList;
+
+            //return Json(new { data = furnitureCoverData }, JsonRequestBehavior.AllowGet);
+
             string id = styleId.ToString();
             UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
-            T_FurnitureCover furnitureCover = db.T_FurnitureCover.Find(styleId);
-            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
-            var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
-            T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
-            furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
-            furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;
-            furnitureCoverData.FurnitureCoverIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureCover.StylePic;
-            furnitureCoverData.FurnitureCoverUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            List<FurnitureStyleData> furnitureStyleList = new List<FurnitureStyleData>();
-            foreach (FurnitureStyle furnitureStyle in fsmodelAll)
+            if (record == null)
             {
-                FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
-                furnitureStyleData.FurnitureId = furnitureStyle.Id;
-                furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
-                furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
-
-                string[] args = furnitureStyle.StyleName.Split('&').ToArray();
-
-                furnitureStyleData.FurnitureBrand = args[0];
-                furnitureStyleData.FurnitureSize = args[1];
-                furnitureStyleData.FurniturePrize = args[2];
-                furnitureStyleData.FurnitureMaterial = args[3];
-
-                furnitureStyleList.Add(furnitureStyleData);
+                record = new UpdateRecord();
+                record.StyleId = id;
+                record.UpdateTime = DateTime.Now;
+                db.UpdateRecord.Add(record);
+                db.SaveChanges();
             }
-            furnitureCoverData.FurnitureStyleData = furnitureStyleList;
+            FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
+            FurnitureStyle furniture = db.FurnitureStyle.Find(styleId);
+            furnitureStyleData.FurnitureId = furniture.Id;
+            furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furniture.IndexPic;
+            furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furniture.FurniturePics;
+            string[] args = furniture.StyleName.Split('&').ToArray();
 
-            return Json(new { data = furnitureCoverData }, JsonRequestBehavior.AllowGet);
+            furnitureStyleData.FurnitureBrand = args[0];
+            furnitureStyleData.FurnitureSize = args[1];
+            furnitureStyleData.FurniturePrize = args[2];
+            furnitureStyleData.FurnitureMaterial = args[3];
+            furnitureStyleData.FurnitureUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-
+            return Json(new { data = furnitureStyleData }, JsonRequestBehavior.AllowGet);
         }
-
 
     }
 }

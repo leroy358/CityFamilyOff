@@ -94,9 +94,9 @@ namespace CityFamily.Areas.Admin.Controllers
                 }
                 db.SaveChanges();
 
-                StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
-                string styleIdId = styleDetail.StyleId.ToString();
-                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleIdId).FirstOrDefault();
+                //StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
+                string styleId = styleThird.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
                 if (record != null)
                 {
                     record.UpdateTime = DateTime.Now;
@@ -105,7 +105,7 @@ namespace CityFamily.Areas.Admin.Controllers
                 else
                 {
                     record = new UpdateRecord();
-                    record.StyleId = styleIdId;
+                    record.StyleId = styleId;
                     record.UpdateTime = DateTime.Now;
                     db.UpdateRecord.Add(record);
                 }
@@ -125,8 +125,8 @@ namespace CityFamily.Areas.Admin.Controllers
                 StyleThird styleThird=db.StyleThird.Find(id);
                 db.StyleThird.Remove(styleThird);
 
-                StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
-                string styleId = styleDetail.StyleId.ToString();
+                //StyleDetails styleDetail = db.StyleDetails.Find(styleThird.StyleDetailId);
+                string styleId = id.ToString();
                 UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == styleId).FirstOrDefault();
                 if (record != null)
                 {

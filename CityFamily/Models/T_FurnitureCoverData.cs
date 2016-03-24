@@ -22,5 +22,6 @@ namespace CityFamily.Models
         public string FurnitureSize { get; set; }
         public string FurniturePrize { get; set; }
         public string FurnitureMaterial { get; set; }
+        public string FurnitureUpdate { get; set; }
     }
 }
