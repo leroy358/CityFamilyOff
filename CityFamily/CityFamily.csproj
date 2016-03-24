@@ -237,6 +237,7 @@
     <Compile Include="Models\StylesID.cs" />
     <Compile Include="Models\StyleThird.cs" />
     <Compile Include="Models\StyleThirdData.cs" />
+    <Compile Include="Models\StyleThirdDownData.cs" />
     <Compile Include="Models\T_AuthInfo.cs" />
     <Compile Include="Models\T_CompanyInfo.cs" />
     <Compile Include="Models\T_DepartmentInfo.cs" />

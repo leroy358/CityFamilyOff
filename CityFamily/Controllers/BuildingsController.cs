@@ -531,7 +531,7 @@ namespace CityFamily.Controllers
                     DecorateData decoratedata = new DecorateData();
                     decoratedata.DecorateId = decorate.Id;
                     decoratedata.DecorateIndex = ConfigurationManager.AppSettings["ResourceUrl"] + decorate.DecorateIndex;
-                    if (decoratedata.DecorateIndex != null)
+                    if (decoratedata.DecoratePics != null)
                     {
                         decoratedata.DecoratePics = decorate.DecoratePics.Substring(0, decorate.DecoratePics.Length - 1).Split(' ');
                         for (int i = 0; i < decoratedata.DecoratePics.Length; i++)
