@@ -1,4 +1,6 @@
 ﻿using CityFamily.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,6 +98,25 @@ namespace CityFamily.Controllers
 
             return Json(new { material = material, menTing = menTing, keTing = keTing, canTing = canTing, zhuWo = zhuWo, laoRen = laoRen, erTong = erTong, chuFang = chuFang, weiSheng = weiSheng, chuWu = chuWu, duoGongNeng = duoGongNeng }, JsonRequestBehavior.AllowGet);
 
+        }
+        [HttpPost]
+        public ActionResult UploadResult(int userId,string dataJson)
+        {
+            //var stream = HttpContext.Request.InputStream;
+            //string dataJson = new StreamReader(stream).ReadToEnd(); //json 字符串在此
+            //JObject jo = (JObject)JsonConvert.DeserializeObject(dataJson);
+            //int category = Convert.ToInt32(jo["category"].ToString());
+            //int pageIndex = Convert.ToInt32(jo["pageIndex"].ToString());
+
+            FuncResult funcResult = new FuncResult();
+            funcResult.Result = dataJson;
+            funcResult.UserId = userId;
+            funcResult.IsOver = false;
+            funcResult.IsLead = 1;
+            db.FuncResult.Add(funcResult);
+            db.Entry(funcResult).State = System.Data.Entity.EntityState.Added;
+            int result = db.SaveChanges();
+            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
         }
     }
 }

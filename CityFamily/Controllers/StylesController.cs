@@ -645,9 +645,10 @@ namespace CityFamily.Controllers
         /// }
         /// </returns>
         [HttpPost]
-        public ActionResult GetDIYData(string code)
+        public ActionResult GetDIYData(int styleThirdId)
         {
-            string targetUrl = TargetUrl;
+            string targetUrl = TargetUrl + "/Normal/UserRequest";
+            StyleThird style = db.StyleThird.Find(styleThirdId);
             if (!string.IsNullOrEmpty(targetUrl))
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(targetUrl);
@@ -663,7 +664,7 @@ namespace CityFamily.Controllers
                 sb.Append(":{");
                 sb.Append("\"requestCode\"");
                 sb.Append(":");
-                sb.Append("\"" + code + "\"");
+                sb.Append("\"" + style.StyleThirdCode + "\"");
                 sb.Append("}");
                 sb.Append("}");
 
@@ -678,7 +679,7 @@ namespace CityFamily.Controllers
                 Stream stream = req.GetRequestStream();
                 stream.Write(postBytes, 0, postBytes.Length);
                 stream.Close();
-                
+
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
 
 
