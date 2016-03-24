@@ -1,4 +1,6 @@
 ﻿using CityFamily.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -289,7 +291,68 @@ namespace CityFamily.Controllers
             JavaScriptSerializer js = new JavaScriptSerializer();
             return js.Deserialize<JsonData>(strJson);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>
+        /// {
+        ///     "data":[
+        ///         {
+        ///             "Id":84,
+        ///             "Name":"dfsad官方订购",
+        ///             "Phone":"适当提高到法国",
+        ///             "XiaoQu":"方大同共同富裕",
+        ///             "Usage":"自己居住-",
+        ///             "Work":null
+        ///         },
+        ///         {
+        ///             "Id":86,
+        ///             "Name":"dfsad官方订购",
+        ///             "Phone":"适当提高到法国",
+        ///             "XiaoQu":"方大同共同富裕",
+        ///             "Usage":"自己居住-",
+        ///             "Work":"医生-老板-"
+        ///         },
+        ///         {
+        ///             "Id":93,
+        ///             "Name":"dfsad官方订购","Phone":
+        ///             "适当提高到法国","XiaoQu":"方大同共同富裕",
+        ///             "Usage":"自己居住-",
+        ///             "Work":null
+        ///         }
+        ///     ]
+        /// }
+        /// {"data":[{"Id":84,"Name":"晕","Phone":"123","XiaoQu":"啊热舞vc","Usage":"投资出租-","Work":"医生-老板-"},{"Id":86,"Name":"dfsad官方订购","Phone":"适当提高到法国","XiaoQu":"方大同共同富裕","Usage":"自己居住-","Work":null},{"Id":93,"Name":"晕","Phone":"123","XiaoQu":"啊热舞vc","Usage":"投资出租-","Work":"医生-老板--"}]}
+        /// </returns>
+        [HttpPost]
+        public ActionResult GetResultList(int userId)
+        {
+            List<FuncResult> resultList = db.FuncResult.Where(item => item.UserId == userId).ToList();
+            List<FuncResultListData> resultDataList = new List<FuncResultListData>();
+            foreach(FuncResult result in resultList)
+            {
+                FuncResultListData resultData = new FuncResultListData();
+                JObject jo = (JObject)JsonConvert.DeserializeObject(result.Result);
+                resultData.Id = result.Id;
+                resultData.Name = jo["Name"].ToString();
+                resultData.Phone = jo["Phone"].ToString();
+                resultData.XiaoQu = jo["Xiaoqu"].ToString();
+                for(int i=0;i< jo["Usage"].ToArray().Length; i++)
+                {
+                    resultData.Usage += jo["Usage"][i]["Name"] + "-";
+                }
+                for (int i = 0; i < jo["Work"].ToArray().Length; i++)
+                {
+                    if (jo["Work"][i]["Name"] != null)
+                    {
 
-        
+                        resultData.Work += jo["Work"][i]["Name"] + "-";
+                    }
+                }
+                resultDataList.Add(resultData);
+            }
+            return Json(new { data = resultDataList });
+        }
     }
 }

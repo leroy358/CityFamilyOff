@@ -215,6 +215,7 @@
     <Compile Include="Models\FStyleID.cs" />
     <Compile Include="Models\FuncListView.cs" />
     <Compile Include="Models\FuncResult.cs" />
+    <Compile Include="Models\FuncResultListData.cs" />
     <Compile Include="Models\FurnitureResult.cs" />
     <Compile Include="Models\FurnitureStyle.cs" />
     <Compile Include="Models\FurnitureStyleDetails.cs" />
