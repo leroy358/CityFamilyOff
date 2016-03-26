@@ -11,5 +11,6 @@ namespace CityFamily.Models
         public int StyleSecondId { get; set; }
         public string StyleDSecondName { get; set; }
         public string StyleSecondIndex { get; set; }
+        public string UpdateTime { get; set; }
     }
 }

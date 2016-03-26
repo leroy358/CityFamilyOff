@@ -167,6 +167,7 @@ namespace CityFamily.Controllers
                 furnitureCover.FurnitureId = furniture.Id;
                 furnitureCover.FurnitureName = furniture.StyleName;
                 furnitureCover.FurnitureIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furniture.StylePic;
+                furnitureCover.UpdateTime = furniture.CreateTime.ToString("yyyy-MM-dd HH-mm-ss");
                 furnitureList.Add(furnitureCover);
             }
             return Json(new { data = furnitureList }, JsonRequestBehavior.AllowGet);
@@ -330,6 +331,7 @@ namespace CityFamily.Controllers
         ///         ]
         ///     }
         /// }
+        /// {"data":{"FurnitureId":177,"FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/c31acaf5-cfac-4813-894e-4c37d5dd8bda0.jpg","FurniturePic":"http://119.188.113.104:8081/Images/data/201512/7b13c4f5-4369-4059-bc27-603e93b39c900.jpg","FurnitureBrand":"筑家家具高档定制沙发","FurnitureSize":"贵妃榻【1650*870*800】 三人【2350*880*800】","FurniturePrize":"贵妃榻【8500元】 三人【12600元】","FurnitureMaterial":"实木框架+布艺","FurnitureUpdate":"2016-03-25 20:38:01"}}
         /// </returns>
         [HttpPost]
         public ActionResult GetFurnitureData(int styleId)

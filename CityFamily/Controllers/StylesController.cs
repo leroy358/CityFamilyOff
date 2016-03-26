@@ -282,6 +282,7 @@ namespace CityFamily.Controllers
                 stylesData.StyleId = style.Id;
                 stylesData.StyleName = style.StyleName;
                 stylesData.StyleIndex = ConfigurationManager.AppSettings["ResourceUrl"] + style.StyleIndex;
+                stylesData.UpdateTime = style.CreateTime;
                 styleDataList.Add(stylesData);
             }
             return Json(new { data = styleDataList }, JsonRequestBehavior.AllowGet);
@@ -323,6 +324,7 @@ namespace CityFamily.Controllers
                 styleDetailData.StyleSecondId = styleDetail.Id;
                 styleDetailData.StyleDSecondName = styleDetail.StyleDetailName;
                 styleDetailData.StyleSecondIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleDetail.StyleDetailIndex;
+                styleDetailData.UpdateTime = styleDetail.CreateTime;
                 styleDetailList.Add(styleDetailData);
             }
             return Json(new { data = styleDetailList }, JsonRequestBehavior.AllowGet);
