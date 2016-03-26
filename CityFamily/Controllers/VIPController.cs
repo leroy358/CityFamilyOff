@@ -297,42 +297,55 @@ namespace CityFamily.Controllers
         /// <param name="userId"></param>
         /// <returns>
         /// {
-        ///     "data":[
-        ///         {
-        ///             "Id":84,
-        ///             "Name":"dfsad官方订购",
-        ///             "Phone":"适当提高到法国",
-        ///             "XiaoQu":"方大同共同富裕",
-        ///             "Usage":"自己居住-",
-        ///             "Work":null
-        ///         },
-        ///         {
-        ///             "Id":86,
-        ///             "Name":"dfsad官方订购",
-        ///             "Phone":"适当提高到法国",
-        ///             "XiaoQu":"方大同共同富裕",
-        ///             "Usage":"自己居住-",
-        ///             "Work":"医生-老板-"
-        ///         },
-        ///         {
-        ///             "Id":93,
-        ///             "Name":"dfsad官方订购","Phone":
-        ///             "适当提高到法国","XiaoQu":"方大同共同富裕",
-        ///             "Usage":"自己居住-",
-        ///             "Work":null
-        ///         }
-        ///     ]
+        ///     "data":{
+        ///         "FuncResultStateOne":[],
+        ///         "FuncResultStateTwo":[
+        ///             {
+        ///                 "Id":84,
+        ///                 "Name":"晕",
+        ///                 "Phone":"123",
+        ///                 "XiaoQu":"啊热舞vc",
+        ///                 "Usage":"投资出租-",
+        ///                 "Work":"医生-老板-"
+        ///             }
+        ///         ],
+        ///         "FuncResultStateThree":[
+        ///             {
+        ///                 "Id":86,
+        ///                 "Name":"dfsad官方订购",
+        ///                 "Phone":"适当提高到法国",
+        ///                 "XiaoQu":"方大同共同富裕",
+        ///                 "Usage":"自己居住-",
+        ///                 "Work":null
+        ///             },
+        ///             {
+        ///                 "Id":93,
+        ///                 "Name":"晕",
+        ///                 "Phone":"123",
+        ///                 "XiaoQu":"啊热舞vc",
+        ///                 "Usage":"投资出租-",
+        ///                 "Work":"医生-老板-"
+        ///             }
+        ///         ]
+        ///     }
         /// }
-        /// {"data":[{"Id":84,"Name":"晕","Phone":"123","XiaoQu":"啊热舞vc","Usage":"投资出租-","Work":"医生-老板-"},{"Id":86,"Name":"dfsad官方订购","Phone":"适当提高到法国","XiaoQu":"方大同共同富裕","Usage":"自己居住-","Work":null},{"Id":93,"Name":"晕","Phone":"123","XiaoQu":"啊热舞vc","Usage":"投资出租-","Work":"医生-老板--"}]}
         /// </returns>
         [HttpPost]
         public ActionResult GetResultList(int userId)
         {
-            List<FuncResult> resultList = db.FuncResult.Where(item => item.UserId == userId).ToList();
-            List<FuncResultListData> resultDataList = new List<FuncResultListData>();
-            foreach(FuncResult result in resultList)
+            List<FuncResult> resultListOne = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 1).ToList();
+            List<FuncResult> resultListTwo = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 2).ToList();
+            List<FuncResult> resultListThree = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 3).ToList();
+
+            FuncResultListData resultDataList = new FuncResultListData();
+
+            List<FuncResultStateOne> resultDataStateOne = new List<FuncResultStateOne>();
+            List<FuncResultStateTwo> resultDataStateTwo = new List<FuncResultStateTwo>();
+            List<FuncResultStateThree> resultDataStateThree = new List<FuncResultStateThree>();
+
+            foreach (FuncResult result in resultListOne)
             {
-                FuncResultListData resultData = new FuncResultListData();
+                FuncResultStateOne resultData = new FuncResultStateOne();
                 JObject jo = (JObject)JsonConvert.DeserializeObject(result.Result);
                 resultData.Id = result.Id;
                 resultData.Name = jo["Name"].ToString();
@@ -340,19 +353,108 @@ namespace CityFamily.Controllers
                 resultData.XiaoQu = jo["Xiaoqu"].ToString();
                 for(int i=0;i< jo["Usage"].ToArray().Length; i++)
                 {
-                    resultData.Usage += jo["Usage"][i]["Name"] + "-";
+                    resultData.Usage += jo["Usage"][i]["Name"] + " ";
                 }
                 for (int i = 0; i < jo["Work"].ToArray().Length; i++)
                 {
                     if (jo["Work"][i]["Name"] != null)
                     {
 
-                        resultData.Work += jo["Work"][i]["Name"] + "-";
+                        resultData.Work += jo["Work"][i]["Name"] + " ";
                     }
                 }
-                resultDataList.Add(resultData);
+                resultDataStateOne.Add(resultData);
             }
+
+            foreach (FuncResult result in resultListTwo)
+            {
+                FuncResultStateTwo resultData = new FuncResultStateTwo();
+                JObject jo = (JObject)JsonConvert.DeserializeObject(result.Result);
+                resultData.Id = result.Id;
+                resultData.Name = jo["Name"].ToString();
+                resultData.Phone = jo["Phone"].ToString();
+                resultData.XiaoQu = jo["Xiaoqu"].ToString();
+                for (int i = 0; i < jo["Usage"].ToArray().Length; i++)
+                {
+                    resultData.Usage += jo["Usage"][i]["Name"] + " ";
+                }
+                for (int i = 0; i < jo["Work"].ToArray().Length; i++)
+                {
+                    if (jo["Work"][i]["Name"] != null)
+                    {
+
+                        resultData.Work += jo["Work"][i]["Name"] + " ";
+                    }
+                }
+                resultDataStateTwo.Add(resultData);
+            }
+            foreach (FuncResult result in resultListThree)
+            {
+                FuncResultStateThree resultData = new FuncResultStateThree();
+                JObject jo = (JObject)JsonConvert.DeserializeObject(result.Result);
+                resultData.Id = result.Id;
+                resultData.Name = jo["Name"].ToString();
+                resultData.Phone = jo["Phone"].ToString();
+                resultData.XiaoQu = jo["Xiaoqu"].ToString();
+                for (int i = 0; i < jo["Usage"].ToArray().Length; i++)
+                {
+                    resultData.Usage += jo["Usage"][i]["Name"] + " ";
+                }
+                for (int i = 0; i < jo["Work"].ToArray().Length; i++)
+                {
+                    if (jo["Work"][i]["Name"] != null)
+                    {
+
+                        resultData.Work += jo["Work"][i]["Name"] + " ";
+                    }
+                }
+                resultDataStateThree.Add(resultData);
+            }
+
+            resultDataList.FuncResultStateOne = resultDataStateOne;
+            resultDataList.FuncResultStateTwo = resultDataStateTwo;
+            resultDataList.FuncResultStateThree = resultDataStateThree;
+
             return Json(new { data = resultDataList });
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resultId"></param>
+        /// <returns>
+        /// {
+        ///     "data":{
+        ///         "Id":93,
+        ///         "UserId":19,
+        ///         "Result":"{\"Name\":\"晕\",\"Age\":\"\",\"Usage\":[{\"Name\":\"投资出租\"}],\"Work\":[{\"Name\":\"医生\"},{\"Name\":\"老板\"},{\"Other\":\"啊放假l\u0027kei\"}],\"Address\":\"色t\u0027g\u0027r区/县 - se\u0027te街道 - e\u0027s\u0027t\u0027g小区 - 扼杀t\u0027r单元 - 饿死t\u0027s室\",\"Phone\":\"123\",\"Xiaoqu\":\"啊热舞vc\",\"Anniversary\":[],\"GoodsHad\":[{\"Name\":\"涩谷t\u0027s\",\"Size\":\"石头t\",\"Position\":\"睡过头r\u0027se\"},{\"Name\":\"se\u0027g\u0027r\u0027s\",\"Size\":\"饿填t\",\"Position\":\"身体r\u0027se\"}],\"Family\":[{\"Name\":\"吧\",\"Age\":\"13\",\"Work\":\"e\u0027t\u0027t\",\"Hobby\":\"fret\u0027v\",\"Birthday\":\"给发个\"},{\"Name\":\"图文\",\"Age\":\"43台湾\",\"Work\":\"痛w\u0027t\",\"Hobby\":\"无一条3w\u0027t\",\"Birthday\":\"3外套w\"}],\"AgreedTime\":\"2016-3-2\",\"Equipment\":[{\"Name\":\"新风系统\"},{\"Name\":\"软水系统\"}],\"Intrest\":[{\"Name\":\"音乐\"},{\"Name\":\"旅行\"},{\"Other\":\"恶vtst\"}],\"Material\":[{\"Name\":\"人造大理石\"},{\"Name\":\"木质饰面板\"},{\"Name\":\"壁纸\"}],\"MaterialNo\":[{\"Name\":\"实木\"}],\"MaterialOther\":\"vegas人员不r\u0027b\u0027y\",\"FurnitureViewUrl\":\"\",\"diyResultUrl\":\"\",\"Space\":[{\"Name\":\"门厅\",\"Other\":\"输入vesb\"},{\"Name\":\"客厅\",\"Other\":\"色vrtstv\"},{\"Name\":\"餐厅\",\"Other\":\"vrest\u0027vest\u0027v\"},{\"Name\":\"主卧室\",\"Other\":\"涩痛vs\"},{\"Name\":\"老人房\",\"Other\":\"色图vs\u0027s\"},{\"Name\":\"儿童房\",\"Other\":\"瑟vtgr\"},{\"Name\":\"厨房\",\"Other\":\"se\u0027r\u0027t\u0027vgestg\"},{\"Name\":\"卫生间\",\"Other\":\"额vs通过4\"},{\"Name\":\"储物间(衣帽间)\",\"Other\":\"额vtt\"},{\"Name\":\"多功能空间\",\"Other\":\"而她为别vtw\"}]}",
+        ///         "IsOver":false,
+        ///         "IsLead":1
+        ///     }
+        /// }
+        /// </returns>
+        [HttpPost]
+        public ActionResult GetResultDetail(int resultId)
+        {
+            FuncResult funcResult = db.FuncResult.Find(resultId);
+            return Json(new { data = funcResult }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult VipToLiangFang(int resultId)
+        {
+            FuncResult funcResult = db.FuncResult.Find(resultId);
+            funcResult.IsLead = 2;
+            db.Entry(funcResult).State = EntityState.Modified;
+            int result = db.SaveChanges();
+            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult VipToQianYue(int resultId)
+        {
+            FuncResult funcResult = db.FuncResult.Find(resultId);
+            funcResult.IsLead = 3;
+            db.Entry(funcResult).State = EntityState.Modified;
+            int result = db.SaveChanges();
+            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
         }
     }
 }
