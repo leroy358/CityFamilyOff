@@ -182,7 +182,6 @@ namespace CityFamily.Controllers
         [HttpPost]
         public ActionResult GetData(string id)
         {
-
             string targetUrl = TargetUrl;
             if (!string.IsNullOrEmpty(targetUrl))
             {

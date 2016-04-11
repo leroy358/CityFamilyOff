@@ -433,10 +433,53 @@ namespace CityFamily.Controllers
         /// }
         /// </returns>
         [HttpPost]
-        public ActionResult GetResultDetail(int resultId)
+        public ActionResult GetResultDetail(int userId)
         {
-            FuncResult funcResult = db.FuncResult.Find(resultId);
-            return Json(new { data = funcResult }, JsonRequestBehavior.AllowGet);
+            //List<FuncResult> ResultOne = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 1).OrderByDescending(item => item.Id).ToList();
+            //List<FuncResult> ResultTwo = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 2).OrderByDescending(item => item.Id).ToList();
+            //List<FuncResult> ResultThree = db.FuncResult.Where(item => item.UserId == userId && item.IsLead == 3).OrderByDescending(item => item.Id).ToList();
+
+            //FuncResultDetailData detailData = new FuncResultDetailData();
+
+            //List<FuncFuWu> fuwuList = new List<FuncFuWu>();
+            //List<FuncLiangFang> liangfangList = new List<FuncLiangFang>();
+            //List<FuncQianYue> qianyueList = new List<FuncQianYue>();
+
+            //foreach(FuncResult resultOne in ResultOne)
+            //{
+            //    FuncFuWu fuwu = new FuncFuWu();
+            //    fuwu.Id = resultOne.Id;
+            //    fuwu.UserId = resultOne.UserId;
+            //    fuwu.Result = resultOne.Result;
+            //    fuwu.IsLead = resultOne.IsLead;
+            //    fuwuList.Add(fuwu);
+            //}
+
+            //foreach (FuncResult resultTwo in ResultTwo)
+            //{
+            //    FuncLiangFang liangfang = new FuncLiangFang();
+            //    liangfang.Id = resultTwo.Id;
+            //    liangfang.UserId = resultTwo.UserId;
+            //    liangfang.Result = resultTwo.Result;
+            //    liangfang.IsLead = resultTwo.IsLead;
+            //    liangfangList.Add(liangfang);
+            //}
+
+            //foreach (FuncResult resultThree in ResultThree)
+            //{
+            //    FuncQianYue qianyue = new FuncQianYue();
+            //    qianyue.Id = resultThree.Id;
+            //    qianyue.UserId = resultThree.UserId;
+            //    qianyue.Result = resultThree.Result;
+            //    qianyue.IsLead = resultThree.IsLead;
+            //    qianyueList.Add(qianyue);
+            //}
+            //detailData.FuncFuWuList = fuwuList;
+            //detailData.FuncLiangFangList = liangfangList;
+            //detailData.FuncQianYueList = qianyueList;
+            //return Json(new { data = detailData }, JsonRequestBehavior.AllowGet);
+            List<FuncResult> ResultList = db.FuncResult.Where(item => item.UserId == userId).OrderByDescending(item => item.Id).ToList();
+            return Json(new { data = ResultList }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult VipToLiangFang(int resultId)
