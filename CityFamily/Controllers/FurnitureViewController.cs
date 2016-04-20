@@ -270,7 +270,7 @@ namespace CityFamily.Controllers
         /// <summary>
         /// 判断家具场景是否有更新
         /// </summary>
-        /// <param name="styleId">家具场景ID</param>
+        /// <param name="styleId">家具封面ID</param>
         /// <param name="updateTime">家具场景更新时间</param>
         /// <returns>
         /// 若有更新
@@ -299,77 +299,57 @@ namespace CityFamily.Controllers
         }
 
         /// <summary>
-        /// 据客户端最近更新时间判断服务器端是否有更新，获取一类家具场景下所有数据
+        /// 
         /// </summary>
-        /// <param name="companyId">登录用户分公司ID</param>
-        /// <param name="styleId">家具场景ID</param>
-        /// <returns>
+        /// <param name="styleId">登录用户分公司ID</param>
+        /// <param name="companyId">家具封面ID</param>
+        /// <returns>  
         /// {
-        ///     "data":{
+        ///     "data":
+        ///     {
         ///         "FurnitureCoverId":20,
         ///         "FurnitureCoverName":"华丽·高贵·浪漫",
-        ///         "FurnitureCoverIndex":"/Images/data/201512/d5309c85-a612-45af-b89d-1d3ad0d0b7a10.jpg",
-        ///         "FurnitureCovergUpdate":"2016-01-01 11:10:05",
+        ///         "FurnitureCoverIndex":"http://119.188.113.104:8081/Images/data/201512/d5309c85-a612-45af-b89d-1d3ad0d0b7a10.jpg",
+        ///         "FurnitureCoverUpdate":"2016-04-20 10:19:30",
         ///         "FurnitureStyleData":[
         ///             {
         ///                 "FurnitureId":178,
-        ///                 "FurnitureIndexPic":"/Images/data/201512/a44d8fac-c128-4688-a6fe-2b22b323d7420.jpg",
-        ///                 "FurniturePic":"/Images/data/201512/8c18f02e-03e8-4ea0-9c9b-63b1fc84f8400.jpg",
+        ///                 "FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/a44d8fac-c128-4688-a6fe-2b22b323d7420.jpg",
+        ///                 "FurniturePic":"http://119.188.113.104:8081/Images/data/201512/8c18f02e-03e8-4ea0-9c9b-63b1fc84f8400.jpg",
         ///                 "FurnitureBrand":"筑家家具高档定制餐桌",
-        ///                 "FurnitureSize":"餐桌【直径1600】 餐椅【480*440*840】",
-        ///                 "FurniturePrize":"餐桌【6500元】 餐椅【1800元】",
-        ///                 "FurnitureMaterial":"实木框架+布艺"
+        ///                 "FurnitureSize":"餐桌【直径1600】 餐椅【480*440*840】","FurniturePrize":"餐桌【6500元】 餐椅【1800元】"
+        ///                 "FurnitureMaterial":"实木框架+布艺",
+        ///                 "FurnitureUpdate":null
         ///             },
         ///             {
-        ///                 "FurnitureId":177,
-        ///                 "FurnitureIndexPic":"/Images/data/201512/c31acaf5-cfac-4813-894e-4c37d5dd8bda0.jpg",
-        ///                 "FurniturePic":"/Images/data/201512/7b13c4f5-4369-4059-bc27-603e93b39c900.jpg",
-        ///                 "FurnitureBrand":"筑家家具高档定制沙发",
-        ///                 "FurnitureSize":"贵妃榻【1650*870*800】 三人【2350*880*800】",
-        ///                 "FurniturePrize":"贵妃榻【8500元】 三人【12600元】",
-        ///                 "FurnitureMaterial":"实木框架+布艺"
+        ///                 "FurnitureId":168,
+        ///                 "FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/8b22c49e-21a3-4379-971f-d904c24aedd60.jpg",
+        ///                 "FurniturePic":"http://119.188.113.104:8081/Images/data/201512/97cacffd-1cd4-472d-bcb2-9d73869417890.jpg",
+        ///                 "FurnitureBrand":"林氏木业高档定制沙发","
+        ///                 FurnitureSize":"餐桌【1500*850*750】 餐椅【480*440*740】",
+        ///                 "FurniturePrize":"组合【13500元】",
+        ///                 "FurnitureMaterial":"实木框架+布艺",
+        ///                 "FurnitureUpdate":null
+        ///            },
+        ///            {
+        ///                 "FurnitureId":167,
+        ///                 "FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/72d119c5-b709-42ad-a0fb-1427f2029a9f0.jpg",
+        ///                 "FurniturePic":"http://119.188.113.104:8081/Images/data/201512/429097e7-607a-4441-94b2-500a027989180.jpg",
+        ///                 "FurnitureBrand":"林氏木业高档定制沙发",
+        ///                 "FurnitureSize":"单人【850*800*900】 三人【2350*950*900】",
+        ///                 "FurniturePrize":"组合【26500元】",
+        ///                 "FurnitureMaterial":"实木框架+布艺",
+        ///                 "FurnitureUpdate":null
         ///             }
         ///         ]
         ///     }
         /// }
-        /// {"data":{"FurnitureId":177,"FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/c31acaf5-cfac-4813-894e-4c37d5dd8bda0.jpg","FurniturePic":"http://119.188.113.104:8081/Images/data/201512/7b13c4f5-4369-4059-bc27-603e93b39c900.jpg","FurnitureBrand":"筑家家具高档定制沙发","FurnitureSize":"贵妃榻【1650*870*800】 三人【2350*880*800】","FurniturePrize":"贵妃榻【8500元】 三人【12600元】","FurnitureMaterial":"实木框架+布艺","FurnitureUpdate":"2016-03-25 20:38:01"}}
         /// </returns>
         [HttpPost]
-        public ActionResult GetFurnitureData(int styleId)
+        public ActionResult GetFurnitureAll(int styleId,int companyId)
         {
-            //string id = styleId.ToString();
-            //UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
-            //T_FurnitureCover furnitureCover = db.T_FurnitureCover.Find(styleId);
-            //var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
-            //var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
-            //T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
-            //furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
-            //furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;
-            //furnitureCoverData.FurnitureCoverIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureCover.StylePic;
-            //furnitureCoverData.FurnitureCoverUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
-            //List<FurnitureStyleData> furnitureStyleList = new List<FurnitureStyleData>();
-            //foreach (FurnitureStyle furnitureStyle in fsmodelAll)
-            //{
-            //    FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
-            //    furnitureStyleData.FurnitureId = furnitureStyle.Id;
-            //    furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
-            //    furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
-
-            //    string[] args = furnitureStyle.StyleName.Split('&').ToArray();
-
-            //    furnitureStyleData.FurnitureBrand = args[0];
-            //    furnitureStyleData.FurnitureSize = args[1];
-            //    furnitureStyleData.FurniturePrize = args[2];
-            //    furnitureStyleData.FurnitureMaterial = args[3];
-
-            //    furnitureStyleList.Add(furnitureStyleData);
-            //}
-            //furnitureCoverData.FurnitureStyleData = furnitureStyleList;
-
-            //return Json(new { data = furnitureCoverData }, JsonRequestBehavior.AllowGet);
-
             string id = styleId.ToString();
-            UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == id).FirstOrDefault();
+            UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
             if (record == null)
             {
                 record = new UpdateRecord();
@@ -378,6 +358,68 @@ namespace CityFamily.Controllers
                 db.UpdateRecord.Add(record);
                 db.SaveChanges();
             }
+            T_FurnitureCover furnitureCover = db.T_FurnitureCover.Find(styleId);
+            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
+            T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
+            furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
+            furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;
+            furnitureCoverData.FurnitureCoverIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureCover.StylePic;
+            furnitureCoverData.FurnitureCoverUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            List<FurnitureStyleData> furnitureStyleList = new List<FurnitureStyleData>();
+            foreach (FurnitureStyle furnitureStyle in fsmodelAll)
+            {
+                FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
+                furnitureStyleData.FurnitureId = furnitureStyle.Id;
+                furnitureStyleData.FurnitureIndexPic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.IndexPic;
+                furnitureStyleData.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
+
+                string[] args = furnitureStyle.StyleName.Split('&').ToArray();
+
+                furnitureStyleData.FurnitureBrand = args[0];
+                furnitureStyleData.FurnitureSize = args[1];
+                furnitureStyleData.FurniturePrize = args[2];
+                furnitureStyleData.FurnitureMaterial = args[3];
+
+                furnitureStyleList.Add(furnitureStyleData);
+            }
+            furnitureCoverData.FurnitureStyleData = furnitureStyleList;
+
+            return Json(new { data = furnitureCoverData }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 据客户端最近更新时间判断服务器端是否有更新，获取一类家具场景下所有数据
+        /// </summary>
+        /// <param name="styleId">家具场景ID</param>
+        /// <returns>
+        /// {
+        ///     "data":
+        ///     {
+        ///         "FurnitureId":177,
+        ///         "FurnitureIndexPic":"http://119.188.113.104:8081/Images/data/201512/c31acaf5-cfac-4813-894e-4c37d5dd8bda0.jpg",
+        ///         "FurniturePic":"http://119.188.113.104:8081/Images/data/201512/7b13c4f5-4369-4059-bc27-603e93b39c900.jpg",
+        ///         "FurnitureBrand":"筑家家具高档定制沙发",
+        ///         "FurnitureSize":"贵妃榻【1650*870*800】 三人【2350*880*800】",
+        ///         "FurniturePrize":"贵妃榻【8500元】 三人【12600元】",
+        ///         "FurnitureMaterial":"实木框架+布艺",
+        ///                                                                                      "FurnitureUpdate":"2016-03-25 20:38:01"
+        ///     }
+        /// }
+        /// </returns>
+        [HttpPost]
+        public ActionResult GetFurnitureData(int styleId)
+        {
+            string id = styleId.ToString();
+            //UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == id).FirstOrDefault();
+            //if (record == null)
+            //{
+            //    record = new UpdateRecord();
+            //    record.FurnitureId = id;
+            //    record.UpdateTime = DateTime.Now;
+            //    db.UpdateRecord.Add(record);
+            //    db.SaveChanges();
+            //}
             FurnitureStyleData furnitureStyleData = new FurnitureStyleData();
             FurnitureStyle furniture = db.FurnitureStyle.Find(styleId);
             furnitureStyleData.FurnitureId = furniture.Id;
@@ -389,7 +431,7 @@ namespace CityFamily.Controllers
             furnitureStyleData.FurnitureSize = args[1];
             furnitureStyleData.FurniturePrize = args[2];
             furnitureStyleData.FurnitureMaterial = args[3];
-            furnitureStyleData.FurnitureUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            //furnitureStyleData.FurnitureUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
             int coverId = furniture.StyleId;
             int companyId = furniture.CompanyId;
