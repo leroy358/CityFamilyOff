@@ -233,6 +233,7 @@
     <Compile Include="Models\SpaceCate.cs" />
     <Compile Include="Models\SpotPics.cs" />
     <Compile Include="Models\SpotPicsDetailData.cs" />
+    <Compile Include="Models\StyleAllData.cs" />
     <Compile Include="Models\StyleDetails.cs" />
     <Compile Include="Models\StyleDetailsData.cs" />
     <Compile Include="Models\Styles.cs" />
