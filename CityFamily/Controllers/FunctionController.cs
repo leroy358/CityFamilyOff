@@ -104,15 +104,17 @@ namespace CityFamily.Controllers
         {
             //var stream = HttpContext.Request.InputStream;
             //string dataJson = new StreamReader(stream).ReadToEnd(); //json 字符串在此
-            //JObject jo = (JObject)JsonConvert.DeserializeObject(dataJson);
-            //int category = Convert.ToInt32(jo["category"].ToString());
-            //int pageIndex = Convert.ToInt32(jo["pageIndex"].ToString());
+            JObject jo = (JObject)JsonConvert.DeserializeObject(dataJson);
+            string name = jo["Name"].ToString();
+            string phone = jo["Phone"].ToString();
 
             FuncResult funcResult = new FuncResult();
             funcResult.Result = dataJson;
             funcResult.UserId = userId;
             funcResult.IsOver = false;
             funcResult.IsLead = 1;
+            funcResult.GuestName = name;
+            funcResult.GuestPhone = phone;
             db.FuncResult.Add(funcResult);
             db.Entry(funcResult).State = System.Data.Entity.EntityState.Added;
             int result = db.SaveChanges();

@@ -14,7 +14,7 @@ namespace CityFamily.Models
 
         public int IsLead { get; set; }
 
-        //public string GuestName { get; set; }
-        //public string GuestPhone { get; set; }
+        public string GuestName { get; set; }
+        public string GuestPhone { get; set; }
     }
 }

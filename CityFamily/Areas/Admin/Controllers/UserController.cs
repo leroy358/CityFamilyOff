@@ -168,7 +168,7 @@ namespace CityFamily.Areas.Admin.Controllers
             ViewBag.perPage = perPage;
             ViewBag.nextPage = nextPage;
             ViewBag.pageCount = pageCount;
-            ViewBag.pageX = pageX.Substring(pageX.Length - 1, 1);
+            ViewBag.pageX = pageIndex;
             ViewBag.lastPage = lastPage;
             ViewBag.firstPage = firstPage;
         }

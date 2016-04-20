@@ -195,6 +195,7 @@
     <Compile Include="Controllers\StylesController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VIPController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -985,6 +986,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Images\data\" />
     <Folder Include="Images\thumbnail\201511\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

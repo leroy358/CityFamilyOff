@@ -391,7 +391,127 @@ namespace CityFamily.Controllers
             furnitureStyleData.FurnitureMaterial = args[3];
             furnitureStyleData.FurnitureUpdate = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-            return Json(new { data = furnitureStyleData }, JsonRequestBehavior.AllowGet);
+            int coverId = furniture.StyleId;
+            int companyId = furniture.CompanyId;
+            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            FurnitureStyle preStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id > styleId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item => item.Id).FirstOrDefault();
+            int pre = 0;
+            if (preStyle != null)
+            {
+                pre = 1;
+            }
+
+            int next = 0;
+            FurnitureStyle nextStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < styleId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).FirstOrDefault();
+            if (nextStyle != null)
+            {
+                next = 1;
+            }
+            return Json(new { pre = pre, data = furnitureStyleData, next = next }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetScrollFurnitureDetail(int furnitureId, string action, int companyId)
+        {
+            FurnitureStyle furnitureStyle = db.FurnitureStyle.Find(furnitureId);
+            int coverId = furnitureStyle.StyleId;
+            var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            if (action == "pre")
+            {
+                FurnitureStyle preStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id > furnitureId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item=>item.Id).FirstOrDefault();
+                if (preStyle != null)
+                {
+                    FurnitureStyleDetails furnitureDetail = new FurnitureStyleDetails();
+                    furnitureDetail.FurnitureId = preStyle.Id;
+
+                    string[] args = preStyle.StyleName.Split('&').ToArray();
+
+                    furnitureDetail.FurnitureBrand = args[0];
+                    furnitureDetail.FurnitureSize = args[1];
+                    furnitureDetail.FurniturePrize = args[2];
+                    furnitureDetail.FurnitureMaterial = args[3];
+                    furnitureDetail.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + preStyle.FurniturePics;
+
+                    int preId = preStyle.Id;
+                    FurnitureStyle prepreStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id > preId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item => item.Id).FirstOrDefault();
+                    int pre = 0;
+                    if (prepreStyle != null)
+                    {
+                        pre = 1;
+                    }
+
+                    //FurnitureStyle nextStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < preId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item => item.Id).FirstOrDefault();
+                    //int next = 0;
+                    //if (nextStyle != null)
+                    //{
+                    //    next = 1;
+                    //}
+
+                    return Json(new { pre = pre, data = furnitureDetail, next = 1 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { pre = 0, data = "", next = 1 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                FurnitureStyle nextStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < furnitureId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).FirstOrDefault();
+                if (nextStyle != null)
+                {
+                    FurnitureStyleDetails furnitureDetail = new FurnitureStyleDetails();
+                    furnitureDetail.FurnitureId = nextStyle.Id;
+
+                    string[] args = nextStyle.StyleName.Split('&').ToArray();
+
+                    furnitureDetail.FurnitureBrand = args[0];
+                    furnitureDetail.FurnitureSize = args[1];
+                    furnitureDetail.FurniturePrize = args[2];
+                    furnitureDetail.FurnitureMaterial = args[3];
+                    furnitureDetail.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + nextStyle.FurniturePics;
+
+                    int nextId = nextStyle.Id;
+                    //FurnitureStyle preStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id > nextId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item => item.Id).FirstOrDefault();
+                    //int pre = 0;
+                    //if (preStyle != null)
+                    //{
+                    //    pre = 1;
+                    //}
+
+                    FurnitureStyle nextnextStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < nextId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).OrderBy(item => item.Id).FirstOrDefault();
+                    int next = 0;
+                    if (nextnextStyle != null)
+                    {
+                        next = 1;
+                    }
+
+                    return Json(new { pre = 1, data = furnitureDetail, next = next }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { pre = 1, data = "", next = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            //FurnitureStyleDetails furnitureDetail = new FurnitureStyleDetails();
+            //furnitureDetail.FurnitureId = furnitureStyle.Id;
+
+            //string[] args = furnitureStyle.StyleName.Split('&').ToArray();
+
+            //furnitureDetail.FurnitureBrand = args[0];
+            //furnitureDetail.FurnitureSize = args[1];
+            //furnitureDetail.FurniturePrize = args[2];
+            //furnitureDetail.FurnitureMaterial = args[3];
+            //furnitureDetail.FurniturePic = ConfigurationManager.AppSettings["ResourceUrl"] + furnitureStyle.FurniturePics;
+
+
+            //int coverId = furnitureStyle.StyleId;
+            //var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
+            //FurnitureStyle nextStyle = db.FurnitureStyle.OrderByDescending(item => item.Id).Where(item => item.Id < furnitureId && (item.StyleId == coverId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))))).FirstOrDefault();
+            
+
+            
+
         }
 
     }
