@@ -10,5 +10,6 @@ namespace CityFamily.Models
         public int BuildingId { get; set; }
         public string BuildingName { get; set; }
         public string BuildingIndex { get; set; }
+        public string UpdateTime { get; set; }
     }
 }

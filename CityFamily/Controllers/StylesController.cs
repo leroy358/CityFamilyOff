@@ -281,7 +281,19 @@ namespace CityFamily.Controllers
                 stylesData.StyleId = style.Id;
                 stylesData.StyleName = style.StyleName;
                 stylesData.StyleIndex = ConfigurationManager.AppSettings["ResourceUrl"] + style.StyleIndex;
-                stylesData.UpdateTime = style.CreateTime;
+
+                string id = style.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
+                if (record == null)
+                {
+                    record = new UpdateRecord();
+                    record.StyleId = id;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                    db.SaveChanges();
+                }
+
+                stylesData.UpdateTime = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 styleDataList.Add(stylesData);
             }
             return Json(new { data = styleDataList }, JsonRequestBehavior.AllowGet);
@@ -970,7 +982,7 @@ namespace CityFamily.Controllers
             sb.Append(":{");
             sb.Append("\"requestCode\"");
             sb.Append(":");
-            sb.Append("\"" + styleThird.StyleThirdCode + "\"");
+            sb.Append("\"" + styleThird.StyleThirdCode.Trim() + "\"");
             sb.Append("}");
             sb.Append("}");
 
@@ -1152,6 +1164,7 @@ namespace CityFamily.Controllers
                     StyleThirdDownData styleThirdDownData = new StyleThirdDownData();
                     styleThirdDownData.StyleThirdId = styleThird.Id;
                     styleThirdDownData.StyleThirdName = styleThird.StyleThirdName;
+                    styleThirdDownData.StyleThird720 = styleThird.StyleThird720;
                     styleThirdDownData.StyleThirdIndex = styleThird.StyleThirdIndex;
                     styleThirdDownData.StyleThirdIndex = ConfigurationManager.AppSettings["ResourceUrl"] + styleThird.StyleThirdIndex;
                     styleThirdDownData.StyleThirdPics = styleThird.StyleThirdPics.Substring(0, styleThird.StyleThirdPics.Length - 1).Split(' ');
@@ -1173,7 +1186,7 @@ namespace CityFamily.Controllers
                     sb.Append(":{");
                     sb.Append("\"requestCode\"");
                     sb.Append(":");
-                    sb.Append("\"" + styleThird.StyleThirdCode + "\"");
+                    sb.Append("\"" + styleThird.StyleThirdCode.Trim() + "\"");
                     sb.Append("}");
                     sb.Append("}");
 

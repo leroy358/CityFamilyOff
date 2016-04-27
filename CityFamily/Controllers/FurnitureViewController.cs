@@ -167,7 +167,19 @@ namespace CityFamily.Controllers
                 furnitureCover.FurnitureId = furniture.Id;
                 furnitureCover.FurnitureName = furniture.StyleName;
                 furnitureCover.FurnitureIndex = ConfigurationManager.AppSettings["ResourceUrl"] + furniture.StylePic;
-                furnitureCover.UpdateTime = furniture.CreateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
+                string id = furniture.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == id ).FirstOrDefault();
+                if (record == null)
+                {
+                    record = new UpdateRecord();
+                    record.FurnitureId = id;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                    db.SaveChanges();
+                }
+
+                furnitureCover.UpdateTime = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
                 furnitureList.Add(furnitureCover);
             }
             return Json(new { data = furnitureList }, JsonRequestBehavior.AllowGet);
@@ -349,7 +361,7 @@ namespace CityFamily.Controllers
         public ActionResult GetFurnitureAll(int styleId,int companyId)
         {
             string id = styleId.ToString();
-            UpdateRecord record = db.UpdateRecord.Where(item => item.StyleId == id).FirstOrDefault();
+            UpdateRecord record = db.UpdateRecord.Where(item => item.FurnitureId == id).FirstOrDefault();
             if (record == null)
             {
                 record = new UpdateRecord();
@@ -360,7 +372,7 @@ namespace CityFamily.Controllers
             }
             T_FurnitureCover furnitureCover = db.T_FurnitureCover.Find(styleId);
             var notshowdata = db.FStyleID.Where(o => o.CompanyId == companyId).Select(o => o.FStyleId).ToList();
-            var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id))).OrderByDescending(item => item.Id).Take(12).ToList();
+            var fsmodelAll = db.FurnitureStyle.Where(item => item.StyleId == styleId && (item.CompanyId == companyId || (item.CreateUserId == 1 && !notshowdata.Contains(item.Id)))).OrderByDescending(item => item.Id).ToList();
             T_FurnitureCoverData furnitureCoverData = new T_FurnitureCoverData();
             furnitureCoverData.FurnitureCoverId = furnitureCover.Id;
             furnitureCoverData.FurnitureCoverName = furnitureCover.StyleName;

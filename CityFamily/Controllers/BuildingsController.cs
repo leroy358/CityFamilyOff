@@ -263,6 +263,19 @@ namespace CityFamily.Controllers
                 BuildingList buildingIndex = new BuildingList();
                 buildingIndex.BuildingId = building.Id;
                 buildingIndex.BuildingName = building.BuildingName;
+
+                string id = building.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == id).FirstOrDefault();
+                if (record == null)
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = id;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                    db.SaveChanges();
+                }
+                buildingIndex.UpdateTime = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
                 buildingIndex.BuildingIndex = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingIndex;
                 buildingList.Add(buildingIndex);
             }
@@ -278,6 +291,19 @@ namespace CityFamily.Controllers
                 BuildingList buildingIndex = new BuildingList();
                 buildingIndex.BuildingId = building.Id;
                 buildingIndex.BuildingName = building.BuildingName;
+
+                string id = building.Id.ToString();
+                UpdateRecord record = db.UpdateRecord.Where(item => item.BuildingId == id).FirstOrDefault();
+                if (record == null)
+                {
+                    record = new UpdateRecord();
+                    record.BuildingId = id;
+                    record.UpdateTime = DateTime.Now;
+                    db.UpdateRecord.Add(record);
+                    db.SaveChanges();
+                }
+                buildingIndex.UpdateTime = record.UpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+
                 buildingIndex.BuildingIndex = ConfigurationManager.AppSettings["ResourceUrl"] + building.BuildingIndex;
                 buildingList.Add(buildingIndex);
             }
