@@ -15,6 +15,7 @@ namespace CityFamily.Areas.Admin.Controllers
         private CityFamilyDbContext db = new CityFamilyDbContext();
         GetSession getSession = new GetSession();
         int pageSize = 10;
+        //[OutputCache(CacheProfile = "SqlDependencyCache")]
         public ActionResult List(string searchStr, int pageIndex = 1)
         {
             if (Session["admin"] != null)
